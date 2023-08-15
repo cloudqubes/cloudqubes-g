@@ -1,0 +1,10 @@
+.blog-article-item{
+  flex-basis: 30%;
+}
+
+.title{
+  color: rgb(77, 77, 77);
+}
+.title:hover{
+  color: #c21057;
+}

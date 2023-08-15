@@ -1,0 +1,55 @@
+.main-header{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  border-bottom: 2px solid #c21057;
+  box-shadow: 0px 4px 4px -4px #c21057;
+  margin-bottom: 1rem;
+}
+
+.header-container{
+  display: flex;
+  width: 100%;
+}
+
+@media only screen and (min-width: 1200px) {
+  .header-container{
+    display: flex;
+    width: 90%;
+  }
+}
+
+.logo-container{
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+
+.logo{
+  width: 4rem;
+}
+
+.logo-text{
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 38px;
+  font-weight: 400;
+  color: #c21057;
+}
+
+.nav-container{
+  flex-grow: 2;
+  display: flex;
+  justify-content: space-around;
+}
+
+.nav-item-list{
+  list-style: none;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.nav-item{
+  display:inline-flex;
+  font-size: 1rem;
+}

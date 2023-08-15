@@ -1,0 +1,46 @@
+.container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.newsletterOuterContainer{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 1rem;
+  background-color: #C5CAE9;  
+}
+
+.substackStyle{
+  background-color: #C5CAE9;
+}
+
+
+.inside-container{
+  width: 100%;
+}
+
+@media only screen and (min-width: 1200px) {
+  .inside-container{
+    width: 90%;
+  }
+}
+
+.newsletterContainer{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.blog-article-list{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.section-title{
+  padding-top: 1.8rem;
+  padding-bottom: .8rem;
+}

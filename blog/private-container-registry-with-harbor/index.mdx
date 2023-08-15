@@ -1,7 +1,8 @@
 ---
 title:  "How to set up a private container registry with Harbor"
 description: >
-  "Harbor can store your container images inside your data center. It's secure and quick even for 10GB+ images."
+  Harbor can store your container images inside your data center. It's secure and quick even for 10GB+ images.
+
 cover_image: "./harbor-cover.png"
 cover_image_alt: "Thumbnail image for harbor private container registry"
 date:  "2023-08-06"
@@ -46,7 +47,7 @@ If a particular node cannot access Harbor, the Pods scheduled in that node will 
 
 We are going to install Harbor on an Ubuntu 18.04 host. Then, we will build the [number-crunch] application on the development workstation, push the images to Harbor, and create a Kubernetes Deployment.
 
-![Harbor registry and K8s cluster](/assets/images/harbor/harbor-setup.png)
+![Harbor registry and K8s cluster](./harbor-setup.png)
 *Harbor registry and K8s cluster*
 
 Harbor is a containerized application and can be installed either on Docker or Kubernetes. Let's use Docker for this setup.
@@ -273,12 +274,12 @@ On the Harbor web UI home page, click on `New Project`.
 
 Enter the name `number-crunch`, tick the checkbox `Public`, and click `OK` to create the project.
 
-![Harbor Web UI - Project list](/assets/images/harbor/harbor-webui-projects.png)
+![Harbor Web UI - Project list](./harbor-webui-projects.png)
 *Harbor Web UI - Project list*
 
 Click on the project name `number-crunch` to access the project details.
 
-![number-crunch repositories](/assets/images/harbor/harbor-web-ui-counter-app-repos.png)
+![number-crunch repositories](./harbor-web-ui-counter-app-repos.png)
 *number-crunch repositories*
 
 There are no repositories, as we have not yet published any container images to this project.
@@ -378,7 +379,7 @@ Troubleshooting along these points will lead you to a solution.
 
 Harbor shows you the number of pulls for each image. This is also useful to ascertain whether Kubernetes can successfully pull images from this registry.
 
-![Number of pulls for a repository in Harbor project](/assets/images/harbor/harbor-image-pulls.png){: width="100%" }
+![Number of pulls for a repository in Harbor project](./harbor-image-pulls.png)
 *Number of Pulls*
 
 ## Wrapping up
@@ -400,5 +401,4 @@ Post your problem in comments here or reach me via Twitter [@cloudqubes] for any
 [Harbor]: https://goharbor.io/
 [@cloudqubes]: https://twitter.com/cloudqubes
 
-*[VPC]: Virtual Private Cloud
 

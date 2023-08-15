@@ -4,7 +4,10 @@
 module.exports = {
   siteMetadata: {
     title: `cloudqubes`,
-    siteUrl: `https://www.yourdomain.tld`
+    description: `Cloudqubes is a blog and a newsletter on Cloud computing, Kubernetes, DevOps, CI/CD, Linux, and Cloud security.`,
+    twitterUsername: '@cloudqubes',
+    image: '/logo_v1.png',
+    siteUrl: `https://www.cloudqubes.com`,
   },
   plugins: [
   {
@@ -38,7 +41,7 @@ module.exports = {
       },
     },
   }, 
-  "gatsby-plugin-image", "gatsby-plugin-mdx", "gatsby-plugin-sharp", "gatsby-transformer-sharp", {
+  "gatsby-plugin-image", "gatsby-plugin-sharp", "gatsby-transformer-sharp", {
     resolve: 'gatsby-source-filesystem',
     options: {
       "name": "images",
@@ -58,5 +61,66 @@ module.exports = {
       "name": "blog",
       "path": `${__dirname}/blog`
     },    
+  },{
+    resolve: `gatsby-transformer-remark`,
+    options: {
+      plugins: [
+        {
+          resolve: `gatsby-remark-images`,
+          options: {
+            maxWidth: 800,
+          },
+        },
+      ],
+    },
+  },{
+    resolve: `gatsby-plugin-mdx`,
+    options: {
+      gatsbyRemarkPlugins: [
+        {
+          resolve: `gatsby-remark-images`,
+          options: {
+            maxWidth: 1200,
+          },
+        },
+      ],
+    },
+  },{
+    resolve: `gatsby-omni-font-loader`,
+    options: {
+      enableListener: true,
+      preconnect: [`https://fonts.googleapis.com`, `https://fonts.gstatic.com`],
+      web: [
+        {
+          name: `Open Sans`,
+          file: `https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;0,700;1,400&family=Titillium+Web:ital,wght@0,400;0,700;1,400&display=swap`,
+        },
+      ],
+    },
+  }, {
+    resolve: `gatsby-plugin-manifest`,
+    options: {
+      name: `cloudqubes`,
+      short_name: `cloudqubes`,
+      start_url: `/`,
+      background_color: `#f7f0eb`,
+      theme_color: `#a2466c`,
+      display: `standalone`,
+      icon: `src/images/logo_v1.png`, // This path is relative to the root of the site.
+      icons: [
+        {
+          src: `/favicons/android-chrome-192x192.png`,
+          sizes: `192x192`,
+          type: `image/png`,
+        },
+        {
+          src: `/favicons/android-chrome-512x512.png`,
+          sizes: `512x512`,
+          type: `image/png`,
+        },
+      ], // Add or remove icon sizes as desired
+    },
   }]
 };
+
+
