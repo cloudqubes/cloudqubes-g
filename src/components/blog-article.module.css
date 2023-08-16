@@ -5,6 +5,21 @@
 .title{
   color: rgb(77, 77, 77);
 }
+
 .title:hover{
   color: #c21057;
+}
+
+.tag-link{
+  font-family: 'Raleway', sans-serif;
+  color: #546e7a;
+  font-size: 1rem;
+  padding: .1rem;
+  margin-right: .2rem;
+  background-color: #f5f8ff;
+}
+
+.tag-link:hover{
+  background-color: #e7edfd;
+  text-decoration: none;
 }

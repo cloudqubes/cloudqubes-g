@@ -67,6 +67,7 @@ export const query = graphql`
           date(formatString: "MMMM D, YYYY")
           title
           slug
+          tags
           description
           cover_image_alt
           cover_image {

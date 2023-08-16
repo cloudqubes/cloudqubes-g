@@ -7,6 +7,7 @@ const BlogPost = ({data, children}) => {
   return (
     <Layout pageTitle={data.mdx.frontmatter.title}>
       <p>{data.mdx.frontmatter.date}</p>
+      <span>{data.mdx.fields.timeToRead.text}</span>
       {children}
     </Layout>
   )
@@ -18,8 +19,16 @@ export const query = graphql`
       frontmatter {
         title
         description
-        description
+        tags
         date(formatString: "MMMM D, YYYY")
+      }
+      fields{
+        timeToRead {
+          minutes
+          text
+          time
+          words
+        }
       }
     }
   }
