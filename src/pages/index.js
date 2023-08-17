@@ -26,7 +26,7 @@ const IndexPage = ({data}) => {
 
               </div>
               <div>
-                <iframe src="https://cloudqubes.substack.com/embed" width="480" height="320" style={{border:`1px solid #EEE`, background:`#C5CAE9`}} frameborder="0"></iframe>
+                {/* <iframe src="https://cloudqubes.substack.com/embed" width="480" height="320" style={{border:`1px solid #EEE`, background:`#C5CAE9`}} frameborder="0"></iframe> */}
 
               </div>
             </div>
@@ -74,6 +74,14 @@ export const query = graphql`
             childImageSharp {
               gatsbyImageData(width: 400)
             }
+          }
+        }
+        fields{
+          timeToRead {
+            minutes
+            text
+            time
+            words
           }
         }
         id

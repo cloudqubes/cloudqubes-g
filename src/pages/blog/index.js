@@ -44,11 +44,20 @@ export const query = graphql`
           title
           slug
           description
+          tags
           cover_image_alt
           cover_image {
             childImageSharp {
               gatsbyImageData(width: 400)
             }
+          }
+        }
+        fields{
+          timeToRead {
+            minutes
+            text
+            time
+            words
           }
         }
         id

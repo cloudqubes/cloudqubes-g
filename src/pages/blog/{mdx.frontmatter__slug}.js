@@ -2,13 +2,24 @@ import * as React from 'react'
 import { graphql } from "gatsby";
 import Layout from '../../components/layout'
 import { Seo } from "../../components/seo";
+import { outerContainer, container, title, postMeta } from "./article.module.css";
+import "./article.css";
 
 const BlogPost = ({data, children}) => {
   return (
     <Layout pageTitle={data.mdx.frontmatter.title}>
-      <p>{data.mdx.frontmatter.date}</p>
-      <span>{data.mdx.fields.timeToRead.text}</span>
-      {children}
+      <div className={outerContainer}>
+        <article className={container}>
+          <div>
+          <span className={postMeta}>{data.mdx.frontmatter.date} - </span>
+          <span className={postMeta}>{data.mdx.fields.timeToRead.text}</span>
+          </div>
+          <h1 className={title}>{data.mdx.frontmatter.title}</h1>
+          {children}
+        </article>
+      </div>
+
+
     </Layout>
   )
 }

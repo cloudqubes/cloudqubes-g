@@ -1,0 +1,27 @@
+.outerContainer{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.container{
+  width: 100%;
+}
+
+@media only screen and (min-width: 1200px) {
+  .container{
+    width: 75%;
+  }
+}
+
+.title{
+  font-family: 'Titillium Web', sans-serif;
+  color: #c21057;
+  font-size: 2.8rem;
+}
+
+.post-meta{
+  font-family: 'Titillium Web', sans-serif;
+  color: #8c8c8c;
+  font-size: .95rem;
+}
