@@ -1,6 +1,6 @@
 const readingTime = require(`reading-time`)
-const path = require("path")
-const _ = require("lodash")
+// const fs = require("fs")
+// const yaml = require("js-yaml")
 
 exports.onCreateNode = ({ node, actions }) => {
   const { createNodeField } = actions
@@ -13,64 +13,17 @@ exports.onCreateNode = ({ node, actions }) => {
   }
 }
 
-exports.createPages = async ({ actions, graphql, reporter }) => {
-  const { createPage } = actions
+// exports.createPages = ({ actions }) =>{
+//   const { createPage } = actions
+//   const ymlTags = yaml.load(fs.readFileSync("./data/tags.yaml", "utf-8"))
+//   ymlDoc.forEach(element => {
+//     createPage({
+//       path: element.path,
+//       component: require.resolve("./src/templates/tag.js"),
+//       context: {
+//         pageContent: element.content,
 
-  const blogPostTemplate = path.resolve("src/templates/blog.js")
-  const tagTemplate = path.resolve("src/templates/tags.js")
-
-  const result = await graphql(`
-    {
-      postsRemark: allMarkdownRemark(
-        sort: { frontmatter: { date: DESC }}
-        limit: 2000
-      ) {
-        edges {
-          node {
-            fields {
-              slug
-            }
-            frontmatter {
-              tags
-            }
-          }
-        }
-      }
-      tagsGroup: allMarkdownRemark(limit: 2000) {
-        group(field: { frontmatter: { tags: SELECT }}) {
-          fieldValue
-        }
-      }
-    }
-  `)
-
-  // handle errors
-  if (result.errors) {
-    reporter.panicOnBuild(`Error while running GraphQL query.`)
-    return
-  }
-
-  const posts = result.data.postsRemark.edges
-
-  // Create post detail pages
-  posts.forEach(({ node }) => {
-    createPage({
-      path: node.fields.slug,
-      component: blogPostTemplate,
-    })
-  })
-
-  // Extract tag data from query
-  const tags = result.data.tagsGroup.group
-
-  // Make tag pages
-  tags.forEach(tag => {
-    createPage({
-      path: `/tags/${_.kebabCase(tag.fieldValue)}/`,
-      component: tagTemplate,
-      context: {
-        tag: tag.fieldValue,
-      },
-    })
-  })
-}
+//       },
+//     })
+//   })
+// }

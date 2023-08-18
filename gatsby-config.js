@@ -61,7 +61,13 @@ module.exports = {
       "name": "blog",
       "path": `${__dirname}/blog`
     },    
-  },{
+  }, {
+    resolve: 'gatsby-source-filesystem',
+    options: {
+      "name": "tags",
+      "path": `${__dirname}/data/tags`
+    }    
+  }, {
     resolve: `gatsby-transformer-remark`,
     options: {
       plugins: [
@@ -76,6 +82,19 @@ module.exports = {
           options: {
             noInlineHighlight: false,
           }
+        },
+        {
+          resolve: `gatsby-transformer-yaml`,
+          options: {
+            // Conditionally set the typeName so that we both use a lowercased and capitalized type name
+            typeName: ({ node }) => {
+              const name = node.sourceInstanceName
+              if (name === `products`) {
+                return `Product`
+              }
+              return name
+            },
+          },
         }
       ],
     },
