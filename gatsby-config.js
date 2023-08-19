@@ -89,8 +89,8 @@ module.exports = {
             // Conditionally set the typeName so that we both use a lowercased and capitalized type name
             typeName: ({ node }) => {
               const name = node.sourceInstanceName
-              if (name === `products`) {
-                return `Product`
+              if (name === `tags`) {
+                return `Tag`
               }
               return name
             },

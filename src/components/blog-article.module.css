@@ -1,5 +1,8 @@
 .blog-article-item{
   flex-basis: 30%;
+  border-bottom: 1px solid #8c8c8c;
+  margin-bottom: .2rem;
+  padding-bottom: 1rem;
 }
 
 .title{

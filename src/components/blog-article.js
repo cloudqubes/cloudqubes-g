@@ -2,6 +2,7 @@ import * as React from "react";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { Link } from "gatsby";
 import { blogArticleItem, title, tagLink, postMeta } from "./blog-article.module.css";
+import kebabCase from "lodash/kebabCase"
 
 const BlogArticle = ({node}) =>{
   const tag = node.frontmatter.tags[0]
@@ -9,7 +10,7 @@ const BlogArticle = ({node}) =>{
   return(
     <article key={node.id} className={blogArticleItem}>
       <div>
-        <Link to={`/blog/${tag}`} className={tagLink}>{tag}</Link>
+        <Link to={`/tag/${kebabCase(tag)}`} className={tagLink}>{tag}</Link>
       </div>
       <div>
         <span className={postMeta}>{node.frontmatter.date} -</span>
