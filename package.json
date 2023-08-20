@@ -11,6 +11,7 @@
     "develop": "gatsby develop",
     "start": "gatsby develop",
     "build": "gatsby build",
+    "deploy": "gatsby build --prefix-paths && gh-pages -d public",
     "serve": "gatsby serve",
     "clean": "gatsby clean"
   },
@@ -35,5 +36,8 @@
     "react-helmet": "^6.1.0",
     "read-time-estimate": "^0.0.3",
     "reading-time": "^1.5.0"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.0.0"
   }
 }
