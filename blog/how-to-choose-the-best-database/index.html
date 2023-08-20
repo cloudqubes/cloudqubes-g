@@ -1,0 +1,259 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><meta name="generator" content="Gatsby 5.11.0"/><meta name="theme-color" content="#a2466c"/><meta name="description" content="Thinking on using a NoSQL database for your next app. Do not conclude until you have read this article." data-gatsby-head="true"/><meta name="image" content="https://www.cloudqubes.com/logo_v1.png" data-gatsby-head="true"/><meta name="twitter:card" content="summary_large_image" data-gatsby-head="true"/><meta name="twitter:title" content="SQL vs NoSQL - How to choose the best database" data-gatsby-head="true"/><meta name="twitter:url" content="https://www.cloudqubes.com" data-gatsby-head="true"/><meta name="twitter:description" content="Thinking on using a NoSQL database for your next app. Do not conclude until you have read this article." data-gatsby-head="true"/><meta name="twitter:image" content="https://www.cloudqubes.com/logo_v1.png" data-gatsby-head="true"/><meta name="twitter:creator" content="@cloudqubes" data-gatsby-head="true"/><style data-href="/reponame/styles.ec9c685795f25abce049.css" data-identity="gatsby-global-css">.layout-module--main-header--0975f{border-bottom:2px solid #c21057aa;box-shadow:0 4px 4px -4px #c21057;display:flex;justify-content:center;margin-bottom:1rem;width:100%}.layout-module--inner-container--df4cb{display:flex;width:100%}@media only screen and (min-width:1200px){.layout-module--inner-container--df4cb{display:flex;width:90%}}.layout-module--logo-container--6ca7c{align-items:center;display:flex;flex-grow:1}.layout-module--logo--ff776{width:4rem}.layout-module--logo-text--e7423{color:#c21057;font-family:Titillium Web,sans-serif;font-size:38px;font-weight:400}.layout-module--nav-container--96fe9{display:flex;flex-grow:2;justify-content:space-around}.layout-module--nav-item-list--aaad3{display:flex;justify-content:space-around;list-style:none;width:100%}.layout-module--nav-item--3670c{display:inline-flex;font-size:1rem}.layout-module--footer--ad7d0{background-color:#c21057;display:flex;justify-content:center;padding-bottom:1rem;width:100%}.layout-module--footerCard--8fc61{flex-basis:50%;padding-bottom:1rem;padding-top:1rem}.layout-module--footerLogoContainer--67598{align-items:flex-end;display:flex;flex-basis:50%;justify-content:left;padding-bottom:1rem}.layout-module--footerLogo--cd38c{background-color:#fff;border-radius:2rem;width:4rem}.layout-module--footerLogoText--58444{color:#fff}.layout-module--footerAbout--6e9dd{color:#fff;padding-left:4rem}.layout-module--socialMediaIcons--19ec3{display:flex;justify-content:center}.layout-module--socialMediaLogo--1fd87{width:1.4rem}.layout-module--socialMediaLink--69be6{background-color:#fff;border-radius:2rem;margin-right:1rem;padding:.5rem}.layout-module--socialMediaLink--69be6:hover{background-color:#d4749bca}p{font-family:Titillium Web,sans-serif}h1,h2,h3,h4{font-weight:400;margin:0;padding:0}a,h1,h2,h3,h4{font-family:Raleway,sans-serif}a{text-decoration:none}body,ul{padding:0}body{margin:0;overflow-x:hidden;width:100%}.about-module--container--41d1b{display:flex;justify-content:center;width:100%}.about-module--inside-container--37fc5{width:100%}@media only screen and (min-width:1200px){.about-module--inside-container--37fc5{width:80%}}.blog-article-module--blog-article-item--77f8c{border-bottom:1px solid #8c8c8c;flex-basis:30%;margin-bottom:.2rem;padding-bottom:1rem}.blog-article-module--title--f5c09{color:#4d4d4d}.blog-article-module--title--f5c09:hover{color:#c21057}.blog-article-module--tag-link--30024{background-color:#f5f8ff;color:#546e7a;font-family:Raleway,sans-serif;font-size:1rem;margin-right:.2rem;padding:.1rem}.blog-article-module--tag-link--30024:hover{background-color:#e7edfd;text-decoration:none}.blog-article-module--post-meta--c0506{color:#8c8c8c;font-family:Titillium Web,sans-serif;font-size:.95rem}.index-module--container--efc35{display:flex;justify-content:center;width:100%}.index-module--inside-container--eedb3{width:100%}@media only screen and (min-width:1200px){.index-module--inside-container--eedb3{width:80%}}.index-module--blogArticleList--14500{display:flex;flex-wrap:wrap;justify-content:space-between}.article-module--outerContainer--119e3{display:flex;justify-content:center;width:100%}.article-module--container--2d8cc{width:100%}@media only screen and (min-width:1200px){.article-module--container--2d8cc{width:75%}}.article-module--title--f5d32{color:#c21057;font-family:Titillium Web,sans-serif;font-size:2.8rem}.article-module--post-meta--34964{color:#8c8c8c;font-family:Titillium Web,sans-serif;font-size:.95rem}li,p{margin-top:0;padding-top:0}.header-highlight,li,p{color:#2a2a2a;font-family:Titillium Web,sans-serif}.header-highlight{border-bottom:1px solid #2a2a2a;font-size:1.6rem;font-weight:400;margin-bottom:1rem}h1{color:#c21057;font-family:Titillium Web,sans-serif;font-size:26px;font-weight:400}h2{font-size:20px;padding-top:.5rem}h2,h3,h4,h5{color:#2a2a2a;font-family:Titillium Web,sans-serif;font-weight:600}h3,h4,h5{font-size:18px}.index-module--container--f8c32{display:flex;justify-content:center;width:100%}.index-module--newsletterOuterContainer--58d51{background-color:#c5cae9;display:flex;justify-content:center;padding-top:1rem;width:100%}.index-module--substackStyle--11694{background-color:#c5cae9}.index-module--inside-container--01d46{width:100%}@media only screen and (min-width:1200px){.index-module--inside-container--01d46{width:80%}}.index-module--newsletterContainer--437d4{align-items:center;display:flex;justify-content:space-around;width:100%}.index-module--blog-article-list--927c6{display:flex;flex-wrap:wrap;justify-content:space-between}.index-module--section-title--34611{padding-bottom:.8rem;padding-top:1.8rem}.tag-module--container--c379b{display:flex;justify-content:center;width:100%}.tag-module--inside-container--b0e69{width:100%}@media only screen and (min-width:1200px){.tag-module--inside-container--b0e69{width:80%}}.tag-module--blogArticleList--45e04{display:flex;flex-wrap:wrap;justify-content:space-between}.tag-module--title--fab01{color:#2a2a2a;font-family:Titillium Web,sans-serif;font-size:20px;font-weight:600;padding-bottom:.5rem}</style><link rel="preconnect" href="YOUR_SELF_HOSTED_ORIGIN"/><link rel="dns-prefetch" href="YOUR_SELF_HOSTED_ORIGIN"/><style>.gatsby-image-wrapper{position:relative;overflow:hidden}.gatsby-image-wrapper picture.object-fit-polyfill{position:static!important}.gatsby-image-wrapper img{bottom:0;height:100%;left:0;margin:0;max-width:none;padding:0;position:absolute;right:0;top:0;width:100%;object-fit:cover}.gatsby-image-wrapper [data-main-image]{opacity:0;transform:translateZ(0);transition:opacity .25s linear;will-change:opacity}.gatsby-image-wrapper-constrained{display:inline-block;vertical-align:top}</style><noscript><style>.gatsby-image-wrapper noscript [data-main-image]{opacity:1!important}.gatsby-image-wrapper [data-placeholder-image]{opacity:0!important}</style></noscript><script type="module">const e="undefined"!=typeof HTMLImageElement&&"loading"in HTMLImageElement.prototype;e&&document.body.addEventListener("load",(function(e){const t=e.target;if(void 0===t.dataset.mainImage)return;if(void 0===t.dataset.gatsbyImageSsr)return;let a=null,n=t;for(;null===a&&n;)void 0!==n.parentNode.dataset.gatsbyImageWrapper&&(a=n.parentNode),n=n.parentNode;const o=a.querySelector("[data-placeholder-image]"),r=new Image;r.src=t.currentSrc,r.decode().catch((()=>{})).then((()=>{t.style.opacity=1,o&&(o.style.opacity=0,o.style.transition="opacity 500ms linear")}))}),!0);</script><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="true"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="true"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;0,700;1,400&amp;family=Titillium+Web:ital,wght@0,400;0,600;0,700;1,400&amp;display=swap"/><link rel="icon" href="/reponame/favicon-32x32.png?v=c7817e006b3b3fde36d3536130dbde94" type="image/png"/><link rel="manifest" href="/reponame/manifest.webmanifest" crossorigin="anonymous"/><link rel="apple-touch-icon" sizes="192x192" href="/reponame/favicons/android-chrome-192x192.png?v=c7817e006b3b3fde36d3536130dbde94"/><link rel="apple-touch-icon" sizes="512x512" href="/reponame/favicons/android-chrome-512x512.png?v=c7817e006b3b3fde36d3536130dbde94"/><title data-gatsby-head="true">SQL vs NoSQL - How to choose the best database</title><link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; viewBox=&#x27;0 0 100 100&#x27;&gt;&lt;text y=&#x27;0.9em&#x27; font-size=&#x27;90&#x27;&gt;👤&lt;/text&gt;&lt;/svg&gt;" data-gatsby-head="true"/></head><body><div id="___gatsby"><div style="outline:none" tabindex="-1" id="gatsby-focus-wrapper"><div><header class="layout-module--main-header--0975f"><div class="layout-module--inner-container--df4cb"><div class="layout-module--logo-container--6ca7c"><a href="/reponame/"><div data-gatsby-image-wrapper="" class="gatsby-image-wrapper gatsby-image-wrapper-constrained layout-module--logo--ff776"><div style="max-width:400px;display:block"><img alt="" role="presentation" aria-hidden="true" src="data:image/svg+xml;charset=utf-8,%3Csvg%20height=&#x27;400&#x27;%20width=&#x27;400&#x27;%20xmlns=&#x27;http://www.w3.org/2000/svg&#x27;%20version=&#x27;1.1&#x27;%3E%3C/svg%3E" style="max-width:100%;display:block;position:static"/></div><div aria-hidden="true" data-placeholder-image="" style="opacity:1;transition:opacity 500ms linear;background-color:#080808;position:absolute;top:0;left:0;bottom:0;right:0"></div><picture><source type="image/webp" data-srcset="/reponame/static/c7817e006b3b3fde36d3536130dbde94/d8057/logo_v1.webp 100w,/reponame/static/c7817e006b3b3fde36d3536130dbde94/2e34e/logo_v1.webp 200w,/reponame/static/c7817e006b3b3fde36d3536130dbde94/416c3/logo_v1.webp 400w" sizes="(min-width: 400px) 400px, 100vw"/><img data-gatsby-image-ssr="" data-main-image="" style="opacity:0" sizes="(min-width: 400px) 400px, 100vw" decoding="async" loading="lazy" data-src="/reponame/static/c7817e006b3b3fde36d3536130dbde94/d6138/logo_v1.png" data-srcset="/reponame/static/c7817e006b3b3fde36d3536130dbde94/15e42/logo_v1.png 100w,/reponame/static/c7817e006b3b3fde36d3536130dbde94/5aead/logo_v1.png 200w,/reponame/static/c7817e006b3b3fde36d3536130dbde94/d6138/logo_v1.png 400w" alt="cloudqubes logo"/></picture><noscript><picture><source type="image/webp" srcSet="/reponame/static/c7817e006b3b3fde36d3536130dbde94/d8057/logo_v1.webp 100w,/reponame/static/c7817e006b3b3fde36d3536130dbde94/2e34e/logo_v1.webp 200w,/reponame/static/c7817e006b3b3fde36d3536130dbde94/416c3/logo_v1.webp 400w" sizes="(min-width: 400px) 400px, 100vw"/><img data-gatsby-image-ssr="" data-main-image="" style="opacity:0" sizes="(min-width: 400px) 400px, 100vw" decoding="async" loading="lazy" src="/reponame/static/c7817e006b3b3fde36d3536130dbde94/d6138/logo_v1.png" srcSet="/reponame/static/c7817e006b3b3fde36d3536130dbde94/15e42/logo_v1.png 100w,/reponame/static/c7817e006b3b3fde36d3536130dbde94/5aead/logo_v1.png 200w,/reponame/static/c7817e006b3b3fde36d3536130dbde94/d6138/logo_v1.png 400w" alt="cloudqubes logo"/></picture></noscript><script type="module">const t="undefined"!=typeof HTMLImageElement&&"loading"in HTMLImageElement.prototype;if(t){const t=document.querySelectorAll("img[data-main-image]");for(let e of t){e.dataset.src&&(e.setAttribute("src",e.dataset.src),e.removeAttribute("data-src")),e.dataset.srcset&&(e.setAttribute("srcset",e.dataset.srcset),e.removeAttribute("data-srcset"));const t=e.parentNode.querySelectorAll("source[data-srcset]");for(let e of t)e.setAttribute("srcset",e.dataset.srcset),e.removeAttribute("data-srcset");e.complete&&(e.style.opacity=1,e.parentNode.parentNode.querySelector("[data-placeholder-image]").style.opacity=0)}}</script></div></a><a href="/reponame/"><h1 class="layout-module--logo-text--e7423">cloudqubes</h1></a></div><nav class="layout-module--nav-container--96fe9"><ul class="layout-module--nav-item-list--aaad3"><li class="layout-module--nav-item--3670c"><a href="/reponame/about/">About</a></li><li class="layout-module--nav-item--3670c"><a href="/reponame/blog/">Blog</a></li><li class="layout-module--nav-item--3670c"><a href="/reponame/contact/">Contact</a></li><li class="layout-module--nav-item--3670c"><a href="https://cloudqubes.substack.com/">Newsletter</a></li></ul></nav></div></header><main><div class="article-module--outerContainer--119e3"><article class="article-module--container--2d8cc"><div><span class="article-module--post-meta--34964">November 3, 2022<!-- --> - </span><span class="article-module--post-meta--34964">16 min read</span></div><h1 class="article-module--title--f5d32">SQL vs NoSQL - How to choose the best database</h1><div class="header-highlight"><p>Are NoSQL databases better than SQL databases? No, not always. You must choose the database that fits your use case.</p></div>
+<p>You’ve got an exciting idea to build a new digital product. You start coding, and need to choose a database. &quot;Everyone out there is talking about that new ultra-scalable NoSQL database. I will also use it&quot;, you think.</p>
+<p>Halfway through the development, you realize that the new ultra-scalable database has a frustrating learning curve, a complex query interface, and is not at all suitable for your application. You decide to dump it and settle down for a more proven technology.</p>
+<h1>Cost of wrong decisions</h1>
+<p>However, you have to pay a price. You must redesign your data model and rewrite some of the code. This is going to impact your delivery timelines.</p>
+<p>You are not the only one who has had this bad experience. There are many types of databases out there. They exist for different purposes. As a developer, it’s your responsibility to select the correct one for your use case because an unfitting database will cost you both time and money.</p>
+<h1>SQL vs NoSQL databases</h1>
+<p>Technically, the topic should have been <em>relational vs non-relational databases</em>. But, somehow the term NoSQL is deeply established.</p>
+<h2>Relational Databases</h2>
+<p>Relational database and SQL are two frequently associated terms with databases, and there is a good reason for that. Relational databases were the prominent database systems until about 2009 from the 1970s.</p>
+<p>Relational databases are built on the relational model proposed by E.F Codd, in a [paper published in communications of the ACM] [relational-model], in 1970. The original relational model defines a relation as a set of n tuples, where each tuple is an array of ordered columns. Most relational databases implement this model with some deviations. As an example, a table in a relational database correspond to a relation with unordered columns.</p>
+<p>Let&#x27;s see how we can model a student dataset consisting of students and their classes according to the relational model.</p>
+<p><img src="./what-is-the-best-database/relational-model.png" alt="Relational model"/>
+<em>Relational model - Students database</em></p>
+<p>The Students and Classes are relations with 2 and 5 tuples respectively. The “Student_Classes” defines a many-to-many relationship between them.</p>
+<p>Structured Query Language (SQL) was developed based on this relational model to manipulate data stored in a relational database. Relational model and SQL paved the way for the development of very successful, widely used relational database software such as [MySQL], [MariaDB], [PostgreSQL], etc. These relational databases have proved their capability by efficiently handling billions of records in many web and enterprise applications.</p>
+<h2>Limitations of relational databases</h2>
+<p>The growth of Web 2.0 applications from 2004, began pushing relational database technology to its limits. Web 2.0 companies had to handle exponentially growing datasets consisting of billions and billions of records. To handle such huge data volumes more CPU and memory are required. However, there is a certain limitation of CPU and memory that can be provisioned in a single machine. Beyond that, the only option is to scale horizontally - increase the number of servers.</p>
+<p>In a horizontally scalable database system, each machine in the cluster will own only a portion of the total dataset. The relational databases have problems with this type of horizontal scaling. Certain SQL operations such as <code>JOIN</code> and <code>GROUP BY</code> can only be efficiently executed when the complete dataset is available in a single server. Also, preserving characteristics such as uniqueness become challenging when the dataset is split across the cluster. Therefore, a relational database works best when the dataset is replicated across all machines in the cluster. But, that is inefficient</p>
+<h2>The rise of NoSQL</h2>
+<p>Driven by the requirement of web-scale companies to overcome these limitations, new database technologies began to emerge. These databases were inherently non-relational so they did not support SQL. Therefore, they were called NoSQL databases, but a better name would have been non-relational databases. Unlike relational databases, NoSQL databases were designed to be horizontally scalable.</p>
+<p>As the NoSQL concept further evolved, many types of NoSQL databases were developed for specific use cases. Today, NoSQL has become an umbrella term to denote all these different types of databases.</p>
+<p>However, some developers believe that they must dump relational databases and should use only NoSQL. But, that is a delusion. Also, since NoSQL has become an umbrella term the belief that NoSQL is the only database you need, does not help you to choose any one of those NoSQL databases out there.</p>
+<h1>Types of NoSQL databases</h1>
+<p>We are going to discuss the most popular types of NoSQL databases. Just keep in mind that new types of databases will be developed for new use cases in the future.</p>
+<h2>Key-value database</h2>
+<p>As the name implies, a key-value database uses a simple key-value model to store data. The key has to be unique and the value could be anything such as numbers, strings, JSON objects, etc.</p>
+<p>Key-value databases do not process the value so, no queries can be executed based on the value. These databases do not support a query language as well. The values can only be retrieved based on the keys.</p>
+<p>Here’s how we could model students and their classes in a key-value database.</p>
+<p><img src="./what-is-the-best-database/key-value-model.png" alt="Key-value model"/>
+<em>Key-Value model</em></p>
+<p>Key-value databases are suitable for storing config parameters, in-memory data caching, managing session data in web applications, leaderboards, etc. While it’s not impossible to develop an e-commerce application or a blog with a key-value database, it may not be the best for such an application.</p>
+<p>[Riak KV] and [etcd] are two open-source key-value databases. [Amazon DynamoDB] is a hosted key-value database from AWS.</p>
+<p>Let’s see how to build our student database with [etcd].</p>
+<pre><code class="language-shell">ubuntu@db:~$ etcdctl put name:s1 Hal
+OK
+ubuntu@db:~$ etcdctl put name:s2 Roger
+OK
+ubuntu@db:~$ etcdctl put classes:s1 &quot;Mathematics,Science,Geography&quot; 
+OK
+ubuntu@db:~$ etcdctl put classes:s2 &quot;Mathematics,Art,Philosophy&quot; 
+OK
+ubuntu@db:~$ etcdctl get name:s1
+name:s1
+Hal
+ubuntu@db:~$ etcdctl get classes:s1
+classes:s1
+Mathematics,Science,Geography
+ubuntu@db:~$ etcdctl get classes:a classes:z
+classes:s1
+Mathematics,Science,Geography
+classes:s2
+Mathematics,Art,Philosophy
+</code></pre>
+<h2>Document databases</h2>
+<p>A document database is an extension to the key-value database type, and stores data as documents with a structured format. A document could be structured in XML, YAML, JSON, or even BSON to support binary data.</p>
+<p>Unlike a key-value database which is unaware of the contents of the value, a document database processes and stores the contents of the document so that we can execute queries on the values stored in the document.</p>
+<p>Most document databases organize the documents into groups or collections. While a collection contains similar documents, each document in the same collection can have unique fields as there is no fixed schema.</p>
+<p>Let’s model our student dataset in a document database.</p>
+<p><img src="./what-is-the-best-database/document-model.png" alt="Document data model"/>
+<em>Document data model</em></p>
+<p>Due to the flexibility of the document data model, document databases are suitable for a wide variety of use cases like blogs, e-commerce, and enterprise applications. Most datasets that will fit into a relational data model can be modeled to fit a document database as well. However, since there is no support for SQL the data must be modeled to support efficient querying according to the individual use cases.</p>
+<p>[MongoDB] is a popular open-source document DB that is also available as a cloud service. [Amazon DocumentDB] and [Google Firestore] are document databases in the cloud.</p>
+<p>This is how we create our student database with [MongoDB].</p>
+<pre><code class="language-shell">test&gt; use student-db
+switched to db student-db
+student-db&gt; db.students.insert({&quot;name&quot;: &quot;Hal&quot;, classes: [&quot;Mathematics&quot;, &quot;Science&quot;, &quot;Geography&quot;]})
+DeprecationWarning: Collection.insert() is deprecated. Use insertOne, insertMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedIds: { &#x27;0&#x27;: ObjectId(&quot;6357ecdbed4483b3378ebe4d&quot;) }
+}
+student-db&gt; db.students.insert({&quot;name&quot;: &quot;Roger&quot;, classes: [&quot;Mathematics&quot;, &quot;Arts&quot;, &quot;Philosophy&quot;]})
+{
+  acknowledged: true,
+  insertedIds: { &#x27;0&#x27;: ObjectId(&quot;6357ece0ed4483b3378ebe4e&quot;) }
+}
+student-db&gt; db.students.find()
+[
+  {
+    _id: ObjectId(&quot;6357ecdbed4483b3378ebe4d&quot;),
+    name: &#x27;Hal&#x27;,
+    classes: [ &#x27;Mathematics&#x27;, &#x27;Science&#x27;, &#x27;Geography&#x27; ]
+  },
+  {
+    _id: ObjectId(&quot;6357ece0ed4483b3378ebe4e&quot;),
+    name: &#x27;Roger&#x27;,
+    classes: [ &#x27;Mathematics&#x27;, &#x27;Arts&#x27;, &#x27;Philosophy&#x27; ]
+  }
+]
+student-db&gt; 
+</code></pre>
+<p>Unlike in the key-value database, we can search within a document in a document database. Here’s how we get students who are attending the “Arts” class.</p>
+<pre><code>student-db&gt; db.students.find({classes: &#x27;Arts&#x27;})
+[
+  {
+    _id: ObjectId(&quot;6357ece0ed4483b3378ebe4e&quot;),
+    name: &#x27;Roger&#x27;,
+    classes: [ &#x27;Mathematics&#x27;, &#x27;Arts&#x27;, &#x27;Philosophy&#x27; ]
+  }
+]
+```
+
+## Wide-Column database 
+
+Wide column databases store data in rows and columns like a relational database. However, unlike a table in a relational database, a wide-column database defines columns per row. Therefore, each row in a wide-column database can contain a set of unique columns. Tables in a wide-column database can be split across multiple machines to support horizontal scaling.
+
+Let’s model the grades of our student application in a wide-column database.
+
+![Wide-column data model](./what-is-the-best-database/wide-column-model.png)
+*Wide-column data model*
+
+
+The set of columns starting with “grades:” in this model is called a column family. This column family has separate columns for each student based on the classes they take.
+
+While we use this model for demonstration, a wide-column database is not the best database type for an application like a student database. A wide-column database is a good fit for data sets with variable parameter types. You may not often get such datasets in common business applications, but they do occur in scientific and engineering applications. Fault alarms in a telecommunication network, performance data in data center servers, and access logs in firewalls are some examples that will benefit from a wide-column database.
+
+[Apache Cassandra] is an open-source wide-column database and [Google Bigtable] is a wide-column database offered as a service from GCP.
+
+Wide-column databases do not support SQL. But, some wide-column databases support a query interface named CQL (Cassandra Query Language). While CQL may look like SQL, it does not support JOIN operations. 
+
+## Graph databases
+
+Graph databases excel at handling highly connected data sets. A graph database stores data as nodes and relationships making the relationships instantly available for queries.
+
+Relational databases handle connections via one-to-many or many-to-many relationships and JOIN operations. This may be efficient enough for first or second-degree connections but falls short beyond that. A graph database can effectively handle datasets with connections that extend beyond 20 or 30 degrees. 
+
+Again, let’s model our student dataset for a graph database.
+
+![Graph data model](./what-is-the-best-database/graph-model.png)
+*Graph data model*
+
+Graph databases are suitable for use cases like recommendation engines, access and user management systems, fraud detection systems, etc. 
+
+[NebulaGraph] and [Neo4j] are open-source graph databases that are also available as cloud services. [Amazon Neptune] is a graph database service from AWS. 
+
+## Time series 
+
+A time series database is a specific type of NoSQL database optimized to store a series of metrics or events with a timestamp. It is also possible to use relational or document databases to store such data. But, time series datasets have some unique requirements like aggregating, archiving old data, etc., which cannot be effectively done with relational or document types of databases. Therefore, a purpose-built time series database is more efficient than other databases for storing time series data.
+
+A time series database stores data in columnar format, so it can split data across multiple servers to support horizontal scaling. It is a write-many-read-less type of database as data points in a time series database would be occurring continuously and need to be written to the database at the same rate. 
+
+It’s impossible to adopt a time series data model for a student database. So, let’s assume Hal and Roger are trying to record weather data from an IoT device.
+
+The first device named dev-1, can measure relative humidity. So, we design the time series database with a single series with key “dev-1:humidity”.
+
+![Time series data model](./what-is-the-best-database/time-series-model-1.png)
+*Time series model - Single device.*
+
+
+Several days later Hal and Roger set up a new device dev-2 which can measure both humidity and temperature. So, we add two new series with keys “dev-2:humidity” and “dev-2:temperature”. 
+
+![Time series data model](./what-is-the-best-database/time-series-model-2.png)
+*Time series model - Multiple devices.*
+
+The beauty of the time series databases is that we do not have to mess with the existing data to add the new series. Also, this data model will easily scale to millions of devices. If newer devices come with more measurement capabilities we can quite efficiently incorporate those measurements as well.
+
+[Prometheus] and [Riak TS] are two popular open-source time series databases. [Influx DB] is an open-source time series database that is also available as a cloud service.
+
+## Search Engine
+
+Search engine databases are purpose-built for searching textual contents. This is equivalent to an Internet search engine so it is named as a search engine database. A typical search engine database analyzes the text contents and creates indexes, similar to an index in a book. When a search is executed, the database can quickly find the mapping content via this index. 
+
+Search engine databases are helpful for full-text searching in news websites, blogs, software documentation, etc. Log file analysis is another important use case of search engine databases. Typical log files contain a textual description of a certain event or fault in a system. A search engine database can search and correlate log files from multiple sources to yield insightful results.
+
+Again, a search engine database is by no means applicable for a student database. So, let’s assume that Hal and Roger are using a search engine database to index a set of documents on African wildlife.
+
+![Search engine database](./what-is-the-best-database/search-engine-database.png)
+*Search engine database.*
+
+There can be an n number of documents. Since we are interested in wildlife, we are creating the index based on animals. Whenever a new document is added, the database will update the index. We can query the database using animal names, and quickly get the response containing the documents where the respective names are mentioned.
+
+[Apache Solr] is an open-source search engine database. [ElasticSearch] is another open-source search engine database that’s also available as a hosted service in AWS and GCP. [Algolia] is a  search engine database that is provided as a hosted solution.
+
+## Spatial
+
+Navigating digital maps has become a part of our everyday lifestyle. Digital maps are required to store and process spatial data that represents geographic locations on Earth. There is a series of standards defined in ISO/TC 211 for spatial data representations. These spatial datasets are stored in spatial databases. 
+
+Often, a spatial database is a relational or a non-relational database, enhanced to store spatial data. [GeoMesa] is such a toolset that enables spatial data support in [Google Bigtable], [Cassandra], [HBase], etc. [Postgis] is also an open-source extension that adds the geospatial capability to [PostgreSQL].
+
+Navigation is the most common use case of digital maps. But, digital maps are used in other applications including civil engineering, telecommunication network planning, seismic surveys, etc. These spatial datasets in these maps need to contain information such as elevation, building infrastructure, soil condition, etc. Spatial databases with support for specific types of information will be required for these kinds of use cases. 
+
+## Multi-model databases
+
+Some applications depend on multiple types of datasets so using one specific type of database is not efficient. As an example, a social media application may have one dataset that is best suited for a relational database and another dataset that requires features of a graph database. These applications are also called polyglot persistence applications. 
+
+While they benefit from using different database technologies, using several databases leads to synchronization problems and operational overhead. Multi-model databases solve this problem by merging the flexibility of NoSQL and the features of relational databases. These databases support executing queries in relational or non-relational models. 
+
+Most multi-model databases available today are extensions built on top of previous relational to NoSQL databases. An example is the JSON support added in [PostgreSQL]. [FaunaDB] is a multi-model database that is available as a service. [Couchbase], which is primarily a NoSQL database, offers many features of a relational database.
+
+# Choosing the right database
+A database is an integral part of any web, mobile or enterprise application, and most often is the limiting factor of scalability.
+
+Once an application is in operation, swapping the database is no easy task. Therefore, you must ensure that you are choosing the best database right at the beginning.
+
+The best database for your application is not necessarily the most scalable or the most popular database out there. Your use case determines the type of data you are working with and the scale. So, your use case is the most important factor for your decision about the database.
+
+New technologies emerge, and create hype in the industry time to time. You may be tempted to select a database technology simply because it’s the hottest trend. The popularity of NoSQL databases in the recent past caused many developers to adopt them even for inappropriate use cases. 
+
+&lt;div class=&quot;inline-highlight&quot;&gt;
+Always choose the database that suits your dataset and your application. Choosing a database just because it&#x27;s the new trend is the worst thing you could do.
+&lt;/div&gt;
+
+There is no silver bullet in database management systems. Therefore, you must analyze your use case and select the best database that fits your needs and deliver your expected results. 
+
+# Hype around NoSQL
+
+NoSQL databases have created lots of industry hype. NoSQL databases could be more scalable than relational databases due to their design. But, if your data model does not fit a NoSQL database, the scalability of NoSQL is not going to help you. Also, the fact that NoSQL databases are more scalable does not imply that relational databases are not scalable. The recent developments in relational databases have added various scaling features that we hope to discuss in some upcoming articles. 
+
+Always remember that a wrong design with the database will definitely impact your application launch. You do not want to miss your deadline just because you were messing with the most powerful database technology on the planet.
+
+[relational-model]: https://doi.org/10.1145%2F362384.362685
+[Riak KV]: https://riak.com/products/riak-kv/
+[etcd]: https://riak.com/products/riak-kv/
+[Amazon DynamoDB]: https://aws.amazon.com/dynamodb/
+[MongoDB]: https://www.mongodb.com
+[Amazon DocumentDB]: https://aws.amazon.com/documentdb/
+[Google Firestore]: https://cloud.google.com/firestore
+[Apache Cassandra]: https://cassandra.apache.org/_/index.html
+[Google Bigtable]: https://cloud.google.com/bigtable/docs/overview
+[NebulaGraph]: https://www.nebula-graph.io
+[Neo4j]:https://neo4j.com
+[Amazon Neptune]: https://aws.amazon.com/neptune/
+[Prometheus]: https://prometheus.io
+[Riak TS]:https://riak.com/products/riak-ts/
+[Influx DB]: https://www.influxdata.com
+[Apache Solr]: https://solr.apache.org
+[ElasticSearch]: https://www.elastic.co
+[Algolia]: https://www.algolia.com
+[GeoMesa]: https://www.geomesa.org
+[Cassandra]: https://cassandra.apache.org/_/index.html
+[HBase]: https://hbase.apache.org
+[Postgis]: https://postgis.net
+[PostgreSQL]: https://www.postgresql.org
+[FaunaDB]: https://fauna.com
+[Couchbase]: https://www.couchbase.com
+[MySQL]: https://www.mysql.com
+[Django]: https://www.djangoproject.com
+[RubyOnRails]:https://rubyonrails.org
+[Node.js]: https://nodejs.org/en/
+[Oracle]: https://www.oracle.com/database/technologies/
+[MariaDB]: https://mariadb.org
+</code></pre></article></div></main><footer class="layout-module--footer--ad7d0"><div class="layout-module--inner-container--df4cb"><div class="layout-module--footerCard--8fc61"><div class="layout-module--footerLogoContainer--67598"><a href="/reponame/"><div data-gatsby-image-wrapper="" class="gatsby-image-wrapper gatsby-image-wrapper-constrained layout-module--footerLogo--cd38c"><div style="max-width:400px;display:block"><img alt="" role="presentation" aria-hidden="true" src="data:image/svg+xml;charset=utf-8,%3Csvg%20height=&#x27;400&#x27;%20width=&#x27;400&#x27;%20xmlns=&#x27;http://www.w3.org/2000/svg&#x27;%20version=&#x27;1.1&#x27;%3E%3C/svg%3E" style="max-width:100%;display:block;position:static"/></div><div aria-hidden="true" data-placeholder-image="" style="opacity:1;transition:opacity 500ms linear;background-color:#080808;position:absolute;top:0;left:0;bottom:0;right:0"></div><picture><source type="image/webp" data-srcset="/reponame/static/c7817e006b3b3fde36d3536130dbde94/d8057/logo_v1.webp 100w,/reponame/static/c7817e006b3b3fde36d3536130dbde94/2e34e/logo_v1.webp 200w,/reponame/static/c7817e006b3b3fde36d3536130dbde94/416c3/logo_v1.webp 400w" sizes="(min-width: 400px) 400px, 100vw"/><img data-gatsby-image-ssr="" data-main-image="" style="opacity:0" sizes="(min-width: 400px) 400px, 100vw" decoding="async" loading="lazy" data-src="/reponame/static/c7817e006b3b3fde36d3536130dbde94/d6138/logo_v1.png" data-srcset="/reponame/static/c7817e006b3b3fde36d3536130dbde94/15e42/logo_v1.png 100w,/reponame/static/c7817e006b3b3fde36d3536130dbde94/5aead/logo_v1.png 200w,/reponame/static/c7817e006b3b3fde36d3536130dbde94/d6138/logo_v1.png 400w" alt="cloudqubes logo"/></picture><noscript><picture><source type="image/webp" srcSet="/reponame/static/c7817e006b3b3fde36d3536130dbde94/d8057/logo_v1.webp 100w,/reponame/static/c7817e006b3b3fde36d3536130dbde94/2e34e/logo_v1.webp 200w,/reponame/static/c7817e006b3b3fde36d3536130dbde94/416c3/logo_v1.webp 400w" sizes="(min-width: 400px) 400px, 100vw"/><img data-gatsby-image-ssr="" data-main-image="" style="opacity:0" sizes="(min-width: 400px) 400px, 100vw" decoding="async" loading="lazy" src="/reponame/static/c7817e006b3b3fde36d3536130dbde94/d6138/logo_v1.png" srcSet="/reponame/static/c7817e006b3b3fde36d3536130dbde94/15e42/logo_v1.png 100w,/reponame/static/c7817e006b3b3fde36d3536130dbde94/5aead/logo_v1.png 200w,/reponame/static/c7817e006b3b3fde36d3536130dbde94/d6138/logo_v1.png 400w" alt="cloudqubes logo"/></picture></noscript><script type="module">const t="undefined"!=typeof HTMLImageElement&&"loading"in HTMLImageElement.prototype;if(t){const t=document.querySelectorAll("img[data-main-image]");for(let e of t){e.dataset.src&&(e.setAttribute("src",e.dataset.src),e.removeAttribute("data-src")),e.dataset.srcset&&(e.setAttribute("srcset",e.dataset.srcset),e.removeAttribute("data-srcset"));const t=e.parentNode.querySelectorAll("source[data-srcset]");for(let e of t)e.setAttribute("srcset",e.dataset.srcset),e.removeAttribute("data-srcset");e.complete&&(e.style.opacity=1,e.parentNode.parentNode.querySelector("[data-placeholder-image]").style.opacity=0)}}</script></div></a><a href="/reponame/"><h1 class="layout-module--footerLogoText--58444">cloudqubes</h1></a></div><div><a class="layout-module--footerAbout--6e9dd" href="/reponame/about/">About</a></div></div><div class="layout-module--footerCard--8fc61"><div class="layout-module--socialMediaIcons--19ec3"><a href="https://github.com/cloudqubes" class="layout-module--socialMediaLink--69be6"><div data-gatsby-image-wrapper="" class="gatsby-image-wrapper gatsby-image-wrapper-constrained layout-module--socialMediaLogo--1fd87"><div style="max-width:240px;display:block"><img alt="" role="presentation" aria-hidden="true" src="data:image/svg+xml;charset=utf-8,%3Csvg%20height=&#x27;240&#x27;%20width=&#x27;240&#x27;%20xmlns=&#x27;http://www.w3.org/2000/svg&#x27;%20version=&#x27;1.1&#x27;%3E%3C/svg%3E" style="max-width:100%;display:block;position:static"/></div><div aria-hidden="true" data-placeholder-image="" style="opacity:1;transition:opacity 500ms linear;background-color:#080808;position:absolute;top:0;left:0;bottom:0;right:0"></div><picture><source type="image/webp" data-srcset="/reponame/static/43ce87609eb221d09d4832a9c0e709d0/927d1/github-mark.webp 60w,/reponame/static/43ce87609eb221d09d4832a9c0e709d0/507b0/github-mark.webp 120w,/reponame/static/43ce87609eb221d09d4832a9c0e709d0/8d565/github-mark.webp 240w" sizes="(min-width: 240px) 240px, 100vw"/><img data-gatsby-image-ssr="" data-main-image="" style="opacity:0" sizes="(min-width: 240px) 240px, 100vw" decoding="async" loading="lazy" data-src="/reponame/static/43ce87609eb221d09d4832a9c0e709d0/87351/github-mark.png" data-srcset="/reponame/static/43ce87609eb221d09d4832a9c0e709d0/7ab40/github-mark.png 60w,/reponame/static/43ce87609eb221d09d4832a9c0e709d0/a8b52/github-mark.png 120w,/reponame/static/43ce87609eb221d09d4832a9c0e709d0/87351/github-mark.png 240w" alt="cloudqubes logo"/></picture><noscript><picture><source type="image/webp" srcSet="/reponame/static/43ce87609eb221d09d4832a9c0e709d0/927d1/github-mark.webp 60w,/reponame/static/43ce87609eb221d09d4832a9c0e709d0/507b0/github-mark.webp 120w,/reponame/static/43ce87609eb221d09d4832a9c0e709d0/8d565/github-mark.webp 240w" sizes="(min-width: 240px) 240px, 100vw"/><img data-gatsby-image-ssr="" data-main-image="" style="opacity:0" sizes="(min-width: 240px) 240px, 100vw" decoding="async" loading="lazy" src="/reponame/static/43ce87609eb221d09d4832a9c0e709d0/87351/github-mark.png" srcSet="/reponame/static/43ce87609eb221d09d4832a9c0e709d0/7ab40/github-mark.png 60w,/reponame/static/43ce87609eb221d09d4832a9c0e709d0/a8b52/github-mark.png 120w,/reponame/static/43ce87609eb221d09d4832a9c0e709d0/87351/github-mark.png 240w" alt="cloudqubes logo"/></picture></noscript><script type="module">const t="undefined"!=typeof HTMLImageElement&&"loading"in HTMLImageElement.prototype;if(t){const t=document.querySelectorAll("img[data-main-image]");for(let e of t){e.dataset.src&&(e.setAttribute("src",e.dataset.src),e.removeAttribute("data-src")),e.dataset.srcset&&(e.setAttribute("srcset",e.dataset.srcset),e.removeAttribute("data-srcset"));const t=e.parentNode.querySelectorAll("source[data-srcset]");for(let e of t)e.setAttribute("srcset",e.dataset.srcset),e.removeAttribute("data-srcset");e.complete&&(e.style.opacity=1,e.parentNode.parentNode.querySelector("[data-placeholder-image]").style.opacity=0)}}</script></div></a><a href="https://twitter.com/cloudqubes" class="layout-module--socialMediaLink--69be6"><div data-gatsby-image-wrapper="" class="gatsby-image-wrapper gatsby-image-wrapper-constrained layout-module--socialMediaLogo--1fd87"><div style="max-width:2400px;display:block"><img alt="" role="presentation" aria-hidden="true" src="data:image/svg+xml;charset=utf-8,%3Csvg%20height=&#x27;2453&#x27;%20width=&#x27;2400&#x27;%20xmlns=&#x27;http://www.w3.org/2000/svg&#x27;%20version=&#x27;1.1&#x27;%3E%3C/svg%3E" style="max-width:100%;display:block;position:static"/></div><div aria-hidden="true" data-placeholder-image="" style="opacity:1;transition:opacity 500ms linear;background-color:#080808;position:absolute;top:0;left:0;bottom:0;right:0"></div><picture><source type="image/webp" data-srcset="/reponame/static/c019bd434e5489eb40e386b60cf045c9/63168/logo-black.webp 600w,/reponame/static/c019bd434e5489eb40e386b60cf045c9/13b13/logo-black.webp 1200w,/reponame/static/c019bd434e5489eb40e386b60cf045c9/b4361/logo-black.webp 2400w" sizes="(min-width: 2400px) 2400px, 100vw"/><img data-gatsby-image-ssr="" data-main-image="" style="opacity:0" sizes="(min-width: 2400px) 2400px, 100vw" decoding="async" loading="lazy" data-src="/reponame/static/c019bd434e5489eb40e386b60cf045c9/78e61/logo-black.png" data-srcset="/reponame/static/c019bd434e5489eb40e386b60cf045c9/7237d/logo-black.png 600w,/reponame/static/c019bd434e5489eb40e386b60cf045c9/02c57/logo-black.png 1200w,/reponame/static/c019bd434e5489eb40e386b60cf045c9/78e61/logo-black.png 2400w" alt="cloudqubes logo"/></picture><noscript><picture><source type="image/webp" srcSet="/reponame/static/c019bd434e5489eb40e386b60cf045c9/63168/logo-black.webp 600w,/reponame/static/c019bd434e5489eb40e386b60cf045c9/13b13/logo-black.webp 1200w,/reponame/static/c019bd434e5489eb40e386b60cf045c9/b4361/logo-black.webp 2400w" sizes="(min-width: 2400px) 2400px, 100vw"/><img data-gatsby-image-ssr="" data-main-image="" style="opacity:0" sizes="(min-width: 2400px) 2400px, 100vw" decoding="async" loading="lazy" src="/reponame/static/c019bd434e5489eb40e386b60cf045c9/78e61/logo-black.png" srcSet="/reponame/static/c019bd434e5489eb40e386b60cf045c9/7237d/logo-black.png 600w,/reponame/static/c019bd434e5489eb40e386b60cf045c9/02c57/logo-black.png 1200w,/reponame/static/c019bd434e5489eb40e386b60cf045c9/78e61/logo-black.png 2400w" alt="cloudqubes logo"/></picture></noscript><script type="module">const t="undefined"!=typeof HTMLImageElement&&"loading"in HTMLImageElement.prototype;if(t){const t=document.querySelectorAll("img[data-main-image]");for(let e of t){e.dataset.src&&(e.setAttribute("src",e.dataset.src),e.removeAttribute("data-src")),e.dataset.srcset&&(e.setAttribute("srcset",e.dataset.srcset),e.removeAttribute("data-srcset"));const t=e.parentNode.querySelectorAll("source[data-srcset]");for(let e of t)e.setAttribute("srcset",e.dataset.srcset),e.removeAttribute("data-srcset");e.complete&&(e.style.opacity=1,e.parentNode.parentNode.querySelector("[data-placeholder-image]").style.opacity=0)}}</script></div></a></div></div></div></footer></div></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script async="" src="YOUR_SELF_HOSTED_ORIGIN/gtag/js?id=GA-TRACKING_ID"></script><script>
+      window.excludeGtagPaths=[/^(?:\/preview\/(?:(?!(?:\/|^)\.).)*?)$/,/^(?:\/do\-not\-track\/me\/too\/)$/];
+      function gaOptout(){document.cookie=disableStr+'=true; expires=Thu, 31 Dec 2099 23:59:59 UTC;path=/',window[disableStr]=!0}var gaProperty='GA-TRACKING_ID',disableStr='ga-disable-'+gaProperty;document.cookie.indexOf(disableStr+'=true')>-1&&(window[disableStr]=!0);
+      if(!(navigator.doNotTrack == "1" || window.doNotTrack == "1")) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'GA-TRACKING_ID', {"optimize_id":"OPT_CONTAINER_ID","anonymize_ip":true,"cookie_expires":0,"send_page_view":false});gtag('config', 'AW-CONVERSION_ID', {"optimize_id":"OPT_CONTAINER_ID","anonymize_ip":true,"cookie_expires":0,"send_page_view":false});gtag('config', 'DC-FLOODIGHT_ID', {"optimize_id":"OPT_CONTAINER_ID","anonymize_ip":true,"cookie_expires":0,"send_page_view":false});
+      }
+      </script><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/blog/how-to-choose-the-best-database/";/*]]>*/</script><!-- slice-start id="_gatsby-scripts-1" -->
+          <script
+            id="gatsby-chunk-mapping"
+          >
+            window.___chunkMapping="{\"app\":[\"/app-99df59895fe43cd139fd.js\"],\"component---src-pages-404-js\":[\"/component---src-pages-404-js-e0852996b6bca8f74aa4.js\"],\"component---src-pages-about-js\":[\"/component---src-pages-about-js-9c7435f04178a6da9c8d.js\"],\"component---src-pages-blog-index-js\":[\"/component---src-pages-blog-index-js-b8b3dc705cca64c2932e.js\"],\"component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-ansible-for-verifying-configurations-index-mdx\":[\"/component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-ansible-for-verifying-configurations-index-mdx-afe6398166433d3038cb.js\"],\"component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-docker-cli-quick-reference-index-mdx\":[\"/component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-docker-cli-quick-reference-index-mdx-c994075bab761847891f.js\"],\"component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-how-to-choose-the-best-database-index-mdx\":[\"/component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-how-to-choose-the-best-database-index-mdx-cf60e62701df65bb1bf7.js\"],\"component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-how-to-extend-root-disk-ubuntu-index-mdx\":[\"/component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-how-to-extend-root-disk-ubuntu-index-mdx-f6c4ac73f54cbde106d5.js\"],\"component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-how-to-set-up-private-git-server-index-mdx\":[\"/component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-how-to-set-up-private-git-server-index-mdx-188e8075cc83e739a35d.js\"],\"component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-how-to-use-ingress-index-mdx\":[\"/component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-how-to-use-ingress-index-mdx-084bec8f68795acd706b.js\"],\"component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-ingress-vs-ingress-controller-index-mdx\":[\"/component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-ingress-vs-ingress-controller-index-mdx-6736286014ae3db7976a.js\"],\"component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-introduction-to-kubernetes-index-mdx\":[\"/component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-introduction-to-kubernetes-index-mdx-efb76b76e6a376ab8ca1.js\"],\"component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-introduction-to-networking-in-aws-index-mdx\":[\"/component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-introduction-to-networking-in-aws-index-mdx-9895191b0eac61ffa9cf.js\"],\"component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-managing-multiple-github-accounts-index-mdx\":[\"/component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-managing-multiple-github-accounts-index-mdx-b909daa96e6293791344.js\"],\"component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-private-container-registry-with-harbor-index-mdx\":[\"/component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-private-container-registry-with-harbor-index-mdx-49f67c5889dd97fa1b2b.js\"],\"component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-running-applications-on-kubernetes-index-mdx\":[\"/component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-running-applications-on-kubernetes-index-mdx-ebb2699c9ab094dd4296.js\"],\"component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-what-is-a-kubernetes-service-index-mdx\":[\"/component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-what-is-a-kubernetes-service-index-mdx-d141ab8106acd861861d.js\"],\"component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-pages-contat-mdx\":[\"/component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-pages-contat-mdx-9326d65683be0f96cc1c.js\"],\"component---src-pages-contact-js\":[\"/component---src-pages-contact-js-02427b5b2070026b4355.js\"],\"component---src-pages-index-js\":[\"/component---src-pages-index-js-c30b3eac07dce0bf40ec.js\"],\"component---src-templates-tag-js\":[\"/component---src-templates-tag-js-5cc1516838474c58ac19.js\"]}";
+          </script>
+        <script>window.___webpackCompilationHash="02a25c0e28664a0ffa30";</script><script src="/reponame/webpack-runtime-7629d094d2c25b368a50.js" async></script><script src="/reponame/framework-9e8f4a38befa1ae8eeac.js" async></script><script src="/reponame/app-99df59895fe43cd139fd.js" async></script><!-- slice-end id="_gatsby-scripts-1" --></body></html>

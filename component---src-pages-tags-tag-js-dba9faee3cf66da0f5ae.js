@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkcloudqubes=self.webpackChunkcloudqubes||[]).push([[996],{5942:function(e,l,n){n.r(l);var t=n(7294),u=n(7955);l.default=function(e){let{data:l}=e;return t.createElement("div",null,t.createElement("div",null,l.allMdx.nodes.map((e=>t.createElement(u.Z,{node:e})))))}}}]);
+//# sourceMappingURL=component---src-pages-tags-tag-js-dba9faee3cf66da0f5ae.js.map

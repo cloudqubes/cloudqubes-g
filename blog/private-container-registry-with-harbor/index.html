@@ -1,0 +1,409 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><meta name="generator" content="Gatsby 5.11.0"/><meta name="theme-color" content="#a2466c"/><meta name="description" content="Harbor can store your container images inside your data center. It&#x27;s secure and quick even for 10GB+ images." data-gatsby-head="true"/><meta name="image" content="https://www.cloudqubes.com/logo_v1.png" data-gatsby-head="true"/><meta name="twitter:card" content="summary_large_image" data-gatsby-head="true"/><meta name="twitter:title" content="How to set up a private container registry with Harbor" data-gatsby-head="true"/><meta name="twitter:url" content="https://www.cloudqubes.com" data-gatsby-head="true"/><meta name="twitter:description" content="Harbor can store your container images inside your data center. It&#x27;s secure and quick even for 10GB+ images." data-gatsby-head="true"/><meta name="twitter:image" content="https://www.cloudqubes.com/logo_v1.png" data-gatsby-head="true"/><meta name="twitter:creator" content="@cloudqubes" data-gatsby-head="true"/><style data-href="/reponame/styles.ec9c685795f25abce049.css" data-identity="gatsby-global-css">.layout-module--main-header--0975f{border-bottom:2px solid #c21057aa;box-shadow:0 4px 4px -4px #c21057;display:flex;justify-content:center;margin-bottom:1rem;width:100%}.layout-module--inner-container--df4cb{display:flex;width:100%}@media only screen and (min-width:1200px){.layout-module--inner-container--df4cb{display:flex;width:90%}}.layout-module--logo-container--6ca7c{align-items:center;display:flex;flex-grow:1}.layout-module--logo--ff776{width:4rem}.layout-module--logo-text--e7423{color:#c21057;font-family:Titillium Web,sans-serif;font-size:38px;font-weight:400}.layout-module--nav-container--96fe9{display:flex;flex-grow:2;justify-content:space-around}.layout-module--nav-item-list--aaad3{display:flex;justify-content:space-around;list-style:none;width:100%}.layout-module--nav-item--3670c{display:inline-flex;font-size:1rem}.layout-module--footer--ad7d0{background-color:#c21057;display:flex;justify-content:center;padding-bottom:1rem;width:100%}.layout-module--footerCard--8fc61{flex-basis:50%;padding-bottom:1rem;padding-top:1rem}.layout-module--footerLogoContainer--67598{align-items:flex-end;display:flex;flex-basis:50%;justify-content:left;padding-bottom:1rem}.layout-module--footerLogo--cd38c{background-color:#fff;border-radius:2rem;width:4rem}.layout-module--footerLogoText--58444{color:#fff}.layout-module--footerAbout--6e9dd{color:#fff;padding-left:4rem}.layout-module--socialMediaIcons--19ec3{display:flex;justify-content:center}.layout-module--socialMediaLogo--1fd87{width:1.4rem}.layout-module--socialMediaLink--69be6{background-color:#fff;border-radius:2rem;margin-right:1rem;padding:.5rem}.layout-module--socialMediaLink--69be6:hover{background-color:#d4749bca}p{font-family:Titillium Web,sans-serif}h1,h2,h3,h4{font-weight:400;margin:0;padding:0}a,h1,h2,h3,h4{font-family:Raleway,sans-serif}a{text-decoration:none}body,ul{padding:0}body{margin:0;overflow-x:hidden;width:100%}.about-module--container--41d1b{display:flex;justify-content:center;width:100%}.about-module--inside-container--37fc5{width:100%}@media only screen and (min-width:1200px){.about-module--inside-container--37fc5{width:80%}}.blog-article-module--blog-article-item--77f8c{border-bottom:1px solid #8c8c8c;flex-basis:30%;margin-bottom:.2rem;padding-bottom:1rem}.blog-article-module--title--f5c09{color:#4d4d4d}.blog-article-module--title--f5c09:hover{color:#c21057}.blog-article-module--tag-link--30024{background-color:#f5f8ff;color:#546e7a;font-family:Raleway,sans-serif;font-size:1rem;margin-right:.2rem;padding:.1rem}.blog-article-module--tag-link--30024:hover{background-color:#e7edfd;text-decoration:none}.blog-article-module--post-meta--c0506{color:#8c8c8c;font-family:Titillium Web,sans-serif;font-size:.95rem}.index-module--container--efc35{display:flex;justify-content:center;width:100%}.index-module--inside-container--eedb3{width:100%}@media only screen and (min-width:1200px){.index-module--inside-container--eedb3{width:80%}}.index-module--blogArticleList--14500{display:flex;flex-wrap:wrap;justify-content:space-between}.article-module--outerContainer--119e3{display:flex;justify-content:center;width:100%}.article-module--container--2d8cc{width:100%}@media only screen and (min-width:1200px){.article-module--container--2d8cc{width:75%}}.article-module--title--f5d32{color:#c21057;font-family:Titillium Web,sans-serif;font-size:2.8rem}.article-module--post-meta--34964{color:#8c8c8c;font-family:Titillium Web,sans-serif;font-size:.95rem}li,p{margin-top:0;padding-top:0}.header-highlight,li,p{color:#2a2a2a;font-family:Titillium Web,sans-serif}.header-highlight{border-bottom:1px solid #2a2a2a;font-size:1.6rem;font-weight:400;margin-bottom:1rem}h1{color:#c21057;font-family:Titillium Web,sans-serif;font-size:26px;font-weight:400}h2{font-size:20px;padding-top:.5rem}h2,h3,h4,h5{color:#2a2a2a;font-family:Titillium Web,sans-serif;font-weight:600}h3,h4,h5{font-size:18px}.index-module--container--f8c32{display:flex;justify-content:center;width:100%}.index-module--newsletterOuterContainer--58d51{background-color:#c5cae9;display:flex;justify-content:center;padding-top:1rem;width:100%}.index-module--substackStyle--11694{background-color:#c5cae9}.index-module--inside-container--01d46{width:100%}@media only screen and (min-width:1200px){.index-module--inside-container--01d46{width:80%}}.index-module--newsletterContainer--437d4{align-items:center;display:flex;justify-content:space-around;width:100%}.index-module--blog-article-list--927c6{display:flex;flex-wrap:wrap;justify-content:space-between}.index-module--section-title--34611{padding-bottom:.8rem;padding-top:1.8rem}.tag-module--container--c379b{display:flex;justify-content:center;width:100%}.tag-module--inside-container--b0e69{width:100%}@media only screen and (min-width:1200px){.tag-module--inside-container--b0e69{width:80%}}.tag-module--blogArticleList--45e04{display:flex;flex-wrap:wrap;justify-content:space-between}.tag-module--title--fab01{color:#2a2a2a;font-family:Titillium Web,sans-serif;font-size:20px;font-weight:600;padding-bottom:.5rem}</style><link rel="preconnect" href="YOUR_SELF_HOSTED_ORIGIN"/><link rel="dns-prefetch" href="YOUR_SELF_HOSTED_ORIGIN"/><style>.gatsby-image-wrapper{position:relative;overflow:hidden}.gatsby-image-wrapper picture.object-fit-polyfill{position:static!important}.gatsby-image-wrapper img{bottom:0;height:100%;left:0;margin:0;max-width:none;padding:0;position:absolute;right:0;top:0;width:100%;object-fit:cover}.gatsby-image-wrapper [data-main-image]{opacity:0;transform:translateZ(0);transition:opacity .25s linear;will-change:opacity}.gatsby-image-wrapper-constrained{display:inline-block;vertical-align:top}</style><noscript><style>.gatsby-image-wrapper noscript [data-main-image]{opacity:1!important}.gatsby-image-wrapper [data-placeholder-image]{opacity:0!important}</style></noscript><script type="module">const e="undefined"!=typeof HTMLImageElement&&"loading"in HTMLImageElement.prototype;e&&document.body.addEventListener("load",(function(e){const t=e.target;if(void 0===t.dataset.mainImage)return;if(void 0===t.dataset.gatsbyImageSsr)return;let a=null,n=t;for(;null===a&&n;)void 0!==n.parentNode.dataset.gatsbyImageWrapper&&(a=n.parentNode),n=n.parentNode;const o=a.querySelector("[data-placeholder-image]"),r=new Image;r.src=t.currentSrc,r.decode().catch((()=>{})).then((()=>{t.style.opacity=1,o&&(o.style.opacity=0,o.style.transition="opacity 500ms linear")}))}),!0);</script><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="true"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="true"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;0,700;1,400&amp;family=Titillium+Web:ital,wght@0,400;0,600;0,700;1,400&amp;display=swap"/><link rel="icon" href="/reponame/favicon-32x32.png?v=c7817e006b3b3fde36d3536130dbde94" type="image/png"/><link rel="manifest" href="/reponame/manifest.webmanifest" crossorigin="anonymous"/><link rel="apple-touch-icon" sizes="192x192" href="/reponame/favicons/android-chrome-192x192.png?v=c7817e006b3b3fde36d3536130dbde94"/><link rel="apple-touch-icon" sizes="512x512" href="/reponame/favicons/android-chrome-512x512.png?v=c7817e006b3b3fde36d3536130dbde94"/><title data-gatsby-head="true">How to set up a private container registry with Harbor</title><link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; viewBox=&#x27;0 0 100 100&#x27;&gt;&lt;text y=&#x27;0.9em&#x27; font-size=&#x27;90&#x27;&gt;👤&lt;/text&gt;&lt;/svg&gt;" data-gatsby-head="true"/></head><body><div id="___gatsby"><div style="outline:none" tabindex="-1" id="gatsby-focus-wrapper"><div><header class="layout-module--main-header--0975f"><div class="layout-module--inner-container--df4cb"><div class="layout-module--logo-container--6ca7c"><a href="/reponame/"><div data-gatsby-image-wrapper="" class="gatsby-image-wrapper gatsby-image-wrapper-constrained layout-module--logo--ff776"><div style="max-width:400px;display:block"><img alt="" role="presentation" aria-hidden="true" src="data:image/svg+xml;charset=utf-8,%3Csvg%20height=&#x27;400&#x27;%20width=&#x27;400&#x27;%20xmlns=&#x27;http://www.w3.org/2000/svg&#x27;%20version=&#x27;1.1&#x27;%3E%3C/svg%3E" style="max-width:100%;display:block;position:static"/></div><div aria-hidden="true" data-placeholder-image="" style="opacity:1;transition:opacity 500ms linear;background-color:#080808;position:absolute;top:0;left:0;bottom:0;right:0"></div><picture><source type="image/webp" data-srcset="/reponame/static/c7817e006b3b3fde36d3536130dbde94/d8057/logo_v1.webp 100w,/reponame/static/c7817e006b3b3fde36d3536130dbde94/2e34e/logo_v1.webp 200w,/reponame/static/c7817e006b3b3fde36d3536130dbde94/416c3/logo_v1.webp 400w" sizes="(min-width: 400px) 400px, 100vw"/><img data-gatsby-image-ssr="" data-main-image="" style="opacity:0" sizes="(min-width: 400px) 400px, 100vw" decoding="async" loading="lazy" data-src="/reponame/static/c7817e006b3b3fde36d3536130dbde94/d6138/logo_v1.png" data-srcset="/reponame/static/c7817e006b3b3fde36d3536130dbde94/15e42/logo_v1.png 100w,/reponame/static/c7817e006b3b3fde36d3536130dbde94/5aead/logo_v1.png 200w,/reponame/static/c7817e006b3b3fde36d3536130dbde94/d6138/logo_v1.png 400w" alt="cloudqubes logo"/></picture><noscript><picture><source type="image/webp" srcSet="/reponame/static/c7817e006b3b3fde36d3536130dbde94/d8057/logo_v1.webp 100w,/reponame/static/c7817e006b3b3fde36d3536130dbde94/2e34e/logo_v1.webp 200w,/reponame/static/c7817e006b3b3fde36d3536130dbde94/416c3/logo_v1.webp 400w" sizes="(min-width: 400px) 400px, 100vw"/><img data-gatsby-image-ssr="" data-main-image="" style="opacity:0" sizes="(min-width: 400px) 400px, 100vw" decoding="async" loading="lazy" src="/reponame/static/c7817e006b3b3fde36d3536130dbde94/d6138/logo_v1.png" srcSet="/reponame/static/c7817e006b3b3fde36d3536130dbde94/15e42/logo_v1.png 100w,/reponame/static/c7817e006b3b3fde36d3536130dbde94/5aead/logo_v1.png 200w,/reponame/static/c7817e006b3b3fde36d3536130dbde94/d6138/logo_v1.png 400w" alt="cloudqubes logo"/></picture></noscript><script type="module">const t="undefined"!=typeof HTMLImageElement&&"loading"in HTMLImageElement.prototype;if(t){const t=document.querySelectorAll("img[data-main-image]");for(let e of t){e.dataset.src&&(e.setAttribute("src",e.dataset.src),e.removeAttribute("data-src")),e.dataset.srcset&&(e.setAttribute("srcset",e.dataset.srcset),e.removeAttribute("data-srcset"));const t=e.parentNode.querySelectorAll("source[data-srcset]");for(let e of t)e.setAttribute("srcset",e.dataset.srcset),e.removeAttribute("data-srcset");e.complete&&(e.style.opacity=1,e.parentNode.parentNode.querySelector("[data-placeholder-image]").style.opacity=0)}}</script></div></a><a href="/reponame/"><h1 class="layout-module--logo-text--e7423">cloudqubes</h1></a></div><nav class="layout-module--nav-container--96fe9"><ul class="layout-module--nav-item-list--aaad3"><li class="layout-module--nav-item--3670c"><a href="/reponame/about/">About</a></li><li class="layout-module--nav-item--3670c"><a href="/reponame/blog/">Blog</a></li><li class="layout-module--nav-item--3670c"><a href="/reponame/contact/">Contact</a></li><li class="layout-module--nav-item--3670c"><a href="https://cloudqubes.substack.com/">Newsletter</a></li></ul></nav></div></header><main><div class="article-module--outerContainer--119e3"><article class="article-module--container--2d8cc"><div><span class="article-module--post-meta--34964">August 6, 2023<!-- --> - </span><span class="article-module--post-meta--34964">10 min read</span></div><h1 class="article-module--title--f5d32">How to set up a private container registry with Harbor</h1><div class="header-highlight"><p>A private container registry stores your container images within the premises of your data center. It&#x27;s secure and quick even for 10GB+ images.</p></div>
+<p><a href="https://goharbor.io/">Harbor</a> is an open-source registry for cloud-native platforms.</p>
+<p>You can set up a fully-fledged private container registry with <a href="https://goharbor.io/">Harbor</a>.</p>
+<p>A container registry is an essential part of your CI/CD pipeline.</p>
+<p>When deploying a Workload, the Kubernetes control plane schedules Pods into nodes in the cluster. Then, each node pulls the required container images from a container registry as specified by the Workload manifest.</p>
+<p><a href="https://hub.docker.com/">DockerHub</a> is a well-known container registry available as a service via the Internet. While a container registry as-a-service is convenient, there are certain use cases for a private container registry.</p>
+<h2>Why use a private container registry</h2>
+<ul>
+<li>
+<p>Security policies in some organizations mandate that container images must be stored within the boundaries of the organization.</p>
+</li>
+<li>
+<p>Pulling large container images (10GB+) from the Internet could be time-consuming and inefficient.</p>
+</li>
+<li>
+<p>Allowing a production Kubernetes cluster to access a container registry on the Internet is a security threat.</p>
+</li>
+</ul>
+<p>A private container registry inside your data center is the best solution for these problems.</p>
+<h2>Networking requirements for a private container registry</h2>
+<p>You can deploy a private container registry with Harbor in either an on-premise data center or a VPC in a public cloud.</p>
+<p>To pull the container images, Harbor must be accessible via HTTPS to all nodes in your Kubernetes clusters. You may have to configure routing and firewall rules in your data center to allow access to Harbor from the nodes.</p>
+<p>If a particular node cannot access Harbor, the Pods scheduled in that node will fail to start.</p>
+<h1>What we are going to build</h1>
+<p>We are going to install Harbor on an Ubuntu 18.04 host. Then, we will build the <a href="https://github.com/cloudqubes/number-crunch">number-crunch</a> application on the development workstation, push the images to Harbor, and create a Kubernetes Deployment.</p>
+<p><span><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 1105px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/reponame/static/ba77bdab54c4352ade58f7c61d4515c3/23725/harbor-setup.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 45.666666666666664%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAJCAYAAAAywQxIAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABf0lEQVR42nWSwU7jMBCGeWGeAHHjPfbAlSNHOO1lV1rgQClILCxb2qSO49RJHNuxHf+MUyK1oow09oxlf/PPyEfDMCDGCNV1sNaOcfLJnPNYlRVWrMRiXaDVZjxP76a3k6f8aEoEyyCrcoyNMdBaI9IFN0S0qsXT84x2DeMI4gOwU3SyTyAFwSN/+I3idQ4fBkgpwYoCPSnWLuBnrvDjzy2uco2MK5gFg+E1vLZbUtwDbrN/L3+xzjN476lNN7aaFJoQcfZocDrrcHynMJd+JHgqFKn4F4VpmZIEb9sWvCzBGB/b3ioYEJxFsNQyzdqHgEO2B5wszc+7niCO1G6V1qqDI+VlJfG+XEEIAWN79NRJ2IEfBFrT4Wb2HxfXb1hmBbhssBI1yk2N9aYBbxQK2jMhsSbXuvsemMYZg8HlL4mT8xqz1xrVpkL2zghSI884WM4JVoMtGXIm0B0C7v4l11sUosX9S4NOKVSkkHGJpiVlSSm5JJXpTJBSSyPa/YcfBxm25koYy/IAAAAASUVORK5CYII='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="Harbor registry and K8s cluster"
+        title=""
+        src="/reponame/static/ba77bdab54c4352ade58f7c61d4515c3/23725/harbor-setup.png"
+        srcset="/reponame/static/ba77bdab54c4352ade58f7c61d4515c3/5a46d/harbor-setup.png 300w,
+/reponame/static/ba77bdab54c4352ade58f7c61d4515c3/0a47e/harbor-setup.png 600w,
+/reponame/static/ba77bdab54c4352ade58f7c61d4515c3/23725/harbor-setup.png 1105w"
+        sizes="(max-width: 1105px) 100vw, 1105px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+  </a>
+    </span></span>
+<em>Harbor registry and K8s cluster</em></p>
+<p>Harbor is a containerized application and can be installed either on Docker or Kubernetes. Let&#x27;s use Docker for this setup.</p>
+<p>To keep things simple we will not implement high availability here. But, you must definitely consider high availability in a production setup.</p>
+<p>Here are the steps we have to go through.</p>
+<ol>
+<li>Prerequisites</li>
+<li>Create SSL certificates</li>
+<li>Install Harbor</li>
+<li>Create a project in Harbor</li>
+<li>Push images to Harbor</li>
+<li>Create Kubernetes Deployment</li>
+</ol>
+<p>Let&#x27;s get started.</p>
+<h1>#1 Prerequisites</h1>
+<h2>Set up networking</h2>
+<p>Make sure all nodes in your Kubernetes cluster can reach the Harbor host via HTTPS by configuring routing and firewall rules.</p>
+<h2>Install Docker</h2>
+<p>Install Docker and Docker Compose on Harbor host.</p>
+<pre><code class="language-shell">sudo apt update
+sudo apt install docker
+sudo apt install docker-compose
+</code></pre>
+<p>Install <a href="https://www.docker.com/products/docker-desktop/">Docker Desktop</a> on the Developer Workstation for building container images.</p>
+<h2>Configure DNS</h2>
+<p>We use <code>registry.cloudqubes.com</code> as the FQDN of Harbor. The developer workstation as well as the Kubernetes nodes must resolve this FQDN to the IP address of the Harbor host.</p>
+<p>So, configure <code>registry.cloudqubes.com</code> in your local DNS server.</p>
+<p>If you do not have a local DNS server, you can configure the <code>hosts</code> file in the developer workstation and in each node of the cluster to resolve <code>registry.cloudqubes.com</code> to the Harbor host IP address.</p>
+<h1>#2 Create SSL certificates</h1>
+<p>We need an SSL certificate to enable HTTPS access to Harbor.</p>
+<p>We can either get a signed certificate from a CA or create a self-signed certificate. Let&#x27;s use a self-signed certificate for this setup.</p>
+<p>We&#x27;ll use <code>registry.cloudqubes.com</code> as the FQDN of our Harbor host.</p>
+<p>You can create these certificates on any Linux host.</p>
+<p>Create the private key for the CA certificate.</p>
+<pre><code class="language-shell">openssl genrsa -out ca.key 4096
+</code></pre>
+<p>Create the CA certificate - valid for 10 years.
+If you continue to use this in production, make sure to renew it in 10 years from today.</p>
+<pre><code class="language-shell">openssl req -x509 -new -nodes -sha512 -days 3650 \
+ -subj &quot;/C=US/ST=Delaware/L=Lewes/O=CloudQubes/OU=IT/CN=registry.cloudqubes.com&quot; \
+ -key ca.key \
+ -out ca.crt
+</code></pre>
+<p>Create private key.</p>
+<pre><code class="language-shell">openssl genrsa -out registry.cloudqubes.com.key 4096
+</code></pre>
+<p>Create certificate signing request.</p>
+<pre><code class="language-shell">openssl req -sha512 -new \
+    -subj &quot;/C=CN/ST=Beijing/L=Beijing/O=example/OU=Personal/CN=registry.cloudqubes.com&quot; \
+    -key registry.cloudqubes.com.key \
+    -out registry.cloudqubes.com.csr
+</code></pre>
+<p>Create X509 v3 extension file.</p>
+<pre><code class="language-shell">cat &gt; v3.ext &lt;&lt;-EOF
+authorityKeyIdentifier=keyid,issuer
+basicConstraints=CA:FALSE
+keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+extendedKeyUsage = serverAuth
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1=registry.cloudqubes.com
+DNS.2=cloudqubes.com
+DNS.3=registry
+EOF
+</code></pre>
+<p>Create certificate for Harbor host.</p>
+<pre><code class="language-shell">openssl x509 -req -sha512 -days 3650 \
+    -extfile v3.ext \
+    -CA ca.crt -CAkey ca.key -CAcreateserial \
+    -in registry.cloudqubes.com.csr \
+    -out registry.cloudqubes.com.crt
+</code></pre>
+<h2>Copy the certificates to Harbor host</h2>
+<p>Copy the server certificate and key to the certificate folder in Harbor host.</p>
+<pre><code class="language-shell">sudo cp registry.cloudqubes.com.crt /data/cert/
+sudo cp registry.cloudqubes.com.key /data/cert/
+</code></pre>
+<p>Convert <code>registry.cloudqubes.com.crt</code> to <code>.cert</code> file.</p>
+<pre><code class="language-shell">openssl x509 -inform PEM -in registry.cloudqubes.com.crt -out registry.cloudqubes.com.cert
+</code></pre>
+<p>Copy the certificate file to Docker certificates folder.</p>
+<pre><code class="language-shell">cp registry.cloudqubes.com.cert /etc/docker/certs.d/registry.cloudqubes.com/
+cp registry.cloudqubes.com.key /etc/docker/certs.d/registry.cloudqubes.com/
+cp ca.crt /etc/docker/certs.d/registry.cloudqubes.com/
+</code></pre>
+<p>Restart Docker.</p>
+<pre><code class="language-shell">sudo systemctl restart docker
+</code></pre>
+<h2>Copy the CA certificate to all Kubernetes nodes</h2>
+<p>Since we are using a self-signed certificate in Harbor we need to <em>tell</em> each node in the Kubernetes cluster to trust it.
+Copy the CA certificate <code>ca.crt</code> from the Harbor host to all nodes in the Kubernetes cluster.</p>
+<p>Login to each node and run the following commands.</p>
+<pre><code class="language-shell">sudo cp ca.crt /usr/local/share/ca-certificates
+sudo update-ca-certificates
+sudo systemctl restart containerd.service
+</code></pre>
+<p>Remember to do the same for any new nodes you add to the cluster. If not, the Pods scheduled on the particular nodes will fail.</p>
+<h1>#3 Install Harbor</h1>
+<p>Harbor has two installation methods.</p>
+<ul>
+<li>
+<p><strong>Online installer</strong> downloads the Harbor container images from <a href="https://hub.docker.com/">DockerHub</a> during the installation. The Harbor host must have Internet access for this to work.</p>
+</li>
+<li>
+<p><strong>Offline installer</strong> bundles everything you need so we do not need to connect to the Internet while installing.</p>
+</li>
+</ul>
+<p>Download the offline installer to the development workstation from the <a href="https://github.com/goharbor/harbor/releases">Harbor releases</a> page and copy it to the Harbor host.</p>
+<p>Extract the installer.</p>
+<pre><code class="language-shell">tar xzvf harbor-offline-installer-v2.8.3.tgz 
+</code></pre>
+<p>The installer will be extracted to <code>harbor</code> directory in the current path.
+Go in and create <code>harbor.yml</code> by making a copy of <code>harbor.yml.tmpl</code>.</p>
+<pre><code class="language-shell">cd harbor
+cp harbor.yml.tmpl harbor.yml
+</code></pre>
+<p>The <code>harbor.yml</code> sets the initial parameters for the Harbor installation.</p>
+<p>Let&#x27;s update the <code>certificate</code> and <code>private_key</code> parameters to set the path to the certificate and key files we created.</p>
+<pre><code class="language-yaml"># https related config
+https:
+  # https port for harbor, default is 443
+  port: 443
+  # The path of cert and key files for nginx
+  certificate: /etc/docker/certs.d/registry.cloudqubes.com/registry.cloudqubes.com.cert
+  private_key: /etc/docker/certs.d/registry.cloudqubes.com/registry.cloudqubes.com.key
+
+</code></pre>
+<p>Run the installation script.</p>
+<pre><code class="language-shell">sudo ./install.sh 
+</code></pre>
+<p>Check the running containers.</p>
+<pre><code class="language-shell">sudo docker container ls
+</code></pre>
+<p>Make sure all containers are up and running.</p>
+<pre><code class="language-shell">CONTAINER ID   IMAGE                                COMMAND                  CREATED      STATUS                             PORTS                                                                            NAMES
+1f54cb0ae6d2   goharbor/nginx-photon:v2.8.3         &quot;nginx -g &#x27;daemon of…&quot;   4 days ago   Up 10 seconds (health: starting)   0.0.0.0:80-&gt;8080/tcp, :::80-&gt;8080/tcp, 0.0.0.0:443-&gt;8443/tcp, :::443-&gt;8443/tcp   nginx
+fa40611eb108   goharbor/harbor-jobservice:v2.8.3    &quot;/harbor/entrypoint.…&quot;   4 days ago   Restarting (2) 48 seconds ago                                                                                       harbor-jobservice
+f7bd16f4d374   goharbor/harbor-core:v2.8.3          &quot;/harbor/entrypoint.…&quot;   4 days ago   Up 33 seconds (healthy)                                                                                             harbor-core
+bc44f1a8f744   goharbor/harbor-registryctl:v2.8.3   &quot;/home/harbor/start.…&quot;   4 days ago   Up 10 seconds (health: starting)                                                                                    registryctl
+7657237ed9e7   goharbor/harbor-db:v2.8.3            &quot;/docker-entrypoint.…&quot;   4 days ago   Up 10 seconds (health: starting)                                                                                    harbor-db
+f2e8f5b6a88f   goharbor/harbor-portal:v2.8.3        &quot;nginx -g &#x27;daemon of…&quot;   4 days ago   Up 11 minutes (healthy)                                                                                             harbor-portal
+3ce34722713b   goharbor/registry-photon:v2.8.3      &quot;/home/harbor/entryp…&quot;   4 days ago   Up 10 seconds (health: starting)                                                                                    registry
+d0980474a980   goharbor/redis-photon:v2.8.3         &quot;redis-server /etc/r…&quot;   4 days ago   Up 11 minutes (healthy)                                                                                             redis
+303bd115d130   goharbor/harbor-log:v2.8.3           &quot;/bin/sh -c /usr/loc…&quot;   4 days ago   Up 11 minutes (healthy)            127.0.0.1:1514-&gt;10514/tcp                                                        harbor-log
+ubuntu@k8s1:~/harbor$ history
+</code></pre>
+<p>If you happen to restart Docker Service for some reason, all the containers belonging to Harbor may not start. In such situations go to the installation directory and use <code>docker-compose</code> to start the containers again.</p>
+<pre><code class="language-shell">sudo docker-compose up -d
+</code></pre>
+<h2>Login to Harbor web UI</h2>
+<p>Configure the <code>hosts</code> file in the development workstation to resolve <code>registry.cloudqubes.com</code> to the IP address of the Harbor host and go to <code>https://registry.cloudqubes.com</code> to log in to the Harbor UI.</p>
+<p>Harbor creates an <code>admin</code> account at the installation with the password set in the <code>harbor_admin_password</code> directive in <code>harbor.yml</code>. Login to Harbor UI with this password.</p>
+<h1>#4 Create a project in Harbor</h1>
+<p>On the Harbor web UI home page, click on <code>New Project</code>.</p>
+<p>Enter the name <code>number-crunch</code>, tick the checkbox <code>Public</code>, and click <code>OK</code> to create the project.</p>
+<p><span><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 1200px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/reponame/static/fa6fada09b38ddb8b232a5b0aed456f5/c3611/harbor-webui-projects.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 63%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAABYlAAAWJQFJUiTwAAACqklEQVR42p2Qz0/TYBjHe/AnMowpRPdD1q7t2q4d69qu29qu2wBdSHAad9LjjFG4GCMEzCqRABqDCWg8edCTclDvHvwfPHj14MGTMYQt4cJCH58WGOGIh0+e532f9/0+3+ch7lXnZ6ZGVxa+f/3R2vq15f79+cddbL51p2sv3AeTqwGPbqy5szcPeVhfc5ulFbdpLbl37OXWXef5QrO0NHM7PX+BuNVYbzfq6zA1/d578+4b+Dx+ugGzrQ8w536EuScbsLD8+ZBnX6C1+Aka11/Btdoq1Cdeeo36a5icWO3o5n2eiJcnN8n8Fe+EYO6cSZvdU1mje9Yods/lzW4f0osFq9tfsIO8D+vnrRLidEOmvdNv2t6gXdkkeZ0nZLvWlqyrwOVGPVrVga2kIeFIQNliQNwWgHFkEMc1EMfUIKedFCJhTcSz5FGOCFJZ61T1Kk/Q6VybVQpwiZO9mKiBoFWAkosQ5jSIJPUeYn4cWKzF0ybIZg0EYzzIRZyON8aAzlgdXkeHMT7TZjN5iKBgmFcgLGYhklIhmtIQdR8NGN0CWjUhnikAo1lAZYswnDaAzhY9znAgKmkdkuJ9wZE9h4zkRUUVKM2BuGJBTDYgJung30UFbILN/BiAdzFschlhUXBYzuFZ3ROMoiCDDsOs7PkP+OIYJLQSJLImJI0yUEoRhEI1iFzOCSKj2cDpTuA2VRz1kkYFRN3uRA4EfYfDYjYQ9MWorA0J/EijKIWfuFzJHw0Y1Qoihe/jaMKvC/kK7rAMnFrsOdxiM4HgblRQPBzpKNgosh+Poh7E3RiuICIo7d4OY4ISjOzvx9/NMfH2d703Mi1pvylJ275Ii+0wO9KJJJXjwSttZDucVH4PJkSOOD0wwJBkWAiFSD5E/h/9JCkMDA0xBEGc/Af7vn0+3CBYvgAAAABJRU5ErkJggg=='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="Harbor Web UI - Project list"
+        title=""
+        src="/reponame/static/fa6fada09b38ddb8b232a5b0aed456f5/c1b63/harbor-webui-projects.png"
+        srcset="/reponame/static/fa6fada09b38ddb8b232a5b0aed456f5/5a46d/harbor-webui-projects.png 300w,
+/reponame/static/fa6fada09b38ddb8b232a5b0aed456f5/0a47e/harbor-webui-projects.png 600w,
+/reponame/static/fa6fada09b38ddb8b232a5b0aed456f5/c1b63/harbor-webui-projects.png 1200w,
+/reponame/static/fa6fada09b38ddb8b232a5b0aed456f5/d61c2/harbor-webui-projects.png 1800w,
+/reponame/static/fa6fada09b38ddb8b232a5b0aed456f5/97a96/harbor-webui-projects.png 2400w,
+/reponame/static/fa6fada09b38ddb8b232a5b0aed456f5/c3611/harbor-webui-projects.png 2992w"
+        sizes="(max-width: 1200px) 100vw, 1200px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+  </a>
+    </span></span>
+<em>Harbor Web UI - Project list</em></p>
+<p>Click on the project name <code>number-crunch</code> to access the project details.</p>
+<p><span><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 1200px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/reponame/static/f5bd34043ed9021c5cf2ce29c131a0a3/c3611/harbor-web-ui-counter-app-repos.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 63%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAABYlAAAWJQFJUiTwAAACk0lEQVR42p2SzU/TYBjAmxiCX8xoRWXraNdudKXt1q3dB/3YGAaJgAQDFz0ZjFG4GCNRDHVEEIliAhoOntSDcjD8ASb8ER68evDAyRjClnBhoY/PW8YEb3j45X36Pk9/ed73eam7xanJ8Z758rev36e3fm66v3/8cp/deudO9L507/cv+jwcXjrEg6Eld8yad8e65tzb5vPpO/ZCecyam7ypTp2lbowsV0aGlmF84r238mEdVj6uw5PZVXj09BM8Lq/C1MxnKL9YazCzsAbu7BcYvf4Grl1dhKGB197o8FsY7H9VNYx7IsV2D27SuV7vmGTuNMtWrUm2a8dVJGnXTiSdOvZhEnYtoHfXzuil2imtsHNSK3jnjNImLRoipdh9Fdnqg1i25AmpLohnCyCmTehI54FPZIBTdJ9wXIOwtIdoWFjnQETNgJzv9sg/SsaumqYpUlwiUxG0PFyMKV5YNkBAmWDYIOgWcLhPYJM5YBQDGNWAsJKBqOGAbF32c6pzxZOdXohmnCqnYochKYnCHFxCISOlIJJESdqC9kQW2rGDfTiU7q8sdu7nsbY9kfNYjNviWpXmRBTGE5VoCjuMyh7TmYaobgIj6xDCOIxdEQGJyR6J/ZyURmkOuyoSqYdSsv9XyCfrHWKxoDvAp23EAl7Ho+PxIikTxHwJtJ4BP27kEPz2SD2bzO8Jg/UOw50pX8jhHXI4nIOQOxVzRejIFnF4BYgcqMHY4zHParmGcIsMBYW7QSnl4fGOBKtmdskdMnK60ugwhE+BTBmF/h39S6gOc2Bt5IgY12BnqhokQnxjG6yib1/gpUpbLFEN4rSOSAXZxilvnOelGNUcCAg03RZvaaHFFvr/OE3T8UBrq0BRVNMf/M19RHGbMw0AAAAASUVORK5CYII='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="number-crunch repositories"
+        title=""
+        src="/reponame/static/f5bd34043ed9021c5cf2ce29c131a0a3/c1b63/harbor-web-ui-counter-app-repos.png"
+        srcset="/reponame/static/f5bd34043ed9021c5cf2ce29c131a0a3/5a46d/harbor-web-ui-counter-app-repos.png 300w,
+/reponame/static/f5bd34043ed9021c5cf2ce29c131a0a3/0a47e/harbor-web-ui-counter-app-repos.png 600w,
+/reponame/static/f5bd34043ed9021c5cf2ce29c131a0a3/c1b63/harbor-web-ui-counter-app-repos.png 1200w,
+/reponame/static/f5bd34043ed9021c5cf2ce29c131a0a3/d61c2/harbor-web-ui-counter-app-repos.png 1800w,
+/reponame/static/f5bd34043ed9021c5cf2ce29c131a0a3/97a96/harbor-web-ui-counter-app-repos.png 2400w,
+/reponame/static/f5bd34043ed9021c5cf2ce29c131a0a3/c3611/harbor-web-ui-counter-app-repos.png 2992w"
+        sizes="(max-width: 1200px) 100vw, 1200px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+  </a>
+    </span></span>
+<em>number-crunch repositories</em></p>
+<p>There are no repositories, as we have not yet published any container images to this project.</p>
+<h1>#5 Push images to Harbor</h1>
+<p>In the developer workstation, clone the repository <a href="https://github.com/cloudqubes/number-crunch">number-crunch</a> and build container images.</p>
+<pre><code class="language-shell">git clone git@github.com:cloudqubes/number-crunch.git
+docker build -t registry.cloudqubes.com/number-crunch/number-crunch-app:1.0.0 .
+</code></pre>
+<p>Our image name is starting with <code>registry.cloudqubes.com</code>. This is the FQDN of the Harbor host. This name is required for Kubernetes to locate the container registry.</p>
+<p>Login to Harbor container registry from Docker CLI in the developer workstation.</p>
+<pre><code class="language-shell">sudo docker login -u admin registry.cloudqubes.com
+</code></pre>
+<p>When prompted, type in the password of the Harbor <code>admin</code> user. Since we have not changed it, the password is the same as we used to login to the Harbor UI.</p>
+<p>Push the image to Harbor.</p>
+<pre><code class="language-shell">sudo docker push registry.cloudqubes.com/number-crunch/number-crunch-app:1.0.0
+</code></pre>
+<h1>#6 Create Kubernetes Deployment</h1>
+<p>Create a Kubernetes secret to store Harbor login information.</p>
+<pre><code class="language-shell">kubectl create secret docker-registry harbor-registry-secret --docker-server=&quot;https://registry.cloudqubes.com&quot; --docker-username=&quot;admin&quot; --docker-password=&quot;Harbor12345&quot;
+</code></pre>
+<p>Create the manifest <code>number-crunch.yml</code>.</p>
+<pre><code class="language-yaml">apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: number-crunch-app
+spec:
+  selector:
+    matchLabels:
+      app: number-crunch
+  replicas: 2 
+  template:
+    metadata:
+      labels:
+        app: number-crunch
+    spec:
+      containers:
+      - name: number-crunch
+        image: registry.cloudqubes.com/number-crunch/number-crunch-app:1.0.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+      imagePullSecrets:
+      - name: harbor-registry
+
+</code></pre>
+<p>Note the image name starting with <code>registry.cloudqubes.com</code> which is the FQDN of our container registry.</p>
+<p>Use <code>kubectl</code> to create the Deployment.</p>
+<pre><code class="language-shell">kubectl apply -f number-crunch.yml
+</code></pre>
+<p>Check whether all Pods are running.</p>
+<pre><code class="language-shell">kubectl get pods
+</code></pre>
+<pre><code class="language-shell">NAME                                READY   STATUS    RESTARTS       AGE
+number-crunch-app-5dc7b48bb-4pw7r   1/1     Running   0              118m
+number-crunch-app-5dc7b48bb-85xql   1/1     Running   0              118m
+</code></pre>
+<p>If any node cannot pull images from Harbor, the Pods scheduled on that node will fail to start. You can use <code>kubectl describe pod</code> to check the reason for failure.</p>
+<pre><code class="language-shell">kubectl describe pod &lt;pod-name&gt;
+</code></pre>
+<p>If any Pod fails to start, one of these are likely to be the reason.</p>
+<ul>
+<li>
+<p>No IP network connectivity from the node to Harbor host.</p>
+</li>
+<li>
+<p>The node fails to resolve the Harbor DNS name to IP address.</p>
+</li>
+<li>
+<p>A firewall is blocking HTTPS port from the node to Harbor host.</p>
+</li>
+<li>
+<p>SSL certificates are not properly configured either on Harbor host or the node.</p>
+</li>
+</ul>
+<p>Troubleshooting along these points will lead you to a solution.</p>
+<p>Harbor shows you the number of pulls for each image. This is also useful to ascertain whether Kubernetes can successfully pull images from this registry.</p>
+<p><span><span
+      class="gatsby-resp-image-wrapper"
+      style="position: relative; display: block; margin-left: auto; margin-right: auto; max-width: 1200px; "
+    >
+      <a
+    class="gatsby-resp-image-link"
+    href="/reponame/static/30adc3e62b5962b09c4a802153f50c04/c3611/harbor-image-pulls.png"
+    style="display: block"
+    target="_blank"
+    rel="noopener"
+  >
+    <span
+    class="gatsby-resp-image-background-image"
+    style="padding-bottom: 63%; position: relative; bottom: 0; left: 0; background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAANCAYAAACpUE5eAAAACXBIWXMAABYlAAAWJQFJUiTwAAACiklEQVR42p2Sz08TURDHNzEEDbaGrCi023bbbdndbru/ulv6YwulSkhQCBEvejIYo+DBGIliWGuQgAGiEvXgSU6YmGC8avwrjFcOHjgYD4Q24ULDG+dtEUlMTPDwybzMzPu+78wuc7NvemqiMl/9+unbzPb3Lffnxg939tobd3Jg0b0ztOzeHXnm3ht98ReT5xbd8fyce91ZmLnR+7Q6XpybupqebmeujK3UxkZWYGJylbxe/QKvVj/Dw9l3cP/RGjyorsHMk/fweOEDVBfWm8yvw9zSR5i4/RYuDC7D6PBzcvnSSxgeWqoXrFsiEylf3GJ7BsgxubDbqhQbLYrTaE07jeOq0zihlRB6Lnrx95lyyqo0/Ga50aaXdtv0XtJu92/5REtkUs5gTSkOQtzuJ4KRBzFbAtHMQ7eZA0G1gU9lPEKSDpykgaDnQMmVIapmQbIdUIsVEjcLkLRL9bRVEBletWu06WwiRUIpCwQsCpYDQqYIPOZ5LQcRrQe4lA2cYkEU64pz3otyvh/MyhBJOgO0vx4Q0yITlDUU7IFOFORkA6J4mTeKEEYH4bSNNCOPeRojmKcP00dCKiVLaK5T0uosL6KgpNbiBjqMK4RLmhBHdyG8yOElSlDJeGJUJIh1+gCHOVpLZMsQyzgkjMIxLftHMKbtO0xmsKEEUau3idkcO4q75fX8oXPOo9vGfWf7SAzHlyynKRjYdxhWDBLAkamLYNI4hPlP0K23+6BsHAhu048SShp7KEiw6YgYe0GcDO/WDhwGZd37ytSht5+jQbjmfpsO8R/bjKQyO2dicq0rodYDkn5UashOl6Rvno7JCabV7xdYtkvy+VjRx/4fJ1lW8nd0CAzDtPwClWh8KASqQ/gAAAAASUVORK5CYII='); background-size: cover; display: block;"
+  ></span>
+  <img
+        class="gatsby-resp-image-image"
+        alt="Number of pulls for a repository in Harbor project"
+        title=""
+        src="/reponame/static/30adc3e62b5962b09c4a802153f50c04/c1b63/harbor-image-pulls.png"
+        srcset="/reponame/static/30adc3e62b5962b09c4a802153f50c04/5a46d/harbor-image-pulls.png 300w,
+/reponame/static/30adc3e62b5962b09c4a802153f50c04/0a47e/harbor-image-pulls.png 600w,
+/reponame/static/30adc3e62b5962b09c4a802153f50c04/c1b63/harbor-image-pulls.png 1200w,
+/reponame/static/30adc3e62b5962b09c4a802153f50c04/d61c2/harbor-image-pulls.png 1800w,
+/reponame/static/30adc3e62b5962b09c4a802153f50c04/97a96/harbor-image-pulls.png 2400w,
+/reponame/static/30adc3e62b5962b09c4a802153f50c04/c3611/harbor-image-pulls.png 2992w"
+        sizes="(max-width: 1200px) 100vw, 1200px"
+        style="width:100%;height:100%;margin:0;vertical-align:middle;position:absolute;top:0;left:0;"
+        loading="lazy"
+        decoding="async"
+      />
+  </a>
+    </span></span>
+<em>Number of Pulls</em></p>
+<h2>Wrapping up</h2>
+<p>If you have <a href="#why-use-a-private-container-registry">a good reason</a> for a private container registry, <a href="https://goharbor.io/">Harbor</a> is definitely for you.</p>
+<p>It&#x27;s a <a href="https://www.cncf.io/projects/harbor/">CNCF graduated</a>, open-source project. It&#x27;s easy to get started and includes all the features for a <a href="https://goharbor.io/docs/2.8.0/administration/">secure private registry</a>.</p>
+<p>So, give it a try in your VPC or data center.</p>
+<p>And let me know if something goes wrong while you are setting up Harbor.</p>
+<p>Post your problem in comments here or reach me via Twitter <a href="https://twitter.com/cloudqubes">@cloudqubes</a> for any help.</p></article></div></main><footer class="layout-module--footer--ad7d0"><div class="layout-module--inner-container--df4cb"><div class="layout-module--footerCard--8fc61"><div class="layout-module--footerLogoContainer--67598"><a href="/reponame/"><div data-gatsby-image-wrapper="" class="gatsby-image-wrapper gatsby-image-wrapper-constrained layout-module--footerLogo--cd38c"><div style="max-width:400px;display:block"><img alt="" role="presentation" aria-hidden="true" src="data:image/svg+xml;charset=utf-8,%3Csvg%20height=&#x27;400&#x27;%20width=&#x27;400&#x27;%20xmlns=&#x27;http://www.w3.org/2000/svg&#x27;%20version=&#x27;1.1&#x27;%3E%3C/svg%3E" style="max-width:100%;display:block;position:static"/></div><div aria-hidden="true" data-placeholder-image="" style="opacity:1;transition:opacity 500ms linear;background-color:#080808;position:absolute;top:0;left:0;bottom:0;right:0"></div><picture><source type="image/webp" data-srcset="/reponame/static/c7817e006b3b3fde36d3536130dbde94/d8057/logo_v1.webp 100w,/reponame/static/c7817e006b3b3fde36d3536130dbde94/2e34e/logo_v1.webp 200w,/reponame/static/c7817e006b3b3fde36d3536130dbde94/416c3/logo_v1.webp 400w" sizes="(min-width: 400px) 400px, 100vw"/><img data-gatsby-image-ssr="" data-main-image="" style="opacity:0" sizes="(min-width: 400px) 400px, 100vw" decoding="async" loading="lazy" data-src="/reponame/static/c7817e006b3b3fde36d3536130dbde94/d6138/logo_v1.png" data-srcset="/reponame/static/c7817e006b3b3fde36d3536130dbde94/15e42/logo_v1.png 100w,/reponame/static/c7817e006b3b3fde36d3536130dbde94/5aead/logo_v1.png 200w,/reponame/static/c7817e006b3b3fde36d3536130dbde94/d6138/logo_v1.png 400w" alt="cloudqubes logo"/></picture><noscript><picture><source type="image/webp" srcSet="/reponame/static/c7817e006b3b3fde36d3536130dbde94/d8057/logo_v1.webp 100w,/reponame/static/c7817e006b3b3fde36d3536130dbde94/2e34e/logo_v1.webp 200w,/reponame/static/c7817e006b3b3fde36d3536130dbde94/416c3/logo_v1.webp 400w" sizes="(min-width: 400px) 400px, 100vw"/><img data-gatsby-image-ssr="" data-main-image="" style="opacity:0" sizes="(min-width: 400px) 400px, 100vw" decoding="async" loading="lazy" src="/reponame/static/c7817e006b3b3fde36d3536130dbde94/d6138/logo_v1.png" srcSet="/reponame/static/c7817e006b3b3fde36d3536130dbde94/15e42/logo_v1.png 100w,/reponame/static/c7817e006b3b3fde36d3536130dbde94/5aead/logo_v1.png 200w,/reponame/static/c7817e006b3b3fde36d3536130dbde94/d6138/logo_v1.png 400w" alt="cloudqubes logo"/></picture></noscript><script type="module">const t="undefined"!=typeof HTMLImageElement&&"loading"in HTMLImageElement.prototype;if(t){const t=document.querySelectorAll("img[data-main-image]");for(let e of t){e.dataset.src&&(e.setAttribute("src",e.dataset.src),e.removeAttribute("data-src")),e.dataset.srcset&&(e.setAttribute("srcset",e.dataset.srcset),e.removeAttribute("data-srcset"));const t=e.parentNode.querySelectorAll("source[data-srcset]");for(let e of t)e.setAttribute("srcset",e.dataset.srcset),e.removeAttribute("data-srcset");e.complete&&(e.style.opacity=1,e.parentNode.parentNode.querySelector("[data-placeholder-image]").style.opacity=0)}}</script></div></a><a href="/reponame/"><h1 class="layout-module--footerLogoText--58444">cloudqubes</h1></a></div><div><a class="layout-module--footerAbout--6e9dd" href="/reponame/about/">About</a></div></div><div class="layout-module--footerCard--8fc61"><div class="layout-module--socialMediaIcons--19ec3"><a href="https://github.com/cloudqubes" class="layout-module--socialMediaLink--69be6"><div data-gatsby-image-wrapper="" class="gatsby-image-wrapper gatsby-image-wrapper-constrained layout-module--socialMediaLogo--1fd87"><div style="max-width:240px;display:block"><img alt="" role="presentation" aria-hidden="true" src="data:image/svg+xml;charset=utf-8,%3Csvg%20height=&#x27;240&#x27;%20width=&#x27;240&#x27;%20xmlns=&#x27;http://www.w3.org/2000/svg&#x27;%20version=&#x27;1.1&#x27;%3E%3C/svg%3E" style="max-width:100%;display:block;position:static"/></div><div aria-hidden="true" data-placeholder-image="" style="opacity:1;transition:opacity 500ms linear;background-color:#080808;position:absolute;top:0;left:0;bottom:0;right:0"></div><picture><source type="image/webp" data-srcset="/reponame/static/43ce87609eb221d09d4832a9c0e709d0/927d1/github-mark.webp 60w,/reponame/static/43ce87609eb221d09d4832a9c0e709d0/507b0/github-mark.webp 120w,/reponame/static/43ce87609eb221d09d4832a9c0e709d0/8d565/github-mark.webp 240w" sizes="(min-width: 240px) 240px, 100vw"/><img data-gatsby-image-ssr="" data-main-image="" style="opacity:0" sizes="(min-width: 240px) 240px, 100vw" decoding="async" loading="lazy" data-src="/reponame/static/43ce87609eb221d09d4832a9c0e709d0/87351/github-mark.png" data-srcset="/reponame/static/43ce87609eb221d09d4832a9c0e709d0/7ab40/github-mark.png 60w,/reponame/static/43ce87609eb221d09d4832a9c0e709d0/a8b52/github-mark.png 120w,/reponame/static/43ce87609eb221d09d4832a9c0e709d0/87351/github-mark.png 240w" alt="cloudqubes logo"/></picture><noscript><picture><source type="image/webp" srcSet="/reponame/static/43ce87609eb221d09d4832a9c0e709d0/927d1/github-mark.webp 60w,/reponame/static/43ce87609eb221d09d4832a9c0e709d0/507b0/github-mark.webp 120w,/reponame/static/43ce87609eb221d09d4832a9c0e709d0/8d565/github-mark.webp 240w" sizes="(min-width: 240px) 240px, 100vw"/><img data-gatsby-image-ssr="" data-main-image="" style="opacity:0" sizes="(min-width: 240px) 240px, 100vw" decoding="async" loading="lazy" src="/reponame/static/43ce87609eb221d09d4832a9c0e709d0/87351/github-mark.png" srcSet="/reponame/static/43ce87609eb221d09d4832a9c0e709d0/7ab40/github-mark.png 60w,/reponame/static/43ce87609eb221d09d4832a9c0e709d0/a8b52/github-mark.png 120w,/reponame/static/43ce87609eb221d09d4832a9c0e709d0/87351/github-mark.png 240w" alt="cloudqubes logo"/></picture></noscript><script type="module">const t="undefined"!=typeof HTMLImageElement&&"loading"in HTMLImageElement.prototype;if(t){const t=document.querySelectorAll("img[data-main-image]");for(let e of t){e.dataset.src&&(e.setAttribute("src",e.dataset.src),e.removeAttribute("data-src")),e.dataset.srcset&&(e.setAttribute("srcset",e.dataset.srcset),e.removeAttribute("data-srcset"));const t=e.parentNode.querySelectorAll("source[data-srcset]");for(let e of t)e.setAttribute("srcset",e.dataset.srcset),e.removeAttribute("data-srcset");e.complete&&(e.style.opacity=1,e.parentNode.parentNode.querySelector("[data-placeholder-image]").style.opacity=0)}}</script></div></a><a href="https://twitter.com/cloudqubes" class="layout-module--socialMediaLink--69be6"><div data-gatsby-image-wrapper="" class="gatsby-image-wrapper gatsby-image-wrapper-constrained layout-module--socialMediaLogo--1fd87"><div style="max-width:2400px;display:block"><img alt="" role="presentation" aria-hidden="true" src="data:image/svg+xml;charset=utf-8,%3Csvg%20height=&#x27;2453&#x27;%20width=&#x27;2400&#x27;%20xmlns=&#x27;http://www.w3.org/2000/svg&#x27;%20version=&#x27;1.1&#x27;%3E%3C/svg%3E" style="max-width:100%;display:block;position:static"/></div><div aria-hidden="true" data-placeholder-image="" style="opacity:1;transition:opacity 500ms linear;background-color:#080808;position:absolute;top:0;left:0;bottom:0;right:0"></div><picture><source type="image/webp" data-srcset="/reponame/static/c019bd434e5489eb40e386b60cf045c9/63168/logo-black.webp 600w,/reponame/static/c019bd434e5489eb40e386b60cf045c9/13b13/logo-black.webp 1200w,/reponame/static/c019bd434e5489eb40e386b60cf045c9/b4361/logo-black.webp 2400w" sizes="(min-width: 2400px) 2400px, 100vw"/><img data-gatsby-image-ssr="" data-main-image="" style="opacity:0" sizes="(min-width: 2400px) 2400px, 100vw" decoding="async" loading="lazy" data-src="/reponame/static/c019bd434e5489eb40e386b60cf045c9/78e61/logo-black.png" data-srcset="/reponame/static/c019bd434e5489eb40e386b60cf045c9/7237d/logo-black.png 600w,/reponame/static/c019bd434e5489eb40e386b60cf045c9/02c57/logo-black.png 1200w,/reponame/static/c019bd434e5489eb40e386b60cf045c9/78e61/logo-black.png 2400w" alt="cloudqubes logo"/></picture><noscript><picture><source type="image/webp" srcSet="/reponame/static/c019bd434e5489eb40e386b60cf045c9/63168/logo-black.webp 600w,/reponame/static/c019bd434e5489eb40e386b60cf045c9/13b13/logo-black.webp 1200w,/reponame/static/c019bd434e5489eb40e386b60cf045c9/b4361/logo-black.webp 2400w" sizes="(min-width: 2400px) 2400px, 100vw"/><img data-gatsby-image-ssr="" data-main-image="" style="opacity:0" sizes="(min-width: 2400px) 2400px, 100vw" decoding="async" loading="lazy" src="/reponame/static/c019bd434e5489eb40e386b60cf045c9/78e61/logo-black.png" srcSet="/reponame/static/c019bd434e5489eb40e386b60cf045c9/7237d/logo-black.png 600w,/reponame/static/c019bd434e5489eb40e386b60cf045c9/02c57/logo-black.png 1200w,/reponame/static/c019bd434e5489eb40e386b60cf045c9/78e61/logo-black.png 2400w" alt="cloudqubes logo"/></picture></noscript><script type="module">const t="undefined"!=typeof HTMLImageElement&&"loading"in HTMLImageElement.prototype;if(t){const t=document.querySelectorAll("img[data-main-image]");for(let e of t){e.dataset.src&&(e.setAttribute("src",e.dataset.src),e.removeAttribute("data-src")),e.dataset.srcset&&(e.setAttribute("srcset",e.dataset.srcset),e.removeAttribute("data-srcset"));const t=e.parentNode.querySelectorAll("source[data-srcset]");for(let e of t)e.setAttribute("srcset",e.dataset.srcset),e.removeAttribute("data-srcset");e.complete&&(e.style.opacity=1,e.parentNode.parentNode.querySelector("[data-placeholder-image]").style.opacity=0)}}</script></div></a></div></div></div></footer></div></div><div id="gatsby-announcer" style="position:absolute;top:0;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border:0" aria-live="assertive" aria-atomic="true"></div></div><script async="" src="YOUR_SELF_HOSTED_ORIGIN/gtag/js?id=GA-TRACKING_ID"></script><script>
+      window.excludeGtagPaths=[/^(?:\/preview\/(?:(?!(?:\/|^)\.).)*?)$/,/^(?:\/do\-not\-track\/me\/too\/)$/];
+      function gaOptout(){document.cookie=disableStr+'=true; expires=Thu, 31 Dec 2099 23:59:59 UTC;path=/',window[disableStr]=!0}var gaProperty='GA-TRACKING_ID',disableStr='ga-disable-'+gaProperty;document.cookie.indexOf(disableStr+'=true')>-1&&(window[disableStr]=!0);
+      if(!(navigator.doNotTrack == "1" || window.doNotTrack == "1")) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'GA-TRACKING_ID', {"optimize_id":"OPT_CONTAINER_ID","anonymize_ip":true,"cookie_expires":0,"send_page_view":false});gtag('config', 'AW-CONVERSION_ID', {"optimize_id":"OPT_CONTAINER_ID","anonymize_ip":true,"cookie_expires":0,"send_page_view":false});gtag('config', 'DC-FLOODIGHT_ID', {"optimize_id":"OPT_CONTAINER_ID","anonymize_ip":true,"cookie_expires":0,"send_page_view":false});
+      }
+      </script><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/blog/private-container-registry-with-harbor/";/*]]>*/</script><!-- slice-start id="_gatsby-scripts-1" -->
+          <script
+            id="gatsby-chunk-mapping"
+          >
+            window.___chunkMapping="{\"app\":[\"/app-99df59895fe43cd139fd.js\"],\"component---src-pages-404-js\":[\"/component---src-pages-404-js-e0852996b6bca8f74aa4.js\"],\"component---src-pages-about-js\":[\"/component---src-pages-about-js-9c7435f04178a6da9c8d.js\"],\"component---src-pages-blog-index-js\":[\"/component---src-pages-blog-index-js-b8b3dc705cca64c2932e.js\"],\"component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-ansible-for-verifying-configurations-index-mdx\":[\"/component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-ansible-for-verifying-configurations-index-mdx-afe6398166433d3038cb.js\"],\"component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-docker-cli-quick-reference-index-mdx\":[\"/component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-docker-cli-quick-reference-index-mdx-c994075bab761847891f.js\"],\"component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-how-to-choose-the-best-database-index-mdx\":[\"/component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-how-to-choose-the-best-database-index-mdx-cf60e62701df65bb1bf7.js\"],\"component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-how-to-extend-root-disk-ubuntu-index-mdx\":[\"/component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-how-to-extend-root-disk-ubuntu-index-mdx-f6c4ac73f54cbde106d5.js\"],\"component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-how-to-set-up-private-git-server-index-mdx\":[\"/component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-how-to-set-up-private-git-server-index-mdx-188e8075cc83e739a35d.js\"],\"component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-how-to-use-ingress-index-mdx\":[\"/component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-how-to-use-ingress-index-mdx-084bec8f68795acd706b.js\"],\"component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-ingress-vs-ingress-controller-index-mdx\":[\"/component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-ingress-vs-ingress-controller-index-mdx-6736286014ae3db7976a.js\"],\"component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-introduction-to-kubernetes-index-mdx\":[\"/component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-introduction-to-kubernetes-index-mdx-efb76b76e6a376ab8ca1.js\"],\"component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-introduction-to-networking-in-aws-index-mdx\":[\"/component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-introduction-to-networking-in-aws-index-mdx-9895191b0eac61ffa9cf.js\"],\"component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-managing-multiple-github-accounts-index-mdx\":[\"/component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-managing-multiple-github-accounts-index-mdx-b909daa96e6293791344.js\"],\"component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-private-container-registry-with-harbor-index-mdx\":[\"/component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-private-container-registry-with-harbor-index-mdx-49f67c5889dd97fa1b2b.js\"],\"component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-running-applications-on-kubernetes-index-mdx\":[\"/component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-running-applications-on-kubernetes-index-mdx-ebb2699c9ab094dd4296.js\"],\"component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-what-is-a-kubernetes-service-index-mdx\":[\"/component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-blog-what-is-a-kubernetes-service-index-mdx-d141ab8106acd861861d.js\"],\"component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-pages-contat-mdx\":[\"/component---src-pages-blog-mdx-frontmatter-slug-js-content-file-path-pages-contat-mdx-9326d65683be0f96cc1c.js\"],\"component---src-pages-contact-js\":[\"/component---src-pages-contact-js-02427b5b2070026b4355.js\"],\"component---src-pages-index-js\":[\"/component---src-pages-index-js-c30b3eac07dce0bf40ec.js\"],\"component---src-templates-tag-js\":[\"/component---src-templates-tag-js-5cc1516838474c58ac19.js\"]}";
+          </script>
+        <script>window.___webpackCompilationHash="02a25c0e28664a0ffa30";</script><script src="/reponame/webpack-runtime-7629d094d2c25b368a50.js" async></script><script src="/reponame/framework-9e8f4a38befa1ae8eeac.js" async></script><script src="/reponame/app-99df59895fe43cd139fd.js" async></script><!-- slice-end id="_gatsby-scripts-1" --></body></html>
