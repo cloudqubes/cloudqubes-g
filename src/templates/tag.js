@@ -1,7 +1,7 @@
 import React from "react"
 import { graphql } from "gatsby"
-import BlogArticle from "../components/blog-article";
 import Layout from "../components/layout";
+import BlogArticle from "../components/blog-article";
 import { blogArticleList,
   container,
   insideContainer,

@@ -60,6 +60,7 @@ export const query = graphql`
   query {
     allMdx(
       sort: { frontmatter: { date: DESC }}
+      filter: {frontmatter: {tags: {ne: null}}}
       limit: 6
       ) {
       nodes {

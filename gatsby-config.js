@@ -68,6 +68,12 @@ module.exports = {
       "path": `${__dirname}/data/tags`
     }    
   }, {
+    resolve: 'gatsby-source-filesystem',
+    options: {
+      "name": "content",
+      "path": `${__dirname}/pages`   
+    } 
+  }, {
     resolve: `gatsby-transformer-remark`,
     options: {
       plugins: [
