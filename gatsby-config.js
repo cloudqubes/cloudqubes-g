@@ -9,7 +9,6 @@ module.exports = {
     image: '/logo_v1.png',
     siteUrl: `https://www.cloudqubes.com`,
   },
-  pathPrefix: "/reponame",
   plugins: [
   {
     resolve: "gatsby-plugin-google-gtag", 
