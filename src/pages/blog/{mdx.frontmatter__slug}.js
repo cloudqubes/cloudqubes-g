@@ -1,11 +1,16 @@
 import * as React from 'react'
 import { graphql } from "gatsby";
+import { DiscussionEmbed } from "disqus-react"
 import Layout from '../../components/layout'
 import { Seo } from "../../components/seo";
 import { outerContainer, container, title, postMeta } from "./article.module.css";
 import "./article.css";
 
 const BlogPost = ({data, children}) => {
+  const disqusConfig = {
+    shortname: "cloudqubes",
+    config: { identifier: data.mdx.frontmatter.slug},
+  }
   return (
     <Layout pageTitle={data.mdx.frontmatter.title}>
       <div className={outerContainer}>
@@ -17,6 +22,7 @@ const BlogPost = ({data, children}) => {
           <h1 className={title}>{data.mdx.frontmatter.title}</h1>
           {children}
         </article>
+        <DiscussionEmbed {...disqusConfig} />
       </div>
 
 

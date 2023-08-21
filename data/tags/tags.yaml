@@ -2,3 +2,7 @@
   slug: dev-ops
 - name: Kubernetes
   slug: kubernetes
+- name: Linux
+  slug: linux
+- name: OpenStack
+  slug: open-stack
