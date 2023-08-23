@@ -129,6 +129,11 @@ module.exports = {
       ],
     },
   }, {
+    resolve: `gatsby-plugin-disqus`,
+    options: {
+      shortname: `cloudqubes`
+    }
+  }, {
     resolve: `gatsby-plugin-manifest`,
     options: {
       name: `cloudqubes`,

@@ -1,15 +1,23 @@
 import * as React from 'react'
 import { graphql } from "gatsby";
-import { DiscussionEmbed } from "disqus-react"
+// import { DiscussionEmbed } from "disqus-react"
+import { Disqus, CommentCount } from 'gatsby-plugin-disqus'
+import { useSiteMetadata } from "../../hooks/use-site-metadata";
 import Layout from '../../components/layout'
 import { Seo } from "../../components/seo";
 import { outerContainer, container, title, postMeta } from "./article.module.css";
 import "./article.css";
 
 const BlogPost = ({data, children}) => {
-  const disqusConfig = {
-    shortname: "cloudqubes",
-    config: { identifier: data.mdx.frontmatter.slug},
+  // const disqusConfig = {
+  //   shortname: "cloudqubes",
+  //   config: { identifier: data.mdx.frontmatter.slug},
+  // }
+  const {siteUrl} = useSiteMetadata()
+  let disqusConfig = {
+    url: `${siteUrl}/blog/${data.mdx.frontmatter.slug}`,
+    identifier: data.mdx.frontmatter.slug,
+    title: data.mdx.frontmatter.title,
   }
   return (
     <Layout pageTitle={data.mdx.frontmatter.title}>
@@ -22,9 +30,13 @@ const BlogPost = ({data, children}) => {
           <h1 className={title}>{data.mdx.frontmatter.title}</h1>
           {children}
         </article>
-        <DiscussionEmbed {...disqusConfig} />
       </div>
-
+      <div className={outerContainer}>
+        <div className={container}>
+          <CommentCount config={disqusConfig} placeholder={'...'} />
+          <Disqus config={disqusConfig} />
+        </div>
+      </div>
 
     </Layout>
   )
