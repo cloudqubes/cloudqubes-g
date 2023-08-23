@@ -17,7 +17,7 @@ const AboutPage = () => {
             </p>
           </div>
           <div>
-            <h2>Subscribe to get weely insights</h2>
+            <h2>Subscribe to get weekly insights</h2>
             <iframe src="https://cloudqubes.substack.com/embed" width="480" height="320" style={{border:`1px solid #EEE`, background:`#C5CAE9`}} frameborder="0"></iframe>
 
           </div>

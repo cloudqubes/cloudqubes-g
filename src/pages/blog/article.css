@@ -39,3 +39,17 @@ h3, h4, h5 {
 div{
   font-family: 'Titillium Web', sans-serif;
 }
+
+pre {
+  background-color: rgb(241, 241, 241);
+  padding: .4rem;
+}
+
+p code{
+  color: #00838F;
+
+}
+
+a{
+  color: #c21057;
+}
