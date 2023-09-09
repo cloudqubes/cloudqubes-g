@@ -3,27 +3,65 @@ layout: post
 title:  "What is Jenkins and what can I do with it"
 description: > 
   How to use Jenkins to build a CI/CD pipeline.
-image: "jenkins/jenkins-cover.png"
+cover_image: "./jenkins-cover.png"
+cover_image_alter: "Cover image. Jenkins logo to the left. The word Jenkins in white font on a dark reddish background."
 date: "2023-08-24"
 slug: "what-is-jenkins"
 categories: [hands-on]
 tags: [DevOps]
 ---
 
+Jenkins is an open-source software widely used in CI/CD.
 
-# Prerequisites
+At its core, Jenkins is an automation server. 
+
+You define certain tasks in a specific order in a `Jenkinsfile` and Jenkins takes care of performing those tasks. If there is a failure at a certain point, Jenkins stops and reports the failure.
+
+Jenkins also has a lot of plugins. These plugins extends the functionality of Jenkins often to interact with other DevOps tools and systems. Git, Jira, Docker, etc are some of the popular plugins in Jenkins.
+
+# Problem with Jenkins
+
+The availability of so many plugins is also a reason for the misuse of Jenkins. There are enough plugins in Jenkins to build an entire CI/CD pipeline. But, using too many plugins is asking for trouble.
+
+There are many plugins that are poorly maintained or not maintained at all. If you are depending on such a plugin, you could run into trouble when you upgrade either Jenkins or any other plugin to a new version. The new version amy have a breacking change with the old version of the unmaintained plugin briging your CI/CD to halt.
+
+Maintaining dependencies between Jenkins plugins is also a nighmare. If you are using plugin A and B that depend on v1 and v2 of plugin C, there's no proper way of amaning these dependecies within Jenkins.
+
+# Why is it still popular
+
+Despite it's hated, Jenkins is wodely used. It's so widely in use that it would ba hard to find a DevOps who has not encountered with Jenkins one way or other.
+
+Jenkins was one of the first open-source tools and was the only tools for a long time in it's category. Therefore many organizations have been using it for such a long time and it has become impossible to replace.
+
+# What is the proper use of Jenkins
+
+Jenkins is a good tool for CI part of the pipeline. But not for the CD. 
+
+Specially if you are deploying to Kubernetes. There are better tools for that.
+
+If you are using Jenkins for CI with a minimum number of plugins, you cound continue to use it without hating.
+
+To demonstrate what Jenkins can do, let's setup Jenkins server and build a pipelines. But, as we said ealier we will not be building complete pipeline, but will be implemeting certain tasks in the CI only.
+
+# Setting up Jenkins
+
+You can setup Jenkins on a bare-metal server, VM, or a Docker container.
+
+For this setup we'll choose to install Jenkins on a virtual machine running Ubuntu 22.04.
+
+## Prerequisites
 
 Install Java
 ```shell
 sudo apt-get install openjdk-11-jre
 ```
 
-# Install Jenkins
+## Install Jenkins
 
 Configure GPG key.
 
 ```shell
-curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee     /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null
 ```
 
 Add Jenkin repos.
@@ -33,14 +71,14 @@ echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
     /etc/apt/sources.list.d/jenkins.list > /dev/null
 ```
 
-Install Jenkins
+Install packages.
 ```shell
 sudo apt-get update
 sudo apt-get install jenkins
 ```
 
-Change the default port (Optional)
-By default, Jenkins listens on port 8080 on the server. I am using this port for another service, so I change the port to 8002.
+## Change the default port (Optional)
+By default, Jenkins listens on port 8080 on the server. I am using 8080 for another service, so I change the port to 8002.
 
 Jenkins seems to store the configuration files in different locations in different Linux distributions. In Ubuntu there are two places that refer the port number. So, let's update both place.
 
@@ -49,7 +87,7 @@ Update the `HTTP_PORT` parameter in `/etc/default/jenkins`.
 HTTP_PORT=8002
 ```
 
-Update the `JENKINS_PORT` in `usr/lib/systemd/system/jenkins.service`
+Update the `JENKINS_PORT` in `/usr/lib/systemd/system/jenkins.service`
 ```shell
 Environment="JENKINS_PORT=8002"
 ```
@@ -62,167 +100,131 @@ sudo systemctl daemon-reload
 
 Start Jenkins (or restart if it has laready been running.)
 ```shell
-systemctl start jenkins.service
+sudo systemctl start jenkins.service
 ```
+
+Check that server is listening on port 8002.
+
+```shell
+ss -ta
+```
+
+```shell
+State                Recv-Q               Send-Q                              Local Address:Port                               Peer Address:Port               Process               
+LISTEN               0                    4096                                127.0.0.53%lo:domain                                  0.0.0.0:*                                        
+LISTEN               0                    128                                       0.0.0.0:ssh                                     0.0.0.0:*                                        
+LISTEN               0                    50                                              *:8002                                          *:*                                        
+LISTEN               0                    128                                          [::]:ssh                                        [::]:*                                        
+```
+
+## Login to Jenkins web UI
 
 At the installation, Jenkins creates the initial password for the admin user.
 ```shell
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 ```
-Copy this to clipboard as we need it in the next step.
+Copy this to clipboard.
 
-Point the browser to `http://172.0.0.1:8002` (use the correct port number) for Jenkins web UI.
+Point the browser to `http://172.0.0.1:8002` (use the correct port number for your case) for Jenkins web UI.
+
+Enter the admin password that you copied earlier and click `Continue`.
 
 ![Unlock Jenkins](./jenkins-unlock.png)
-*Unlock Jenkins*
 
-Enter the admin password we copied earlier.
+## Install plugins.
 
-Install plugins.
+Jenkins has a number of plugins. But, as we already said it's best to limit the number of plogins you use.
+
+Select `Install suggested plugins` so that Jenkins will install a set of selected plugins like `Git`.
 ![Install plugins](./jenkins-install-plugins.png)
-*Install plugins*
-You can either select and install plugins or let Jenkins install the suggested plugins.
 
-Then, Jenkind will prompt you to create admin user. We use `cloudqubes` as the username. Use a preferred username and give a password as well.
+## Create the admin user
+
+In the next window, crate an admin user by giving a username and a password.
 
 ![Create admin user](./jenkins-create-admin-user.png)
-*Create admin user*
 
 When the Getting started wizard is over you will get the Jenkins Dashboard.
 
 ![Jenkins dashboard](./jenkins-dashboard.png)
 *Jenkins dashboard*
 
-We want to create a CI/CD pipeline for a Go Lang application. So make sure the plugins are installed. In the dash board, click on Manage Jenkins then click on Manage Plugins.
-
-
-![Jenkins available plugins](./jenkins-available-plugins.png)
-*Jenkins available plugins*
-
-Select and install `Go Plugin`, `Git plugin`, `Pipeline`.
-
-Once plugins are installed, restart Jenkins.
-Go to `http://127.0.0.1:8002/restart` and clikc on the `Yes` button.
-Within one minute restart will complete and you'll be redirected to the dashboard.
 
 # Jenkins Pipeline
-A CI/CD pipeline is a collection of software components that work to bring software from the developers workstations to edliver to th end users, 
-Jenkins implement CI/CD pipelines via plugins. 
 
-The set of software is not just enough to make up a CI/CD pipeline. We must instruct the softwaer what to do. This is provided via JenKinsFile.
+A CI/CD pipeline is a collection of software components that work to deliver software from the developers' workstations to the end users.
 
-Let's create a mock JenkinsFile first.
 
-Click on the `New item` in the top left hand corner in the Jenkins dashboard.
+But, the software components is not just enough to make up a CI/CD pipeline. We must instruct the softwaer what to do. 
 
-Select `Pipeline`, give name as `first_pipelin' and click `OK`.
+For Jenkins, these instructions are defined in a JenKinsfile.
 
-![Creating the first Pipeline](./jenkins-first-pipeline.png)
-*Creating the first Pipeline*
+A Jenkinsfile defines a series of stages. Each sage include a set of steps. 
 
-Scroll to the bottom and enter this is the definition textarea and clikc `Save`.
+Jenkins execute these steps sequentially in the order you have defined.
 
 ```shell
+// A mock Jenkinsfilw
 pipeline {
   agent any
 
   stages {
     stage('Test') {
       steps {
-        echo 'This is my first pipeline'
+        echo 'Testing....'
+      }
+    }
+
+    stage('Build') {
+      steps {
+        echo 'Building.....'
       }
     }
   }
 }
 ```
 
-Go to the Jenkins dashboard and we can see the pipline we just created.
+A Jenkinsfile can contain Groovy scripts for implementing complex logic.
+
+Let's create a Pipeline using this mock JenkinsFile.
+
+Click on the `New item` in the top left hand corner in the Jenkins dashboard.
+
+Select `Pipeline`, give name as `first_pipelin' and click `OK`.
+
+![Creating the first Pipeline](./jenkins-first-pipeline.png)
+
+Scroll to the bottom.  In the `Definition` textarea copy and paste the mock Jenkinsfile above and click  `Save`.
+
+![Creating the first Pipeline](./copy-paste-jenkinsfile.png)
+
+In the Jenkins dashboard click on the pipeline we just created.
 
 ![First Pipeline](./jenkins-dashboard-first-pipeline.png)
-*First Pipeline*
 
-Run the Pipeline by clicking on the small arrow in the right end of the pipeline. It will run the Pipeline in the background.
+Run the Pipeline by clicking on the `Build Now` button on the left pane. 
 
-Click on the PipeLine name in the dashboard to get a detailed view of the Pipeline.
+![First Pipeline](./build-first-pipeline.png)
 
-![Pipeline detailed view](./jenkins-pipeline-detailed-view.png)
-*Pipeline detailed view*
+Our mock Jenkinsfile has two stages; `Test` and `Build`. Both stages aer successfully completed as indicated by green.
 
-The build histoty at the bottom left shows the history of running the task. Since we ran our taks only once, we have one entry here. 
+![Pipeline build history](./first-pipeline-build-history.png)
 
-run the task again by clicking on hthe `Build now` in the right panel and you will get one more entry in the build history.
+You can also see the `Build History` in the lower left panel.
 
-![Pipeline build history](./jenkins-pipeline-build-history.png)
-*Pipeline build history*
+Click an entry in the build histroy and click on the `Console output` in the left panel. This shows the output of each step in the pipeline. This information is invaluable for troubleshooting if a build fails.
 
-Click the first entry in the build histroy and click on the `Console output` in the left panel. We can see the 
-
-![Pipeline build history](./jenkins-pipeline-cosole-output.png)
-*Pipeline build history*
-
-# Creating a Jenkins Pipeline for a Go Lang project
-
-## Creating the git repo
-
-Go to your Git repository server and create a new git repositoty.
-
-```shell
-su git
-cd /srv/git
-mkdir number-crunch.git
-cd number-crunch.git
-git init --bare
-```
-
-Create a new folder in your development workstation and create these three files.
-
-counter.go
-```go
-package main
-
-import (
-	"encoding/json"
-	"errors"
-	"fmt"
-	"net/http"
-	"os"
-)
-
-// Global variable for counter
-var count int
-
-func countUp(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	count = count + 1
-	json.NewEncoder(w).Encode(count)
-}
-
-func countDown(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	count = count - 1
-	json.NewEncoder(w).Encode(count)
-}
-
-func main() {
-	http.HandleFunc("/count-up", countUp)
-	http.HandleFunc("/count-down", countDown)
-
-	fmt.Printf("Starting server on port 9000\n")
-	count = 0
-	fmt.Printf("Counter :%d\n", count)
-	err := http.ListenAndServe(":9000", nil)
-	if errors.Is(err, http.ErrServerClosed) {
-		fmt.Printf("Shutting down server\n")
-	} else if err != nil {
-		fmt.Printf("Cannot start server :%s\n", err)
-		os.Exit(1)
-	}
-}
-```
-//todo add the go.mod and Dockerfile
+![Pipeline build history](./first-pipeline-console-output.png)
 
 
-Add a dummy Jenkins file.
+# Building something useful
+
+Our first pipeline is working great. But, it's not doing anything useful. So, let's create a new pipeline that builds a docker image of the [counter app][counter-v1].
+
+![Jenkins clones a GitHub repository.](./clone-repo.png)
+
+This is the Jenkinsfile with the steps included for building the Docker image.
+
 ```shell
 pipeline {
   agent any
@@ -230,12 +232,13 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        echo 'Building..'
+        echo 'Building container images'
+        sh """docker build -t counter:1.0.0 ."""
       }
     }
-    stage('Test') {
+    stage('Publish') {
       steps {
-        echo 'Testing..'
+        echo 'Publishing....'
       }
     }
     stage('Deploy') {
@@ -247,96 +250,82 @@ pipeline {
 }
 ```
 
-Commit the repo to our private Git server.
+When your Jenkinsfile is getting longer and more complex, it's a good idea to put it under version control. So, instead of copy pasting the Jenkinsfile at the pipeline creation time, we store this Jenkins file in the [counter app][counter-app] repository itself.
+
+#continue the chainsaw edit from here
+
+Let's creat the pipeline now.
+
+From Jenkins dashboard click on `New Item`.
+
+Select 'Pipeline', enter name `counter-v1` and click `OK`.
+
+![Creating the counter-v pipeline](./counter-v1-pipeline-creation.png)
+
+In the Pipeline section select `Pipeline scrip from SCM`.
+Select `Git` as the SCM.
+Enter `https://github.com/cloudqubes/counter` as the repository URL.
+
+![Counter app pipeline configuration. First part.](./counter-pipeline-config-1.png)
+
+Type in `*/v1` as the branch to build.
+Keep the `Jenkinsfile` as the Script path. 
+
+Unselect `Lightweight checkout`. If `Lightweight checkout` is selected, Jenkins will try to download the `Jenkinsfile` without doing a full checkout. But, since we need to build the branch `v1` we need Jenkins to get the Jenkinsfile from the branch v1. So, we must unselect `Lightweight checkout` for Jenkins to checkout the full repo and get the Jenkinsfile from the local repo. 
+
+Click on the `Save` button once everything is configured.
+![Counter app pipeline configuration. Second part.](./counter-pipeline-config-2.png)
+
+In the Jenkins dashboard, click on the Pipeline we jsut created. Then, click `Build now`.
+
+![Counter app pipeline configuration. Second part.](./counter-app-build-now.png)
+
+Jenkins successfully builds the `counter v1` application.
+
+![Counter app pipeline configuration. Second part.](./counter-pipeline-successful-build.png)
+
+Check the Docker image.
+```shell
+docker image ls
+```
 
 ```shell
-git init
-git add .
-git commit -m "initial"
-git remote add origin git@10.129.204.148:/srv/git/counter-app.git
-git push -u origin master
+REPOSITORY   TAG       IMAGE ID       CREATED        SIZE
+counter      1.0.0     4e2cdad22116   16 hours ago   323MB
 ```
 
-## Create a SSH private key for `jenkins` user.
+## Wrapping up
 
-We want our Jenkins server to be able to access this git repository. We'll do so by creating an SSH key.
-Login to the Jenkins VM via SSH and create a private key for the `jenkins` user.
+Jenkins is an automation server widely used and also hated by the DevOps community. But, much of the hate towards Jenkins is caused by misuse.
 
-Switch to the `jenkins` user.  
-Note that `jenkins` is a service account so it is not have a default shell so we specifiy it via `-s`
-```shell
-sudo su -s /bin/bash jenkins
-```
+If you are into DevOps you cannot escape Jenkins. So, you must know how to use it properly.
 
-Create SSH Key pair.
-```
-ssh-keygen
-```
-Note that keys will be stored in `/var/lib/jenkins/.ssh/` as you can check from the output.
+We used Jenkins to build a Docker image from a GitHub repo. We wil explore more advances use cases in the upcoming posts.
 
-Copy the keys to our git server.
-```shell
-ssh-copy-id /var/lib/jenkins/.ssh/id_rsa.pub git@10.129.204.148
-```
-
-In this step you will also be adding the key fingerprint to `/var/lib/jenkins/.ssh/known_hosts`. 
-
-Verify SSH access.
-```shell
-ssh -i /var/lib/jenkins/.ssh/id_rsa git@10.129.204.148
-```
-
-Copy the SSH key private key.
-```shell
-cat /var/lib/jenkins/.ssh/id_rsa
-```
-
-Keep this ready as you will need it in the next step.
-
-## Create the Jenkins project
-In the Jenkins dashboard page clikc on `New item` at the top right to create a new project. 
-
-![Creating the Counter-app Pipeline](./counter-app-pipeline-1.png)
-*Creating the Counter-app Pipeline*
-
-Select `Pipeline` and give name as `counter-app` and click `OK`.
+[install-docker]: https://docs.docker.com/engine/install/ubuntu/
+[counter-v1]: https://github.com/cloudqubes/counter/
 
 
-In the next page, scroll down to the Pipeline section.
 
-![Pipeline definition](./counter-app-pipeline-2.png)
-*Pipeline definition*
+# Creting a CI/CD pipeline
 
-In the Definition filed, select `Pipeline script from SCM` to indicate Jenkins to extract the Jenkinsfile from the git repo.
-Select Git in the SCM field.
+Jenkins has enough plugins so that you can create an entire CI/CD pipeline with Jenkins alone. But, as we emphasized earlier also it's not recommended and not the best way of doing it.
 
-In the repository URL enter `git remote add origin git@10.129.204.148:/srv/git/counter-app.git`.
-
-Next, we need to provide the credentials for Jenikins server to access our repository. Click `Add` under the credentials field.
-
-Select `SSH Username with private key` as the kind.
-
-Type in `git` in the username field.
-
-![Git server credentials](./counter-app-pipeline-credentials.png)
-*Git server credentials*
-
-Under `private key` select `Enter directly` and copy paste the SSH private key that we created in the Jenkins server in the previous section. Then click `Add`.
-
-![Git server credentials - private key](./counter-app-pipeline-credentials-2.png)
-*Git server credentials - private key*
-
-In the branches filed select `*/master` as the branch to build.
-
-Click `Save` to create the Pipeline.
-
-# Updating the Jenkins file
-
-Our `Jenkinsfile` is still a dummy. We need to update it with the real world build steps.
+So, we will implement a part of a simple pipeline.
 
 
-Instal the plugin 
-SSH build agent
 
-Try a docker build agent for jenkins
-Can write a separate article on the type of build agents in Jenkins
+Let's create a simple CI/CD pipeline with our Jenkins server. But, we will not implement a complete CI/CD pipeline but just a a part of the CI/CD that clone a Git repository to the local machine.
+
+So make sure the plugins are installed. In the dash board, click on Manage Jenkins then click on Manage Plugins.
+
+
+![Jenkins available plugins](./jenkins-available-plugins.png)
+*Jenkins available plugins*
+
+Select and install `Git plugin`, `Pipeline`.
+
+Once plugins are installed, restart Jenkins.
+Go to `http://127.0.0.1:8002/restart` and clikc on the `Yes` button.
+Within one minute restart will complete and you'll be redirected to the dashboard.
+![Jenkins cloning a repository from GitHub.](./clone-repo.png)
