@@ -124,7 +124,8 @@ module.exports = {
       web: [
         {
           name: `Open Sans`,
-          file: `https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;0,700;1,400&family=Titillium+Web:ital,wght@0,400;0,600;0,700;1,400&display=swap`,
+          file: `https://fonts.googleapis.com/css2?family=Poppins&family=Raleway:wght@400;700&family=Titillium+Web:wght@400;700&display=swap`,
+          // file: `https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;0,700;1,400&family=Titillium+Web:ital,wght@0,400;0,600;0,700;1,400&family=Poppins&display=swap`,
         },
       ],
     },
