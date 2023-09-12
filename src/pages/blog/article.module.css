@@ -12,14 +12,15 @@
 
 @media only screen and (min-width: 1200px) {
   .container{
-    width: 70%;
+    width: 60%;
   }
 }
 
 .title{
-  font-family: 'Titillium Web', sans-serif;
+  font-family: 'Raleway', sans-serif;
   color: #c21057;
   font-size: 2.8rem;
+  padding-top: 1rem;
 }
 
 .post-meta{
