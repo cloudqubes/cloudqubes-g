@@ -15,7 +15,7 @@ import { mainHeader,
  } from "./layout.module.css";
 import "./layout.css";
 
-const Layout = ({ pageTitle, children }) => {
+const Layout = ({ pageTitle, children, showNewsletter }) => {
   return (
     <div>
       <header className={mainHeader} >
@@ -41,7 +41,8 @@ const Layout = ({ pageTitle, children }) => {
             </ul>
           </nav>
         </div>
-
+        ##need to correct this
+        { showNewsletter == true &&  <Newsletter></Newsletter> }
       </header>
       <main>
         {children}

@@ -13,9 +13,9 @@ import { blogArticleList,
          substackStyle,
 } from "./index.module.css";
 
-const IndexPage = ({data}) => {
+const IndexPage = ({location, data}) => {
   return (
-    <Layout>
+    <Layout showNewsletter={true}>
       <div>
         <section className={newsletterOuterContainer}>
           <div className={insideContainer}>
