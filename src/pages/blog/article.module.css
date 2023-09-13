@@ -15,12 +15,26 @@
     width: 60%;
   }
 }
-
+/* 
 .title{
   font-family: 'Raleway', sans-serif;
   color: #c21057;
   font-size: 2.8rem;
   padding-top: 1rem;
+} */
+
+.article-title{
+  font-family: 'Raleway', sans-serif;
+  font-size: 2.8rem;
+  font-weight: 400;
+  padding-top: 1rem;
+  color: #c21057;
+  border-bottom: 1px solid #d7d7d7;
+}
+
+.meta-container{
+  padding-top: .2rem;
+  padding-bottom: .2rem;
 }
 
 .post-meta{

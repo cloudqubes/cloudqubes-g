@@ -2,8 +2,8 @@
 layout: post
 title:  "What is Jenkins and what can I do with it"
 description: > 
-  Jenkins is widely used and often misused in CI/CD. There are things it is really good at and some othert things that it is not so good at.
-cover_image: "./jenkins-cover.png"
+  Jenkins is widely used and often misused in CI/CD. There are things it is good at and some other things that it is not so good at.
+cover_image: "./cover-image-large.png"
 cover_image_alter: "Cover image. Jenkins logo to the left. The word Jenkins in white font on a dark reddish background."
 date: "2023-08-24"
 slug: "what-is-jenkins"
@@ -12,7 +12,10 @@ tags: [DevOps]
 ---
 
 <div class="header-highlight">
+![Unlock Jenkins](./cover-image-large.png)
+
 </div>
+
 
 Jenkins is a popular open-source automation server.
 
@@ -22,7 +25,7 @@ Jenkins has a [lot of plugins](https://plugins.jenkins.io/) that extends this co
 
 [Git](https://plugins.jenkins.io/git/), [Jira](https://plugins.jenkins.io/jira/), and [Docker](https://plugins.jenkins.io/docker-plugin/) are three of the most used plugins.
 
-# Jenkins in widely-used in CI/CD
+# Jenkins is widely-used in CI/CD
 
 Jenkins is one of the first open-source CI/CD tools and was the only tool for a long time in its category. So, Jenkins is deeply rooted in CI/CD toolchains in many organizations.
 
@@ -38,15 +41,15 @@ But, using too many Jenkins plugins is asking for trouble.
 
 ### Sum plugins are poorly maintained
 
-There are many Jenkins plugins that are poorly maintained or not maintained at all. If you are depending on such a plugin, you could run into compatibility issues whenever you upgrade Jenkins to a new version. If the plugin is not properly maintained, you will be on your own to fix the problem.
+Many Jenkins plugins are poorly maintained or not maintained at all. If you are depending on such a plugin, you could run into compatibility issues whenever you upgrade Jenkins to a new version. If the plugin is not properly maintained, you will be on your own to fix the problem.
 
-### Dependecy on Java version is difficult to manage
+### Dependency on Java versions is difficult to manage
 
-Jenkins and its plugins are written in Java. Each version of Jenkins supports a specific Java versions. If one of the Jenkins plugins requires a different Java version it would be challenging to get that plugin to work.
+Jenkins and its plugins are written in Java. Each version of Jenkins supports a specific Java version. If one of the Jenkins plugins requires a different Java version it would be challenging to get that plugin to work.
 
 ### Dependency between plugins is challenging
 
-Maintaining dependencies between Jenkins plugins is complicated. If you are using plugin A and B that depend respectively on v1 and v2 of plugin C, there's no proper way of managing these dependecies within Jenkins.
+Maintaining dependencies between Jenkins plugins is complicated. If you are using plugins A and B that depend respectively on v1 and v2 of plugin C, there's no proper way of managing these dependencies within Jenkins.
 
 If you are to ask a few DevOps persons, you will quickly realize that they have a love-and-hate relationship with Jenkins. Their views are formed by what purpose they have been using Jenkins and what plugins they have been using.
 
@@ -62,24 +65,24 @@ This is especially true for microservices. If you are deploying hundreds of micr
 
 ### Minimize the use of plugins
 
-Bad experience of Jenkins is mostly a result of using too many plugins.
+The bad experience of Jenkins is mostly a result of using too many plugins.
 
 Carefully select the plugins you want to use and avoid installing new plugins on a need basis.
-If you are using more than twenty plugins that could be a sign of a misuse.
+If you are using more than twenty plugins that could be a sign of misuse.
 
 ### Use properly maintained plugins only
 
 A properly maintained plugin is kept up to date by releasing new versions consistently and frequently - such as this [Docker plugin](https://plugins.jenkins.io/docker-plugin/releases/).
 
-If a certain plugin has not released at least a bug fix for the past six months, think twice before using it unless you are ready to take up the maintainence of that plugin.
+If a certain plugin has not released at least a bug fix for the past six months, think twice before using it unless you are ready to take up the maintainance of that plugin.
 
 # Setting up a Jenkins server
 
-To find out what Jenkins can do, let's setup a Jenkins server and build a CI/CD pipeline.
+To find out what Jenkins can do, let's set up a Jenkins server and build a CI/CD pipeline.
 
-You can setup Jenkins in your laptop, virtual machine, or a Docker container.
+You can install Jenkins in your laptop, a virtual machine, or a Docker container.
 
-For this setup we'll choose to install Jenkins on a virtual machine running Ubuntu 22.04.
+We'll choose an Ubuntu 22.04 virtual machine for this setup.
 
 ## Install Java
 
@@ -113,7 +116,7 @@ sudo apt-get install jenkins
 
 By default, Jenkins listens on port 8080 on the server. I am using 8080 for another service. So, I must configure Jenkins to listen on port 8002.
 
-Jenkins stores the configuration files in different locations in different Linux distributions. In Ubuntu, there are two places that refer the port number. So, let's update both place.
+Jenkins stores the configuration files in different locations in different Linux distributions. In Ubuntu, there are two places that refer the port number. So, let's update both places.
 
 Update the `HTTP_PORT` parameter in `/etc/default/jenkins`. 
 ```shell
@@ -160,7 +163,7 @@ At the installation, Jenkins creates the initial password for the admin user.
 ```shell
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 ```
-Copy the output to clipboard.
+Copy the output to the clipboard.
 
 Point the browser to `http://<ip_address>:8002` (use the correct IP address and the port number) for Jenkins web UI.
 
@@ -170,18 +173,18 @@ Enter the admin password that you copied earlier and click `Continue`.
 
 ## Install plugins.
 
-Jenkins has a number of plugins. But, as we already said it's best to limit the number of plogins you use.
+Jenkins has many plugins. But, as we already said it's best to limit the number of plugins you use.
 
 Select `Install suggested plugins` so that Jenkins will install a set of selected plugins like `Git`.
 ![Install plugins](./jenkins-install-plugins.png)
 
 ## Create the admin user
 
-In the next window, crate an admin user by giving a username and a password.
+In the next window, create an admin user by giving a username and a password.
 
 ![Create admin user](./jenkins-create-admin-user.png)
 
-When the Getting started wizard is over you will get the Jenkins Dashboard.
+When the Getting Started wizard is over you will get the Jenkins Dashboard.
 
 ![Jenkins dashboard](./jenkins-dashboard.png)
 
@@ -189,7 +192,7 @@ When the Getting started wizard is over you will get the Jenkins Dashboard.
 
 A CI/CD pipeline is a collection of software components that work to deliver software from the developers' workstations to the end users.
 
-But, the software components are not just enough to make up a CI/CD pipeline. We must instruct the softwaer what to do. 
+But, the software components are not just enough to make up a CI/CD pipeline. We must instruct the software what to do. 
 
 For Jenkins, these instructions are defined in a **Jenkinsfile**.
 
@@ -221,13 +224,13 @@ pipeline {
 
 Let's create a mock Pipeline using this JenkinsFile.
 
-Click on the `New item` in the top left hand corner in the Jenkins dashboard.
+Click on the `New item` in the top left corner in the Jenkins dashboard.
 
-Select `Pipeline`, give name as `first_pipeline` and click `OK`.
+Select `Pipeline`, give the name as `first_pipeline`, and click `OK`.
 
-![Creating the first Pipeline](./jenkins-first-pipeline.png)
+![Creating the first Pipeline](./creating-the-first-pipeline.png)
 
-Scroll to the bottom.  In the `Definition` textarea copy and paste the mock Jenkinsfile above and click  `Save`.
+Scroll to the bottom.  In the `Definition` text area copy and paste the mock Jenkinsfile above and click  `Save`.
 
 ![Creating the first Pipeline](./copy-paste-jenkinsfile.png)
 
@@ -239,13 +242,13 @@ Run the Pipeline by clicking on the `Build Now` button on the left pane.
 
 ![First Pipeline](./build-first-pipeline.png)
 
-Our mock Jenkinsfile has two stages; `Test` and `Build`. Both stages aer successfully completed as indicated by green.
+Our mock Jenkinsfile has two stages; `Test` and `Build`. Both stages are successfully completed as indicated by green.
 
 ![Pipeline build history](./first-pipeline-build-history.png)
 
 You can also see the `Build History` in the lower left panel.
 
-Click an entry in the build histroy and click on the `Console output` in the left panel to see the output of each step in the pipeline. This information is useful for troubleshooting if a build fails.
+Click an entry in the build history and click on the `Console output` in the left panel to see the output of each step in the pipeline. This information is useful for troubleshooting if a build fails.
 
 ![Pipeline build history](./first-pipeline-console-output.png)
 
@@ -285,11 +288,11 @@ pipeline {
 
 When your Jenkinsfile is getting longer and more complex, it's a good idea to put it under version control. So, instead of copy-pasting this Jenkinsfile at the pipeline creation time, we store it in the [counter app][counter-app] repository with the source code.
 
-Let's creat the pipeline now.
+Let's create the pipeline now.
 
 From Jenkins dashboard click on `New Item`.
 
-Select 'Pipeline', enter name `counter-v1` and click `OK`.
+Select 'Pipeline', enter the name `counter-v1` and click `OK`.
 
 ![Creating the counter-v pipeline](./counter-v1-pipeline-creation.png)
 
@@ -331,7 +334,9 @@ counter      1.0.0     4e2cdad22116   2 hours ago   323MB
 
 # Building a production-ready Jenkins Pipeline
 
-Out Jenkins Pipeline is working great. But, it's far from being complete. There's a lot we need to improve before our Jenkins setup is production ready.
+Our Jenkins Pipeline is working great. But, it's far from being complete. There's a lot we need to improve before we can call our Jenkins setup **production ready**.
+
+Here are a few things we need to work on.
 
 1. We are still using the Jenkins server itself as the build node. This is not a recommended practice in production. 
 
@@ -339,7 +344,9 @@ Out Jenkins Pipeline is working great. But, it's far from being complete. There'
 
 3. The Docker image is still on the Jenkins server and we need to push it to an image repository.
 
-We will explore all these topics in upcoming posts.
+We will explore all these in upcoming posts.
+
+Meanwhile, feel free to join our [community](https://cloudqubes.substack.com/) to stay up to date on Cloud computing and DevOps.
 
 
 [install-docker]: https://docs.docker.com/engine/install/ubuntu/

@@ -5,7 +5,7 @@ import { Disqus, CommentCount } from 'gatsby-plugin-disqus'
 import { useSiteMetadata } from "../../hooks/use-site-metadata";
 import Layout from '../../components/layout'
 import { Seo } from "../../components/seo";
-import { outerContainer, container, title, postMeta } from "./article.module.css";
+import { outerContainer, container, articleTitle, postMeta, metaContainer } from "./article.module.css";
 import "./article.css";
 
 const BlogPost = ({data, children}) => {
@@ -23,11 +23,11 @@ const BlogPost = ({data, children}) => {
     <Layout pageTitle={data.mdx.frontmatter.title}>
       <div className={outerContainer}>
         <article className={container}>
-          <div>
-          <span className={postMeta}>{data.mdx.frontmatter.date} - </span>
-          <span className={postMeta}>{data.mdx.fields.timeToRead.text}</span>
+          <h1 className={articleTitle}>{data.mdx.frontmatter.title}</h1>
+          <div className={metaContainer}>
+            <span className={postMeta}>{data.mdx.frontmatter.date} - </span>
+            <span className={postMeta}>{data.mdx.fields.timeToRead.text}</span>
           </div>
-          <h1 className={title}>{data.mdx.frontmatter.title}</h1>
           {children}
         </article>
       </div>
