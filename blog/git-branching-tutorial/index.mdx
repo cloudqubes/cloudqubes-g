@@ -10,14 +10,12 @@ tags: [DevOps]
 ---
 
 <div class="header-highlight">
-A follow-along tutorial on Git branching for beginners.
+Git branching allows you to work with separate versions of your codebase in parallel.
 </div>
-
-Git branching allows you to work with separate versions of your codebase in parallel, and merge those different versions at any desired point.
 
 ![Branching concept in git](./git-branching-concept.png)
 
-Branching is useful when you have to work with multiple independent features at the same time. Which you have to do in all practical situations.
+Branching is useful when you have to work with multiple independent features at the same time.
 
 If you are new to git branching, this is a follow-along tutorial for you. By the end of this tutorial, you will be able to comfortably incorporate branching into your development workflows.
 
@@ -69,7 +67,7 @@ ba41cb0 v 1.0
 
 We are in the `master` branch, as indicated by `HEAD`.
 
-# Branching
+# Creating and working with branches
 
 Create and switch to a branch named `fix-1`.
 ```shell
@@ -186,6 +184,8 @@ ba41cb0 v 1.0
 ```
 The `HEAD` has moved ahead of the branch `fix-1`.
 
+# Merging a branch
+
 Merge`fix-1` branch with `master` branch.
 
 ```shell
@@ -214,7 +214,7 @@ git branch -d fix-1
 ```
 We have successfully created a new branch, updated the code in the new branch and merged back to `master`.
 
-# Merging conflicting changes
+# Merging branches with conflicting changes
 
 Now, we will see how `git` manages conflicting changes.
 Create a new branch `fix-2` and update the file `fix_1`.
@@ -299,7 +299,7 @@ Since `master` and `fix-2` branches are identical, `git` says there’s nothing 
 Already up to date.
 ```
 
-# Master branch
+# Significance of the master branch
 When you create a new repository, git creates a branch named `master`. This `master` branch is not any special branch and is similar to any other branch. If you wish, you can rename it.
 
 Change the branch name.
@@ -331,6 +331,11 @@ git commit -m "quick-fix"
 git push -u origin quick-fix
 ```
 
+List remote branches.
+```shell
+git branch -r
+```
+
 Deleting a branch will only delete the branch in the local repository.
 
 ```shell
@@ -342,7 +347,8 @@ Use `git push` to delete the remote branch.
 git push origin -d quick-fix
 ```
 
-# Using branching
+# A branching use case
+
 Branching is not only for big teams. Even if you are a solo developer you can benefit by incorporating branching into your daily workflows. 
 
 Assume you are working on developing a new feature. While in the middle of the development, you find a security problem that needs to be fixed immediately. 
@@ -360,16 +366,11 @@ You can complete the `fancy-new` feature later on and merge with `main` branch.
 
 It’s a good practice to use branching so that your `main` branch is always production ready.
 
-# Branching in Git
-Unlike other version control systems, branching is an inexpensive operation in Git. Git does not create a copy of the entire repository when creating a new branch. So, you can create and switch between multiple branches instantly.
+# Branching in Git vs other VCS
 
-## Wrapping up
+Unlike other version control systems, branching is an inexpensive operation in Git. Git does not create a copy of the entire repository when creating a new branch so that you can create and switch between multiple branches instantly.
 
-We have covered the basics of git branching in this tutorial. 
-
-So, use it in all your workflows.
-
-Tell us how things turn out by commenting here or reaching us via [@cloudqubes](https://twitter.com/cloudqubes).
+Use branching in all your workflows and tell me how things turn out by commenting here or reaching me via [@cloudqubes](https://twitter.com/cloudqubes).
 
 [GitHub]: https://github.com/
 
