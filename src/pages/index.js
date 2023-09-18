@@ -17,7 +17,7 @@ const IndexPage = ({location, data}) => {
   return (
     <Layout showNewsletter={true}>
       <div>
-        <section className={newsletterOuterContainer}>
+        {/* <section className={newsletterOuterContainer}>
           <div className={insideContainer}>
             <div className={newsletterContainer}>
               <div>
@@ -33,7 +33,7 @@ const IndexPage = ({location, data}) => {
 
           </div>
 
-        </section>
+        </section> */}
 
         <section className={container}>
           <div className={insideContainer}>
