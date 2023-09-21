@@ -52,14 +52,14 @@ const Layout = ({ pageTitle, children, showNewsletter }) => {
           </div>
 
         </div>
+      </header>
+      <main>
+        {children}
         <div className={row}>
           <div className={newsletterContainer}>
             { newsletter }
           </div>
         </div>
-      </header>
-      <main>
-        {children}
       </main>
       <footer className={footer}>
         <div className={innerContainer}>

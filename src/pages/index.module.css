@@ -4,19 +4,6 @@
   justify-content: center;
 }
 
-.newsletterOuterContainer{
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  padding-top: 1rem;
-  background-color: #C5CAE9;  
-}
-
-.substackStyle{
-  background-color: #C5CAE9;
-}
-
-
 .inside-container{
   width: 100%;
 }
@@ -27,11 +14,114 @@
   }
 }
 
-.newsletterContainer{
+/* .newsletterContainer{
   width: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
+} */
+
+.mainTitleContainer{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  /* background-color: #c21057; */
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.mainTitle{
+  font-size: 3rem;
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: .8rem;
+  color: #c21057;
+}
+
+/* .lineContainer{
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 1rem;
+}
+
+.hLineSurround{
+  flex-grow: 10;
+}
+
+.hLine{
+  flex-grow: 1;
+  border-bottom: 4px solid #a2a2a2;
+} */
+
+.featuredPostContainer{
+  width: 100%;
+  padding-left: .4rem;
+  padding-right: .4rem;
+}
+
+@media only screen and (min-width: 1200px) {
+  .featuredPostContainer{
+    width: 80%;
+  }
+}
+
+.featuredPostTitleContainer{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.featuredPostTitle{
+  font-family: 'Raleway', sans-serif;
+  font-size: 2.8rem;
+  font-weight: 400;
+  padding-top: 1rem;
+  color: #c21057;
+  /* border-bottom: 1px solid #d7d7d7; */
+}
+
+.featuredPostCoverImage{
+  width: 100%;
+  object-fit: cover;
+}
+
+.featuredTag{
+  font-family: 'Titillium Web', sans-serif;
+  color: #1e1e1e;
+  background-color: #e7edfd;
+  font-size: .95rem;
+  padding-left: .1rem;
+  padding-right: .1rem;
+}
+
+.mainCTA{
+  border: 1px solid #c21057;
+  font-size: 2rem;
+  padding: 1rem 2rem;
+}
+
+.mainCTA:hover{
+  background-color: #c21057;
+  color: #ffffff;
+}
+
+.readMoreButtonContainer{
+  display: flex;
+  justify-content: end;
+}
+
+.readMoreButton{
+  font-family: 'Raleway', sans-serif;
+  padding: .4rem 1rem;
+  background-color: #c21057;
+  color: white;
+  border: 1px solid #c21057;
+}
+
+.readMoreButton:hover{
+
+  color: #c21057;
+  background-color: white;  
 }
 
 .blog-article-list{
@@ -43,4 +133,13 @@
 .section-title{
   padding-top: 1.8rem;
   padding-bottom: .8rem;
+  border-bottom: 1px solid #d7d7d7;
+  padding-bottom: 0;
+  margin-bottom: .5rem;
+}
+
+.readAllButtonContainer{
+  display: flex;
+  justify-content: flex-end;
+  align-content: flex-end;
 }

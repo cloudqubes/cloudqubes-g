@@ -143,19 +143,30 @@ module.exports = {
       background_color: `#f7f0eb`,
       theme_color: `#a2466c`,
       display: `standalone`,
-      icon: `src/images/logo_v1.png`, // This path is relative to the root of the site.
-      icons: [
-        {
-          src: `/favicons/android-chrome-192x192.png`,
-          sizes: `192x192`,
-          type: `image/png`,
-        },
-        {
-          src: `/favicons/android-chrome-512x512.png`,
-          sizes: `512x512`,
-          type: `image/png`,
-        },
-      ], // Add or remove icon sizes as desired
+      icon: `src/images/icon.png`, // This path is relative to the root of the site.
+      // icons: [
+      //   {
+      //     src: `/favicons/android-chrome-192x192.png`,
+      //     sizes: `192x192`,
+      //     type: `image/png`,
+      //   },
+      //   {
+      //     src: `/favicons/android-chrome-512x512.png`,
+      //     sizes: `512x512`,
+      //     type: `image/png`,
+      //   },
+      //   {
+      //     src: `/favicons/apple-touch-icon.png`,
+      //     sizes: `180x180`,
+      //     type: `image/png`,
+      //   },
+      //   {
+      //     src: `/favicons/favicon-32x32.png`,
+      //     sizes: `32x32`,
+      //     type: `image/png`,
+      //   },
+      // ]
+      
     },
   }]
 };

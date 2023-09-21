@@ -4,48 +4,71 @@ import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { Link, graphql } from "gatsby";
 import { Seo } from "../components/seo";
 import BlogArticle from "../components/blog-article";
-import { blogArticleList,
-         container,
-         insideContainer,
-         newsletterContainer,
-         newsletterOuterContainer,
-         sectionTitle,
-         substackStyle,
+import { mainTitle, mainTitleContainer, featuredPostContainer,
+          featuredPostTitle, featuredPostTitleContainer, featuredPostCoverImage,
+          featuredTag, readMoreButton, readMoreButtonContainer,
+          blogArticleList, readAllButtonContainer, mainCTA,
+          container,
+          insideContainer,
+          sectionTitle,
 } from "./index.module.css";
 
 const IndexPage = ({location, data}) => {
+  const featuredPost = data.featured.nodes[0]
   return (
     <Layout showNewsletter={true}>
       <div>
-        {/* <section className={newsletterOuterContainer}>
-          <div className={insideContainer}>
-            <div className={newsletterContainer}>
-              <div>
-                <h1>Cloud insights for DevOps</h1>
-                <p>delivered weekly to your inbox</p>
+        <section>
+          <div className={mainTitleContainer}>
+            <h1 className={mainTitle}>Learn cloud computing and DevOps</h1>
+          </div>
+          <div className={mainTitleContainer}>
+            <Link to="/blog" className={mainCTA}>
+              Read the blog
+            </Link>
+          </div>
+          <div className={container}>
+            <article className={featuredPostContainer}>
 
+              <div className={featuredPostTitleContainer}>
+
+                <span className={featuredTag}>Featured story</span>
               </div>
-              <div>
-                <iframe src="https://cloudqubes.substack.com/embed" width="480" height="320" style={{border:`1px solid #EEE`, background:`#C5CAE9`}} frameborder="0"></iframe>
+              <GatsbyImage
+                image={getImage(featuredPost.frontmatter.cover_image)}
+                alt={featuredPost.frontmatter.cover_image_alt}
+                className={featuredPostCoverImage}
+              />
+                <h2 className={featuredPostTitle}>{featuredPost.frontmatter.title}</h2>
 
+              <p>{featuredPost.frontmatter.description}</p>
+              <div className={readMoreButtonContainer}>
+
+                <Link to={`/blog/${featuredPost.frontmatter.slug}`} className={readMoreButton}>
+                    Read more
+                </Link>
               </div>
-            </div>
-
+            </article>
           </div>
 
-        </section> */}
+        </section>
 
         <section className={container}>
           <div className={insideContainer}>
-            <h1 className={sectionTitle}>New posts</h1>
+            <h1 className={sectionTitle}>Recent posts</h1>
             <div className={blogArticleList}>
               {
-                data.allMdx.nodes.map((node) => (
+                data.recentPosts.nodes.map((node) => (
                   <BlogArticle node={node}>
 
                   </BlogArticle>
                 ))
               }  
+            </div>
+            <div className={readAllButtonContainer}>
+              <Link to="/blog" className={readMoreButton}>
+                Read all posts
+              </Link>              
             </div>
           </div>
 
@@ -58,7 +81,7 @@ const IndexPage = ({location, data}) => {
 
 export const query = graphql`
   query {
-    allMdx(
+    recentPosts: allMdx(
       sort: { frontmatter: { date: DESC }}
       filter: {frontmatter: {tags: {ne: null}}}
       limit: 6
@@ -87,6 +110,38 @@ export const query = graphql`
         }
         id
       }
+    }
+
+    featured: allMdx(
+      sort: { frontmatter: { date: DESC }}
+      filter: {frontmatter: {categories: {in: "Featured"}}}
+      limit: 6      
+      ) {
+        nodes {
+          frontmatter {
+            date(formatString: "MMMM D, YYYY")
+            title
+            slug
+            tags
+            description
+            cover_image_alt
+            cover_image {
+              childImageSharp {
+                gatsbyImageData(width: 1000)
+              }
+            }
+          }
+          fields{
+            timeToRead {
+              minutes
+              text
+              time
+              words
+            }
+          }
+          id
+        }
+  
     }
   }
 `
