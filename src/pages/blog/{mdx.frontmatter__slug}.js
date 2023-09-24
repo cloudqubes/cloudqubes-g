@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { graphql } from "gatsby";
+import { getSrc } from "gatsby-plugin-image";
 // import { DiscussionEmbed } from "disqus-react"
 import { Disqus, CommentCount } from 'gatsby-plugin-disqus'
 import { useSiteMetadata } from "../../hooks/use-site-metadata";
@@ -50,6 +51,12 @@ export const query = graphql`
         description
         tags
         date(formatString: "MMMM D, YYYY")
+        slug
+        cover_image {
+          childImageSharp {
+            gatsbyImageData(width: 400)
+          }
+        }
       }
       fields{
         timeToRead {
@@ -67,6 +74,7 @@ export const Head = ({data}) => (
   <Seo 
     title= {data.mdx.frontmatter.title}
     description= {data.mdx.frontmatter.description }
+    image={getSrc(data.mdx.frontmatter.cover_image)}
   />
 )
 
