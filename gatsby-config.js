@@ -4,10 +4,10 @@
 module.exports = {
   siteMetadata: {
     title: `cloudqubes`,
-    description: `Cloudqubes is a blog and a newsletter on Cloud computing, Kubernetes, DevOps, CI/CD, Linux, and Cloud security.`,
+    description: `Cloudqubes is a blog on Cloud computing, Kubernetes, DevOps, CI/CD, Linux, and Cloud security.`,
     twitterUsername: '@cloudqubes',
     image: '/logo_v1.png',
-    siteUrl: `https://www.cloudqubes.com`,
+    siteUrl: `https://cloudqubes.com`,
   },
   plugins: [
   {
