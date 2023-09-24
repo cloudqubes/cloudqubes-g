@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Link } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
-import { Newsletter } from "./newsletter";
 import { mainHeader, row, newsletterContainer,
           innerContainer,
           navItemList,
