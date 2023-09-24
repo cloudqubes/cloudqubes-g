@@ -115,7 +115,7 @@ export const query = graphql`
     featured: allMdx(
       sort: { frontmatter: { date: DESC }}
       filter: {frontmatter: {categories: {in: "Featured"}}}
-      limit: 6      
+      limit: 1    
       ) {
         nodes {
           frontmatter {
