@@ -82,7 +82,15 @@ Or install Buildx manually by following [the instructions here](https://github.c
 
 Before pushing an image to Docker Hub, you must [create a Docker Hub repository](https://docs.docker.com/docker-hub/repos/create/).
 
-```yaml
+Login to Docker huub from Docker CLI.
+
+```shell
+docker login
+```
+Input the username and password when requested.
+
+Push image.
+```shell
 docker tag <image-name>:<tag> <docker-hub-username>/<repo-name>:<tag>
 docker push <docker-hub-username>/<repo-name>:<tag>
 ```
