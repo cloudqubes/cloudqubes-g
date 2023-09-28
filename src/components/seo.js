@@ -4,6 +4,10 @@ import { useSiteMetadata } from "../hooks/use-site-metadata";
 export const Seo = ({ title, description, image, pathname, children }) => {
   const {title: defaultTitle, description: defaultDescription, image: defaultImage, siteUrl, twitterUsername} = useSiteMetadata()
   
+  // if (image) {
+  //   imageUrl = getSrc(image.childImageSharp.gatsbyImageData)
+  // }
+
   const seo = {
     title: title || defaultTitle,
     description: description || defaultDescription,

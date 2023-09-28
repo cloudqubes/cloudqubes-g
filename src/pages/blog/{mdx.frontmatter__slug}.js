@@ -70,13 +70,21 @@ export const query = graphql`
   }
 `
 
-export const Head = ({data}) => (
-  <Seo 
+export const Head = ({data}) => {
+  let imageUrl = null
+  if (data.mdx.frontmatter.cover_image) {
+    imageUrl = getSrc(data.mdx.frontmatter.cover_image.childImageSharp.gatsbyImageData)
+  }
+
+  return (
+    <Seo 
     title= {data.mdx.frontmatter.title}
     description= {data.mdx.frontmatter.description }
-    image= {getSrc(data.mdx.frontmatter.cover_image.childImageSharp.gatsbyImageData)}
+    image= {imageUrl}
   />
-)
+  )
+}
+
 
 export default BlogPost
 
