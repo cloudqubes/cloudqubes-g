@@ -16,10 +16,13 @@ const BlogArticle = ({node}) =>{
         <span className={postMeta}>{node.frontmatter.date} -</span>
         <span className={postMeta}>{readTime}</span>
       </div>
-      <GatsbyImage
-        image={getImage(node.frontmatter.cover_image)}
-        alt={node.frontmatter.cover_image_alt}
-      />
+      <Link to={`/blog/${node.frontmatter.slug}`}>
+        <GatsbyImage
+          image={getImage(node.frontmatter.cover_image)}
+          alt={node.frontmatter.cover_image_alt}
+        />      
+      </Link>
+
       <h2>
         <Link to={`/blog/${node.frontmatter.slug}`} className={title}>
           {node.frontmatter.title}

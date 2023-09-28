@@ -34,18 +34,21 @@ const IndexPage = ({location, data}) => {
 
                 <span className={featuredTag}>Featured story</span>
               </div>
-              <GatsbyImage
-                image={getImage(featuredPost.frontmatter.cover_image)}
-                alt={featuredPost.frontmatter.cover_image_alt}
-                className={featuredPostCoverImage}
-              />
+              <Link to={`/blog/${featuredPost.frontmatter.slug}`} >
+                <GatsbyImage
+                  image={getImage(featuredPost.frontmatter.cover_image)}
+                  alt={featuredPost.frontmatter.cover_image_alt}
+                  className={featuredPostCoverImage}
+                />
+              </Link>
+              <Link to={`/blog/${featuredPost.frontmatter.slug}`}>
                 <h2 className={featuredPostTitle}>{featuredPost.frontmatter.title}</h2>
+              </Link>
 
               <p>{featuredPost.frontmatter.description}</p>
               <div className={readMoreButtonContainer}>
-
                 <Link to={`/blog/${featuredPost.frontmatter.slug}`} className={readMoreButton}>
-                    Read more
+                  Read more
                 </Link>
               </div>
             </article>

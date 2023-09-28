@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Canary deployments with ingress Nginx controller"
+title:  "Canary deployments with Ingress Nginx controller"
 description: > 
   Canary deployment is a mechanism to roll out a new version incrementally so that you can test the new version and seamlessly migrate the traffic
 cover_image: "./pexels-rodrigo-chaves-6398824.jpg"
@@ -27,11 +27,11 @@ After assuring the performance under the initial traffic load, you gradually inc
 
 Once 100% of traffic is routed, the canary becomes the new production version and you decommission the old version.
 
-![New version in production.](./canary-v2.png)
+![New version in production.](./production-new.png)
 
 The ingress controller plays a key role in the canary deployment by splitting the traffic between the two versions. 
 
-The Ingress Nginx controller used `annotations` to define this traffic split.
+The [Ingress Nginx controller][ingress-nginx] used `annotations` to define this traffic split.
 
 ```yaml
   annotations:
@@ -39,7 +39,7 @@ The Ingress Nginx controller used `annotations` to define this traffic split.
     nginx.ingress.kubernetes.io/canary-weight: "50"
 ```
 
-We are going to put this whole canary deployment into action in a Minikube cluster with the Ingress Nginx controller. 
+We are going to put a canary deployment into action in a Minikube cluster with the [Ingress Nginx controller][ingress-nginx]. 
 
 To keep things simple, we do not use a CI/CD pipeline or test tools but use `kubectl` to deploy the workloads to the Kubernetes cluster and `curl` for testing.
 
@@ -543,13 +543,17 @@ If we are to release `square-root-v4` tomorrow, we can repeat the same steps to 
 
 We have completed our canary deployment workout.
 
-The key here is using the ingress controller to split the traffic between the two versions. The Ingress Nginx controller uses `annotations` to define this traffic split. 
+The key here is using the ingress controller to split the traffic between the two versions. 
 
-How you define this traffic split depends on the ingress controller as other ingress controllers may use different parameters but the underlying principles of canary release remains the same.
+The [Ingress Nginx controller][ingress-nginx] uses `annotations` to define this traffic split. 
 
-In a real-world production setup we will not be using `kubectl` to roll out a new version as it involves too much manual work. That's the job of the CI/CD pipeline.
+Other ingress controllers may use different parameters but the underlying principles of canary release remains the same.
+
+In a real-world setup we will not be using `kubectl` to roll out a new version as it involves too much manual work. That's the job of the CI/CD pipeline.
 
 Setting up a fully-fledged CI/CD pipeline is a bit of a job. So, let's wind up for today reserving that for an upcoming post.
 
 
 
+[ingress-nginx]: https://kubernetes.github.io/ingress-nginx/deploy/
+[number-crunch-2]: https://github.com/cloudqubes/number-crunch-2

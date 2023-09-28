@@ -85,9 +85,13 @@ module.exports = {
         },
         {
           resolve: `gatsby-remark-prismjs`,
-          options: {
-            noInlineHighlight: false,
-          }
+          // options: {
+          //   classPrefix: "language-",
+          //   inlineCodeMarker: null,
+          //   aliases: {},
+          //   showLineNumbers: false,
+          //   noInlineHighlight: false,
+          // }
         },
         {
           resolve: `gatsby-transformer-yaml`,

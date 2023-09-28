@@ -74,7 +74,7 @@ export const Head = ({data}) => (
   <Seo 
     title= {data.mdx.frontmatter.title}
     description= {data.mdx.frontmatter.description }
-    image={getSrc(data.mdx.frontmatter.cover_image)}
+    image= {getSrc(data.mdx.frontmatter.cover_image.childImageSharp.gatsbyImageData)}
   />
 )
 
