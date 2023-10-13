@@ -131,6 +131,10 @@ module.exports = {
           file: `https://fonts.googleapis.com/css2?family=Poppins&family=Raleway:wght@400;700&family=Titillium+Web:wght@400;700&display=swap`,
           // file: `https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;0,700;1,400&family=Titillium+Web:ital,wght@0,400;0,600;0,700;1,400&family=Poppins&display=swap`,
         },
+        // {
+        //   name: `material-symbols`,
+        //   file: `https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200`
+        // },
       ],
     },
   }, {

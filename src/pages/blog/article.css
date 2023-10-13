@@ -80,3 +80,11 @@ a{
   color: #8c8c8c;
   font-size: .95rem;
 }
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}

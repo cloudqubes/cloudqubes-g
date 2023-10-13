@@ -35,10 +35,27 @@
 .meta-container{
   padding-top: .2rem;
   padding-bottom: .2rem;
+  display: flex;
+  justify-content: space-between;
 }
 
 .post-meta{
   font-family: 'Titillium Web', sans-serif;
   color: #8c8c8c;
   font-size: .95rem;
+}
+
+.author-name{
+  font-family: 'Titillium Web', sans-serif;
+  color: #6d6d6d;
+  font-size: 1rem;  
+}
+
+.authorNameWrapper{
+  display: flex;
+  align-items: center;
+}
+
+.author-name:hover{
+  color: #c21057;
 }

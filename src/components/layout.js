@@ -44,7 +44,7 @@ const Layout = ({ pageTitle, children, showNewsletter }) => {
               <ul className={navItemList}>
                 <li className={navItem}><Link to="/about">About</Link></li>
                 <li className={navItem}><Link to="/blog">Blog</Link></li>
-                <li className={navItem}><Link to="/contact">Contact</Link></li>
+                <li className={navItem}><Link to="/about#contact">Contact</Link></li>
                 <li className={navItem}><Link to="https://cloudqubes.substack.com/">Newsletter</Link></li>
               </ul>
             </nav>

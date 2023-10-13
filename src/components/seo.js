@@ -29,6 +29,7 @@ export const Seo = ({ title, description, image, pathname, children }) => {
       <meta name="twitter:image" content={seo.twitterImage} />
       <meta name="twitter:creator" content={seo.twitterUsername} />
       <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>👤</text></svg>" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
       {children}
 
     </>

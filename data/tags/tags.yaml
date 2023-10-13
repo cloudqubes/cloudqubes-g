@@ -6,3 +6,5 @@
   slug: linux
 - name: OpenStack
   slug: open-stack
+- name: CI/CD
+  slug: ci-cd

@@ -4,7 +4,7 @@ import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { Link, graphql } from "gatsby";
 import { Seo } from "../components/seo";
 import BlogArticle from "../components/blog-article";
-import { mainTitle, mainTitleContainer, featuredPostContainer,
+import { mainTitle, featuredPostContainer, ctaContainer,
           featuredPostTitle, featuredPostTitleContainer, featuredPostCoverImage,
           featuredTag, readMoreButton, readMoreButtonContainer,
           blogArticleList, readAllButtonContainer, mainCTA,
@@ -18,40 +18,37 @@ const IndexPage = ({location, data}) => {
   return (
     <Layout showNewsletter={true}>
       <div>
-        <section>
-          <div className={mainTitleContainer}>
-            <h1 className={mainTitle}>Learn cloud computing and DevOps</h1>
-          </div>
-          <div className={mainTitleContainer}>
-            <Link to="/blog" className={mainCTA}>
-              Read the blog
+        <section className={container}>
+          <div className={featuredPostContainer}>
+            <h1 className={mainTitle}>Learn DevOps, Kubernetes, and Cloud computing</h1>
+            <div className={ctaContainer}>
+              <Link to="/blog" className={mainCTA}>
+                Read the blog
+              </Link>
+            </div>
+
+
+            <div className={featuredPostTitleContainer}>
+
+              <span className={featuredTag}>Featured story</span>
+            </div>
+            <Link to={`/blog/${featuredPost.frontmatter.slug}`} >
+              <GatsbyImage
+                image={getImage(featuredPost.frontmatter.cover_image)}
+                alt={featuredPost.frontmatter.cover_image_alt}
+                className={featuredPostCoverImage}
+              />
             </Link>
-          </div>
-          <div className={container}>
-            <article className={featuredPostContainer}>
+            <Link to={`/blog/${featuredPost.frontmatter.slug}`}>
+              <h2 className={featuredPostTitle}>{featuredPost.frontmatter.title}</h2>
+            </Link>
 
-              <div className={featuredPostTitleContainer}>
-
-                <span className={featuredTag}>Featured story</span>
-              </div>
-              <Link to={`/blog/${featuredPost.frontmatter.slug}`} >
-                <GatsbyImage
-                  image={getImage(featuredPost.frontmatter.cover_image)}
-                  alt={featuredPost.frontmatter.cover_image_alt}
-                  className={featuredPostCoverImage}
-                />
+            <p>{featuredPost.frontmatter.description}</p>
+            <div className={readMoreButtonContainer}>
+              <Link to={`/blog/${featuredPost.frontmatter.slug}`} className={readMoreButton}>
+                Read more
               </Link>
-              <Link to={`/blog/${featuredPost.frontmatter.slug}`}>
-                <h2 className={featuredPostTitle}>{featuredPost.frontmatter.title}</h2>
-              </Link>
-
-              <p>{featuredPost.frontmatter.description}</p>
-              <div className={readMoreButtonContainer}>
-                <Link to={`/blog/${featuredPost.frontmatter.slug}`} className={readMoreButton}>
-                  Read more
-                </Link>
-              </div>
-            </article>
+            </div>
           </div>
 
         </section>
@@ -151,7 +148,7 @@ export const query = graphql`
 
 export const Head = () => (
   <Seo 
-    title= "Cloudqubes - Learn Cloud computing and DevOps"
+    title= "cloudqubes - Learn Kubernetes "
   />
 )
 

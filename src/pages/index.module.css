@@ -6,13 +6,14 @@
 
 .inside-container{
   width: 100%;
+  max-width: 1200px;
 }
 
-@media only screen and (min-width: 1200px) {
+/* @media only screen and (min-width: 1200px) {
   .inside-container{
     width: 80%;
   }
-}
+} */
 
 /* .newsletterContainer{
   width: 100%;
@@ -21,14 +22,19 @@
   align-items: center;
 } */
 
-.mainTitleContainer{
+/* .mainTitleContainer{
   width: 100%;
   display: flex;
   justify-content: center;
-  /* background-color: #c21057; */
   align-items: center;
   margin-bottom: 1rem;
-}
+} */
+
+/* @media only screen and (min-width: 1200px) {
+  .mainTitleContainer{
+    width: 60%;
+  }
+} */
 
 .mainTitle{
   margin-top: 1.5rem;
@@ -40,32 +46,19 @@
   color: #c21057;
 }
 
-/* .lineContainer{
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 1rem;
-}
-
-.hLineSurround{
-  flex-grow: 10;
-}
-
-.hLine{
-  flex-grow: 1;
-  border-bottom: 4px solid #a2a2a2;
-} */
 
 .featuredPostContainer{
   width: 100%;
   padding-left: .4rem;
   padding-right: .4rem;
+  max-width: 850px;
 }
 
-@media only screen and (min-width: 1200px) {
+/* @media only screen and (min-width: 1200px) {
   .featuredPostContainer{
     width: 60%;
   }
-}
+} */
 
 .featuredPostTitleContainer{
   display: flex;
@@ -94,6 +87,11 @@
   font-size: .95rem;
   padding-left: .1rem;
   padding-right: .1rem;
+}
+
+.ctaContainer{
+  display: flex;
+  justify-content: center;
 }
 
 .mainCTA{
