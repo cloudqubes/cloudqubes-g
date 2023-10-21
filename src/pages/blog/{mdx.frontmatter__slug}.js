@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { graphql } from "gatsby";
+import { StaticImage } from "gatsby-plugin-image";
 import { Link } from "gatsby";
 import { getSrc } from "gatsby-plugin-image";
 // import { DiscussionEmbed } from "disqus-react"
@@ -8,7 +9,7 @@ import { useSiteMetadata } from "../../hooks/use-site-metadata";
 import Layout from '../../components/layout'
 import { Seo } from "../../components/seo";
 import { outerContainer, container, articleTitle, postMeta, 
-        metaContainer, authorName, authorNameWrapper, 
+        metaContainer, author, authorName, authorNameWrapper, 
       } from "./article.module.css";
 import "./article.css";
 
@@ -33,21 +34,20 @@ const BlogPost = ({data, children}) => {
               <span className={postMeta}>{data.mdx.frontmatter.date} - </span>
               <span className={postMeta}>{data.mdx.fields.timeToRead.text}</span>
             </div>
-            <div>
-              <Link to="/indika" className={authorName}>
-                <span className={authorNameWrapper}>
-                  <span class="material-symbols-outlined">
-                    ink_pen
-                  </span>
-                  <span >
-                    Indika
-                  </span>
-                </span>
-
-              </Link>
-            </div>
           </div>
           {children}
+          <div className={author}>
+
+            <span>Written by&nbsp;</span>
+            <Link to="/indika" className={authorName}>
+              <span className={authorNameWrapper}>
+                <span >
+                  Indika
+                </span>
+              </span>
+
+            </Link>
+          </div>
         </article>
       </div>
       <div className={outerContainer}>
