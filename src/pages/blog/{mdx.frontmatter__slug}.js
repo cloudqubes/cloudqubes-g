@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { graphql } from "gatsby";
-import { StaticImage } from "gatsby-plugin-image";
 import { Link } from "gatsby";
 import { getSrc } from "gatsby-plugin-image";
 // import { DiscussionEmbed } from "disqus-react"
