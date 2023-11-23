@@ -1,0 +1,197 @@
+---
+layout: post
+title:  "23 tips for the CKA exam in 2023"
+description: > 
+  Planning to become a Certified Kubernetes Administrator (CKA) in 2023? These 23 tips will help you get through.
+cover_image: "./cka-exam-tips.png"
+cover_image_alter: "A laptop on an empty desk. Text 23 tips for CKA in 2023 written in blue color."
+date: "2023-11-23"
+categories: [Featured, Story]
+slug: "cka-exam-tips"
+tags: [Kubernetes]
+---
+
+
+<div class="header-highlight">
+  ![A laptop on an empty desk. Text 23 tips for CKA in 2023 written in blue color.](./cka-exam-tips.png)
+</div>
+
+Certified Kubernetes Administrator (CKA) is an industry-accepted certification and is totally worth it in 2023. 
+
+Offered by the Linux Foundation, CKA is an online proctored exam. You can do it from the comfort of your home. 
+
+You get 17 tasks to complete in 2 hours at the exam. While you get access to Kubernetes docs during the exam, the tasks are not straightforward. You must have a good grip on Kubernetes concepts and must be proficient with`kubectl` to score on the exam.
+
+Your competency in Kubernetes coupled with these 23 tips will help you confidently face the exam and get through.
+
+# #1 Use Chrome browser 
+
+After scheduling the exam at the Linux Foundation you'll get a checklist to complete. 
+One item in this checklist is to run a compatibility check on your laptop. Linux Foundation recommends using the Chrome browser to run this compatibility check. 
+
+On my M1 MAC, this check failed with both Safari and Firefox browsers. I had success only with Chrome.
+
+# #2 Ensure administrative rights on your laptop
+
+You can use the Chrome browser only to log in to the Linux Foundation portal. The exam is delivered via PSI Secure Bridge browser which you'll be prompted to install at the time of the exam. 
+
+You must have administrative rights on your laptop to install it. 
+
+# #3 Know your timing
+
+You are going to complete 17 tasks in 120 minutes. That's just 7 minutes per task.
+
+So, practice as much as you can with sample questions and tasks. Practice doing things quickly. Measure and improve your timing.
+
+Otherwise, you'll not be able to complete all 17 tasks. 
+
+# #4 Practice on Ubuntu
+
+Ubuntu is the OS in all Kubernetes clusters at the exam. So practice on Ubuntu OS.
+
+You must be familiar with the tools and utilities in Ubuntu to complete the tasks like upgrading a cluster.
+
+# #5 Setup a suitable space
+
+You need a private space - a room with no transparent doors - to take the exam.
+
+The desk needs to be completely free of any papers, books, etc.
+
+# #6 Do not worry about tmux
+
+If you are familiar with tmux that's fine. 
+
+If not just don't bother about it. You can open multiple tabs in the terminal window if you want to have multiple sessions.
+
+# #7 Close all other applications before starting the exam
+
+Once you install PSI browser and log in to the exam portal, the PSI browser checks what other applications are running on your laptop and prompts you to close all of them.
+
+But, the PSI browser cannot close some applications like VS Code. You must close those applications manually. PSI browser does not launch the exam if any other applications are open.
+
+So close all applications before starting the exam.
+
+# #8 Use a large display
+
+The exam user interface in the PSI browser consists of two columns. The question prompt is on the left. To the right is a remote desktop session to a Linux bastion host. On this remote desktop session you get:
+
+1. Terminal with `kubectl` installed and configured. You must use this terminal to access all the Kubernetes clusters in the exam.
+2. Firefox browser to view Kubernetes documentation.
+3. Mouse editor which is a notepad that you can use as a scratch pad.
+
+The problem with smaller displays is that the rightmost part of the remote desktop session gets clipped off and the vertical scroll bar of the Firefox browser goes invisible. Then, you cannot know where you are on the page while scrolling. 
+
+You can try reducing the question prompt column on the left. But on my 13-inch Macbook, no matter how much I reduced the size of the left column, I couldn't avoid this clipping off.
+
+So use the largest display you have or be prepared for the disadvantage.
+
+# #9 No secondary display
+
+If you have a secondary display connected, the PSI browser will not launch the exam until it's disconnected. PSI browser does not allow you to launch other applications during the exam so there's no point in having a second display anyway.
+
+# #10 Do things imperatively
+
+In a production Kubernetes cluster, you manage Kubernetes resource declaratively. Makeshift changes like editing a Deployment in production are not acceptable at all.
+
+Forget all these for CKA because you won't have the time to create YAML manifests for everything.
+
+During the CKA exam, you need to create and update multiple API objects like Pods, Deployments, etc. Whenever possible create or modify the resources imperatively via `kubectl create` or `kubectl edit`.
+
+# #11 Limit using Kubernetes docs
+
+Browsing Kubernetes docs in the browser in the remote desktop session is not as responsive as it is on your laptop. So, you'll need more time to find what you are looking for.
+
+Time is a scarce resource in the CKA exam. Practice a lot before the exam so you need not refer to the docs other than to copy-paste YAML manifests for resources like Volumes, Pod Security Policies, etc., that cannot be created with `kubectl create`. 
+
+# #12 Know where to look for the YAML manifests
+
+Each question prompt gives you the links to the relevant parts of the Kubernetes docs.
+
+These links refer to the relevant API resources in the Concepts section in the Kubernetes docs. But for some questions you need to copy-paste YAML manifests in the Tasks and Tutorials sections in the documentation.
+
+Familiarize yourself with these sections so you can easily find the required YAML manifests.
+
+# #13 Bookmarks on your browser are of no use anymore
+
+Before 2022, the CKA exam allowed you to use the web browser installed on your laptop to view Kubernetes docs. 
+
+Not anymore. 
+
+You must only use the browser in the remote desktop session. So, you cannot use any bookmarks you created on your laptop.
+
+# #14 Copy-paste values from the question prompt
+
+The variables like names of API objects can be copied from the question prompt. Just click on the variable names to copy it to the clipboard.
+
+# #15 Use the right-click menu to copy paste
+
+You need to copy and paste YAML manifests from the Firefox browser to the terminal in the remote desktop session.
+
+If Ctr+Shift+C is not working for copying from the browser use the right-click menu to copy.
+
+# #16 Set the correct context
+
+During the CKA exam, you have to work with about 6 different Kubernetes clusters.
+
+The question prompt tells you what context to use and also gives the command to select the context. Just copy and paste it to the terminal and run it to set the correct context. 
+
+Remember to do this at the beginning of each question.
+
+# #17 Exit after executing commands in the controllers or nodes
+
+From the terminal in the remote desktop session, you can access all the controllers and worker nodes in clusters via SSH by using the node name as the hostname. No passwords are required.
+
+Some questions require you to log in to the controller or worker nodes and run commands.
+
+Always remember to exit after completing the task. All nodes have `kubectl` installed. So, you could be running commands in the wrong host, if you forgot to come back to the bastion host after each task.
+
+# #18 Allocate time based on the weight of the task
+
+Each task in the exam carries a weight.
+
+Tasks with more weight require more time to complete. Be prepared to allocate time accordingly.
+
+# #19 Use the correct namespace
+
+Certain tasks in the exam must be done on a specific namespace. If you forget to set the namespace using the `-n` parameter in `kubectl`, you'll lose marks.
+
+Also, if you cannot find in the cluster the resources mentioned in the task prompt, you are probably checking in the wrong namespace.
+
+# #20 Delete and recreate when necessary
+
+Some tasks ask you to update immutable parameters of API objects like Pods and Services. Just delete and recreate such objects.
+
+Make sure to back up the object definition before deleting it.
+
+```shell
+$ kubectl get <object-type>/<name> -o yaml > name.yml
+```
+
+# #21 Allocate several minutes to upgrade the cluster
+
+You'll get one task to upgrade a Kubernetes cluster. 
+
+Most probably you are required to upgrade just one node. But it could take several minutes to download the packages and complete the upgrade.
+
+If you want to make use of that time as well, you can open a second tab in the terminal window, go to the next task, and work on it. Remember to check the upgrade status after a few minutes.
+
+# #22 Do not spend time to set aliases
+
+Alias `k` is already set for `kubectl`. This is all you need. Do not bother to set more aliases.
+
+# #23 Do not be concerned about VIM settings
+
+The VIM editor is already configured with preferable formatting parameters. Do not worry about it.
+
+You can copy and paste the YAML definitions from the browser to VIM without any formatting glitches.
+
+
+# Wrapping up
+
+The CKA exam is not tough. You just need to score 66% to get through.
+
+But the exam could be challenging if you are unfamiliar with Kubernetes concepts. So learn the concepts thoroughly and practice a lot.
+
+I wish you all the best for your CKA exam. Just do it and share your experience in the comments below.
+
+Or you can connect via X too.
