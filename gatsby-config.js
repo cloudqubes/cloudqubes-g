@@ -74,44 +74,76 @@ module.exports = {
       "path": `${__dirname}/pages`   
     } 
   }, {
-    resolve: `gatsby-transformer-remark`,
+    resolve: `gatsby-transformer-yaml`,
     options: {
-      plugins: [
-        {
-          resolve: `gatsby-remark-images`,
-          options: {
-            maxWidth: 800,
-          },
-        },
-        {
-          resolve: `gatsby-remark-prismjs`,
-          // options: {
-          //   classPrefix: "language-",
-          //   inlineCodeMarker: null,
-          //   aliases: {},
-          //   showLineNumbers: false,
-          //   noInlineHighlight: false,
-          // }
-        },
-        {
-          resolve: `gatsby-transformer-yaml`,
-          options: {
-            // Conditionally set the typeName so that we both use a lowercased and capitalized type name
-            typeName: ({ node }) => {
-              const name = node.sourceInstanceName
-              if (name === `tags`) {
-                return `Tag`
-              }
-              return name
-            },
-          },
+      // Conditionally set the typeName so that we both use a lowercased and capitalized type name
+      typeName: ({ node }) => {
+        const name = node.sourceInstanceName
+        if (name === `tags`) {
+          return `Tag`
         }
-      ],
-    },
+        return name
+      },
+    },    
   },{
+    // resolve: `gatsby-transformer-remark`,
+    // options: {
+    //   plugins: [
+        // {
+        //   resolve: `gatsby-remark-prismjs`,
+        //   options: {
+        //     classPrefix: "language-",
+        //     inlineCodeMarker: null,
+        //     aliases: {},
+        //     showLineNumbers: true,
+        //     noInlineHighlight: false,
+        //     prompt: {
+        //       user: "root",
+        //       host: "localhost",
+        //       global: true,
+        //     },
+        //   }
+        // },
+        // {
+        //   resolve: `gatsby-transformer-yaml`,
+        //   options: {
+        //     // Conditionally set the typeName so that we both use a lowercased and capitalized type name
+        //     typeName: ({ node }) => {
+        //       const name = node.sourceInstanceName
+        //       if (name === `tags`) {
+        //         return `Tag`
+        //       }
+        //       return name
+        //     },
+        //   },
+        // },
+        // {
+        //   resolve: `gatsby-remark-images`,
+        //   options: {
+        //     maxWidth: 800,
+        //   },
+        // },
+  //     ],
+  //   },
+  // },{
     resolve: `gatsby-plugin-mdx`,
     options: {
       gatsbyRemarkPlugins: [
+        {
+          resolve: `gatsby-remark-prismjs`,
+          options: {
+            // classPrefix: "language-",
+            // inlineCodeMarker: null,
+            // aliases: {},
+            showLineNumbers: false,
+            // noInlineHighlight: false,
+            prompt: {
+              user: "cloud",
+              host: "testlab",
+              global: false,
+            },
+          }
+        },
         {
           resolve: `gatsby-remark-images`,
           options: {
