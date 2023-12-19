@@ -1,0 +1,253 @@
+---
+layout: post
+title:  "How to run Kubernetes on your laptop"
+description: > 
+  With kubeadm you can run a vanilla Kubernetes cluster on your laptop
+cover_image: "./minikube-multiple-clusters.png"
+cover_image_alter: "3 Kubernetes logos. Test minikube written in blue color."
+date: "2023-12-15"
+categories: [Tutorial]
+slug: "how-to-run-kubernetes-on-laptop"
+tags: [Kubernetes]
+---
+
+Test labs are an essential part of a the life of DevOps practiotoiners. Test labd help you try out things upskill yourself and verify things before moving to production. A Kubernetes test lab does not always require high performance servers. You can set up a vanilla Kubernetes test lab in your laptop easily with kubeadm.
+
+# Why use kubeadm
+
+Deploying a Kubernetes cluster with `kubeadm` involves a bit of work as you will see below. There are certainly otherways to run a Kubernetes cluster on your laptop. Then why bother with kubeadm.
+
+1. kubeadm creates a Kubernetes cluster that confirms to teh Kubernetes confirmacne tests
+2. Learning purpose - You get to understand the components and how they work
+3. Closely reseble your production Kubernetes - Resource optimized Kubernetes distributions like Minikube often bundles certain components together, so will deviate from a production Kubernetes cluster
+
+In this tutorial we will deploy a Kubernetes cluster in a latop computer. You need a laptop computer with 6GB+ memory and at least 4 CPU cores. We will deploy the Kubernetes cluster on an Ubuntu virtual machine running on this laptop. To lauch an Ubuntu Virtual machine we use Multipass. Multipass is a tool to launch Ubuntu VMs on Linux, macOS or Windows. It works on x86 and ARM architecture so you can use Multipass on the latest Apple Silicon Macs or event on a Raspberry Pi.
+
+# Install Multipass
+
+Install Multipass following the installation instructions for your platform. 
+
+Launch a virtual machine using the latest LTS version of Ubuntu.
+```shell
+$ multipass launch -d 5G -m 2G -c 2 -n k8s30 22.04
+```
+
+This VM will be our host for the Kubernetes cluster.
+
+# Prepare the host
+
+A Pod in a container cluster is assigned an IP address that is different from the host IP address. To support IP routing to a Pod, the host must satisfy two requirements.
+
+1. Allow IPv4 forwarding.
+2. Let iptables see bridged traffic
+
+So, we enable them in the host.
+
+## Load the kernel modules
+
+Load the kernel modules `br_netfilter` and `overlay.`
+
+```shell{outputLines: 2}
+sudo tee -a /etc/modules-load.d/k8s.conf > /dev/null <<EOT
+overlay
+br_netfilter
+EOT
+```
+
+Load the modules.
+```shell{outputLines: 5}
+sudo modprobe overlay
+sudo modprobe br_netfilter
+```
+
+Verify the modules are loaded.
+```shell{outputLines: 2, 4-5}
+lsmod | grep overlay
+overlay               155648  0
+lsmod | grep br_netfilter
+br_netfilter           32768  0
+bridge                352256  1 br_netfilter
+```
+
+
+Configuer the `sysctl` parameters.
+```shell
+sudo tee /etc/sysctl.d/k8s.conf > /dev/null <<EOT
+net.bridge.bridge-nf-call-iptables  = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+net.ipv4.ip_forward                 = 1
+EOT
+```
+
+Apply the sysctl configurations.
+
+```shell{outputLines: 2}
+sudo sysctl --system
+```
+
+# Install containerd
+
+We use [containerd](https://containerd.io/) as the container runtime in our Kubernetes cluster. The containerd project [releases]((https://github.com/containerd/containerd/releases)) binaries for both x86 and arm architectures.
+
+Downlolad the latest version which is `1.7.11` at the time of this writing.
+
+For ARM architecture (if you are on Apple Silicon or RaspberryPi).
+
+```shell
+wget https://github.com/containerd/containerd/releases/download/v1.7.11/containerd-1.7.11-linux-arm64.tar.gz
+sudo tar Cxzvf /usr/local containerd-1.7.11-linux-arm64.tar.gz
+```
+
+For amd64 architecture.
+
+```shell
+wget https://github.com/containerd/containerd/releases/download/v1.7.11/containerd-1.7.11-linux-amd64.tar.gz
+sudo tar Cxzvf /usr/local containerd-1.7.11-linux-amd64.tar.gz
+```
+
+Run containerd as a service.
+
+```shell
+wget https://raw.githubusercontent.com/containerd/containerd/main/containerd.service
+sudo mkdir -p /usr/local/lib/systemd/system
+sudo cp containerd.service /usr/local/lib/systemd/system
+sudo systemctl daemon-reload
+sudo systemctl enable --now containerd
+```
+
+Check the status of `containerd` service.
+
+```shell
+sudo systemctl status containerd
+```
+If the `containerd` is in `active` state, proceed to the next section.
+
+##  Install runc
+
+containerd depends on `runc` for spawning containers. Let's install `runc` now. `runc` project binaries are available at [GitHub runc releases page](https://github.com/opencontainers/runc/releases).
+
+Install the corresponding file by replacing `<arch>` with `amd64` or `arm64`.
+
+```shell
+wget https://github.com/opencontainers/runc/releases/download/v1.1.9/runc.<arch>
+sudo install -m 755 runc.<arc> /usr/local/sbin/runc
+```
+
+## Install CNI plugins
+@todo: not sure whether this is required. need to verify
+
+## Configure Cgroups
+
+Cgroups are a Linux kernel feature which allows you to allocate CPU, memory and network bandwidth to processes runnning in the system. Containerd uses Cgroups to limit the CPU and meory allocation to cotaines.
+
+```shell
+containerd config default | sudo tee /etc/containerd/config.toml > /dev/null
+```
+In the config.toml, change `SystemdCgroup = false` to `SystemdCgroup = true`.
+
+```shell
+sudo sed -i 's/SystemdCgroup = false/SystemdCgroup = true/g' /etc/containerd/config.toml 
+```
+
+Restart `containerd` for the configuration to take effect.
+
+```shell
+sudo systemctl restart containerd.service
+```
+
+
+# Install kubeadm, kubelet, and kubectl
+
+`kubeadm` is the tool we are using for creating the cluster. 
+
+`kubelet` is an agent that runs on each node in the Kubernetes cluster.
+
+`kubectl` is the CLI tool for interacting with a Kubernetes cluster. We do not have to install `kubectl` on the same node that we install Kubernetes. But for this test lab let's install `kubectl` also on the same server.
+
+```shell
+sudo apt-get update
+sudo apt-get install -y apt-transport-https ca-certificates curl gpg
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.29/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.29/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+sudo apt-get update
+sudo apt-get install -y kubelet kubeadm kubectl
+sudo apt-mark hold kubelet kubeadm kubectl
+```
+
+# Initialize cluster
+
+Create `kubeadm-config.yml`
+```yaml
+kind: ClusterConfiguration
+apiVersion: kubeadm.k8s.io/v1beta3
+kubernetesVersion: v1.29.0
+networking:
+  serviceSubnet: "10.96.0.0/16"
+  podSubnet: "192.168.0.0/16"
+  dnsDomain: "cluster.local"
+---
+kind: KubeletConfiguration
+apiVersion: kubelet.config.k8s.io/v1beta1
+cgroupDriver: systemd
+```
+
+Initialize cluster.
+```shell
+sudo kubeadm init --config kubeadm-init.yml
+```
+
+
+# Configure kubectl
+
+At the time of installation `kubeadm` creates `kubeconfig` file in `/etc/kubernetes/admin.conf`. `kubectl` uses this file for connecting to the cluster so copy it to `.kube` in the home directory.
+
+```shell
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+```
+
+Run `kubectl`.
+
+```shell
+$ kubectl get pods -A
+NAMESPACE     NAME                            READY   STATUS    RESTARTS   AGE
+kube-system   coredns-76f75df574-n9zr5        0/1     Pending   0          5m25s
+kube-system   coredns-76f75df574-ssqv4        0/1     Pending   0          5m25s
+kube-system   etcd-k8s30                      1/1     Running   1          5m40s
+kube-system   kube-apiserver-k8s30            1/1     Running   0          5m40s
+kube-system   kube-controller-manager-k8s30   1/1     Running   0          5m40s
+kube-system   kube-proxy-2ttxz                1/1     Running   0          5m25s
+kube-system   kube-scheduler-k8s30            1/1     Running   1          5m40s
+```
+
+`kubeadm` has completed its job of deploying the cluster. But, `coredns` plugins are still not running because our cluster still does not have a CNI plg
+
+# Install CNI plugin
+
+Kubernetes depends on CNI plugins to implement network connectivty between Pods. There are several network plugins available but we'll choose Calico for this test lab.
+
+```shell
+kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.26.4/manifests/tigera-operator.yaml
+```
+
+Check the status of all Pods after installing the CNI.
+
+```shell
+$ kubectl get pods -A
+NAMESPACE         NAME                               READY   STATUS    RESTARTS   AGE
+kube-system       coredns-76f75df574-n9zr5           0/1     Pending   0          24m
+kube-system       coredns-76f75df574-ssqv4           0/1     Pending   0          24m
+kube-system       etcd-k8s30                         1/1     Running   1          25m
+kube-system       kube-apiserver-k8s30               1/1     Running   0          25m
+kube-system       kube-controller-manager-k8s30      1/1     Running   0          25m
+kube-system       kube-proxy-2ttxz                   1/1     Running   0          24m
+kube-system       kube-scheduler-k8s30               1/1     Running   1          25m
+tigera-operator   tigera-operator-7f8cd97876-k4b92   1/1     Running   0          9m31s
+```
+
+Note the status of the `coredns` Pods.
+
+
+case $(uname -sm)
+
