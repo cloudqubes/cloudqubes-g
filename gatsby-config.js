@@ -183,7 +183,7 @@ module.exports = {
       background_color: `#f7f0eb`,
       theme_color: `#a2466c`,
       display: `standalone`,
-      icon: `src/images/icon.png`, // This path is relative to the root of the site.
+      icon: `src/assets/favicon.png`, // This path is relative to the root of the site.
       // icons: [
       //   {
       //     src: `/favicons/android-chrome-192x192.png`,
@@ -201,12 +201,11 @@ module.exports = {
       //     type: `image/png`,
       //   },
       //   {
-      //     src: `/favicons/favicon-32x32.png`,
-      //     sizes: `32x32`,
+      //     src: `src/assets/favicon-48x48.png`,
+      //     sizes: `48x48`,
       //     type: `image/png`,
       //   },
       // ]
-      
     },
   }]
 };
