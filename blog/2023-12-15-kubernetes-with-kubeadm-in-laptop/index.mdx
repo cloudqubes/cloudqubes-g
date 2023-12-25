@@ -32,7 +32,7 @@ To install Kubernetes, the virtual machine must have at least 2GB of memory. So 
 
 This section introduces what is vanilla Kubernetes and why we want to install it instead of other Kubernetes distributions like [Minikube](https://minikube.sigs.k8s.io/docs/start/) or [MicroK8s](https://microk8s.io/) which are meant for development and testing purposes.
 
-Feel free to [skip and go to the steps](#install-multipass) if you want to start
+Feel free to [skip and go to the steps](#install-multipass) if you want to start installing Kubernetes right away.
 
 Vanilla Kubernetes is what you get as a binary release from the open-source Kubernetes project.
 
@@ -40,13 +40,11 @@ There are several resource-optimized Kubernetes distributions intended to be ins
 
 By installing vanilla Kubernetes we get a Kubernetes cluster that complies 100% with these [confirmance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification/). 
 
-If you are installing vanilla Kubernetes on your laptop, you should always install it on a virtual machine. Installing directly on the host OS in your laptop is discouraged because vanilla Kubernetes requires system-level changes like enabling IP forwarding, which could make your laptop vulnerable to security threats.
+If you are installing vanilla Kubernetes on your laptop, installing on the host OS is discouraged. You get several advantages by using a virtual machine instead.
 
-Also, running Kubernetes on a virtual machine has several advantages.
-
-* If something goes wrong, you can easily delete the virtual machine and start from the beginning.
+* If something goes wrong, you can easily delete the virtual machine and start over.
 * You can run multiple versions of Kubernetes in different virtual machines.
-* You can easily stop the virtual machine to release the resources occupied by Kubernetes.
+* You can easily stop the virtual machine to regain the resources occupied by Kubernetes.
 
 ## <a name="install-multipass"></a> #1 Install Multipass
 
@@ -74,7 +72,7 @@ multipass shell k8s30
 ```
 This will open a bash shell to the newly created virtual machine.
 
-This virtual machine is our host for the Kubernetes cluster. We do the rest of the steps on this host.
+This virtual machine is going to be the host for our Kubernetes cluster. We do the rest of the steps on this host.
 
 ## <a name="install-container-runtime"></a> #3 Install container runtime
 
@@ -82,7 +80,7 @@ We are using [Containerd](https://containerd.io/) as the container runtime in ou
 
 ### Prepare the host
 
-Container runtime is responsible for running the Pods. A Pod gets assigned an IP address that is different from the host IP address. To support IP routing to a Pod, the host must satisfy two requirements.
+The container runtime is responsible for running the Pods. A Pod gets assigned an IP address that is different from the host IP address. To support IP routing to a Pod, the host must satisfy two requirements.
 
 1. Allow IPv4 forwarding.
 2. Let iptables see bridged traffic
@@ -134,7 +132,7 @@ sudo sysctl --system
 
 The containerd project [releases]((https://github.com/containerd/containerd/releases)) binaries for both x86 and ARM architectures.
 
-Download the latest containerd version. (`1.7.11` at the time of this writing). Replace the `<arch>` with `arm64` or `amd64` depending on the CPU architecture of your laptop.
+Download the latest containerd version. (`1.7.11` at the time of this writing). Replace the `<arch>` with  `amd64` or `arm64` depending on the CPU architecture of your laptop.
 
 ```shell{outputLines: 2}
 wget https://github.com/containerd/containerd/releases/download/v1.7.11/containerd-1.7.11-linux-<arch>.tar.gz
@@ -180,9 +178,9 @@ sudo install -m 755 runc.<arch> /usr/local/sbin/runc
 
 When multiple containers are running on the same host, the container runtime must limit the amount of CPU and memory consumed by individual containers. Without such control, one container can drain all the computing resources on the host. 
 
-containerd uses Linux control groups or cgrups to impose this control. containerd interfaces with cgroups via a driver. Since we are using `systemd` as the init system in our host, we must configure containerd to use systemd cgroup driver.
+containerd uses Linux control groups or cgrups to impose this control. containerd interfaces with cgroups via a driver. Since we are using `systemd` as the init system in our host, we must configure `containerd` to use systemd cgroup driver.
 
-We can configure `containerd` via `/etc/containerd/config.toml` file. This file is not created by default. So, let's create it.
+The configuration file of containerd - `/etc/containerd/config.toml` is not created by default. So, let's create it.
 
 ```shell{outputLines: 3}
 sudo mkdir /etc/containerd
@@ -258,22 +256,22 @@ It will take a few minutes for `kubeadm` to download and run the container image
 
 `kubectl` is the CLI tool for interacting with the cluster. 
 
-`kubectl` refers to the config file in `$HOME/.kube` for parameters to connect and authenticate with the cluster. At the time of installing the cluster, `kubeadm` creates `/etc/kubernetes/admin.conf` with these parameters. 
+For parameters to connect and authenticate with the cluster, `kubectl` refers to the config file in `$HOME/.kube/config`. This config file is created by `kubeadm` at `/etc/kubernetes/admin.conf` during the cluster deployment. 
 
-So, let's copy `admin.conf` to `$HOME/.kube`.
+So, let's copy it to `$HOME/.kube/config`.
 
 ```shell{outputLines: 4}
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 ```
 
-Update the permission so we can read the file without `sudo`.
+Update file permission so we can read this file without `sudo`.
 
 ```shell{outputLines: 2}
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 
-List the Pods running in the cluster with `kubectl`.
+Use `kubectl` to list all Pods running in the cluster.
 
 ```shell{outputLines: 2-10}
 kubectl get pods -A
@@ -287,7 +285,9 @@ kube-system   kube-proxy-2ttxz                1/1     Running   0          5m25s
 kube-system   kube-scheduler-k8s30            1/1     Running   1          5m40s
 ```
 
-We have two `core-dns` Pods in pending status. Let's print the Pod Events to see why they are pending.
+Since we have not yet deployed any Workloads the Pods you see here are related to Kubernetes control plane.
+
+We have two `core-dns` Pods in `Pending` status. Let's print the Pod Events to see why they are pending.
 
 ```shell{outputLines: 2-60}
 kubectl describe pods coredns-76f75df574-gpl5f -n kube-system | grep Event -A 10
@@ -299,7 +299,8 @@ Events:
 
 From the `Events` we can see that the Pods fail to get scheduled due to untolerated taints. 
 
-Check the node parameters
+Check the `taints` in the node.
+
 ```shell{outputLines: 2-60}
 kubectl get nodes k8s30 -o yaml | grep taints -A 8
   taints:
@@ -350,7 +351,7 @@ Events:
 
 ## <a name="install-cni-plugin"></a> #5 Install CNI plugin
 
-Kubernetes depends on CNI plugins to implement network connectivity between Pods. There are several open-source network plugins but we'll use [Calico](https://www.tigera.io/project-calico/).
+Kubernetes depends on CNI plugins to implement network connectivity between Pods. There are several open-source network plugins but we'll use [Calico](https://www.tigera.io/project-calico/) for this Kubernetes cluster.
 
 Calico project provides manifests for installing Calico CNI on Kubernetes.
 
@@ -387,13 +388,13 @@ kube-system        kube-scheduler-k8s30                       1/1     Running   
 tigera-operator    tigera-operator-7f8cd97876-gkdkr           1/1     Running   0          19m
 ```
 
-All Pods are running now.
+All Pods are running now which means our cluster is ready to accept Workloads.
 
 # Kubernetes test labs
 
-Test labs are great for learning Kubernetes. 
+Test labs are an essential learning aid for Kubernetes. 
 
-You don't need expensive hardware to build a test lab. This single-node Kubernetes cluster we can deploy in any mid-range laptop. If you have more memory and CPU resources, you can even run a multi-node Kubernetes cluster on your laptop. 
+You don't need expensive hardware to build a test lab. This single-node Kubernetes cluster we can deploy on any mid-range laptop. If your laptop have more memory and CPU resources, you can even run a multi-node Kubernetes cluster. 
 
 If you feel that installing vanilla Kubernetes is too much work, you can quickly install a Kubernetes cluster on your laptop with [Minikube](https://minikube.sigs.k8s.io/docs/start/). 
 
