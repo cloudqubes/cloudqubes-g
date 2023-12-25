@@ -40,11 +40,15 @@ There are several resource-optimized Kubernetes distributions intended to be ins
 
 By installing vanilla Kubernetes we get a Kubernetes cluster that complies 100% with these [confirmance tests](https://kubernetes.io/blog/2017/10/software-conformance-certification/). 
 
-If you are installing vanilla Kubernetes on your laptop, installing on the host OS is discouraged. You get several advantages by using a virtual machine instead.
+If you are installing vanilla Kubernetes on your laptop, do not install Kubernetes on the host OS. Instead install Kubernetes on a virtual machine running on your laptop.
+
+There are several advantages in this method.
 
 * If something goes wrong, you can easily delete the virtual machine and start over.
 * You can run multiple versions of Kubernetes in different virtual machines.
 * You can easily stop the virtual machine to regain the resources occupied by Kubernetes.
+
+# Steps
 
 ## <a name="install-multipass"></a> #1 Install Multipass
 
@@ -265,7 +269,7 @@ mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 ```
 
-Update file permission so we can read this file without `sudo`.
+Update file permissions so we can read this file without `sudo`.
 
 ```shell{outputLines: 2}
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
@@ -285,7 +289,7 @@ kube-system   kube-proxy-2ttxz                1/1     Running   0          5m25s
 kube-system   kube-scheduler-k8s30            1/1     Running   1          5m40s
 ```
 
-Since we have not yet deployed any Workloads the Pods you see here are related to Kubernetes control plane.
+Since we have not yet deployed any Workloads, the Pods you see here belong to the Kubernetes control plane.
 
 We have two `core-dns` Pods in `Pending` status. Let's print the Pod Events to see why they are pending.
 
@@ -297,7 +301,7 @@ Events:
   Warning  FailedScheduling  51s   default-scheduler  0/1 nodes are available: 1 node(s) had untolerated taint {node.kubernetes.io/not-ready: }. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling.
 ```
 
-From the `Events` we can see that the Pods fail to get scheduled due to untolerated taints. 
+The Pods have failed due to untolerated taints in the node. 
 
 Check the `taints` in the node.
 
@@ -347,11 +351,11 @@ Events:
   Warning  NetworkNotReady   2m33s (x18 over 3m7s)  kubelet            network is not ready: container runtime network not ready: NetworkReady=false reason:NetworkPluginNotReady message:Network plugin returns error: cni plugin not initialized
 ```
 
-`core-dns` is expecting for a CNI plugin to be available. So let's continue to install an CNI plugin.
+`core-dns` is waiting for a CNI plugin to be available. So let's continue to install a CNI plugin.
 
 ## <a name="install-cni-plugin"></a> #5 Install CNI plugin
 
-Kubernetes depends on CNI plugins to implement network connectivity between Pods. There are several open-source network plugins but we'll use [Calico](https://www.tigera.io/project-calico/) for this Kubernetes cluster.
+Kubernetes depends on CNI plugins to implement network connectivity between Pods. There are several open-source network plugins but we'll use [Calico](https://www.tigera.io/project-calico/) for this cluster.
 
 Calico project provides manifests for installing Calico CNI on Kubernetes.
 
