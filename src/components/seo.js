@@ -19,7 +19,9 @@ export const Seo = ({ title, description, image, pathname, children }) => {
 
   return (
     <>
+
       <title>{seo.title}</title>
+
       <meta name="description" content={seo.description}/>
       <meta name="image" content={seo.image} />
       <meta name="twitter:card" content="summary_large_image" />
@@ -30,7 +32,6 @@ export const Seo = ({ title, description, image, pathname, children }) => {
       <meta name="twitter:creator" content={seo.twitterUsername} />
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
       {children}
-
     </>
   )
 }

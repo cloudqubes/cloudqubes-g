@@ -23,7 +23,7 @@ module.exports = {
       // This config will be shared across all trackingIds
       // gtagConfig: {
       //   optimize_id: "OPT_CONTAINER_ID",
-      //   anonymize_ip: true,
+      // anonymize_ip: true,
       //   cookie_expires: 0,
       // },
       // This object is used for configuration specific to this plugin
@@ -38,7 +38,7 @@ module.exports = {
         // origin: "YOUR_SELF_HOSTED_ORIGIN",
         // Delays processing pageview events on route update (in milliseconds)
         // delayOnRouteUpdate: 0,
-        anonymize_ip: true,
+        // anonymize_ip: true,
       },
     },
   }, 

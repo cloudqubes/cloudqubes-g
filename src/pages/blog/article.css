@@ -53,7 +53,6 @@ p{
 pre {
   background-color: rgb(241, 241, 241);
   padding: .4rem;
-  overflow-x: auto;
   font-size: .9rem;
 }
 
@@ -95,10 +94,14 @@ a{
   'opsz' 24
 }
 
+.gatsby-highlight{
+  overflow: auto;
+}
+
 .gatsby-highlight pre[class*="language-"] {
   background-color:rgb(251, 247, 240);
   margin-top: .4rem;
-  padding: .2rem .8rem;
+  padding: .6rem .8rem;
   overflow: auto;
   float: left; /* 1 */
   min-width: 100%; /* 2 */
