@@ -84,4 +84,10 @@ const AboutPage = () => {
   )
 }
 
+export const Head = () => (
+  <Seo 
+    title= "Watching videos does not build cloud and DevOps skills … Work hands-on"
+  />
+)
+
 export default AboutPage

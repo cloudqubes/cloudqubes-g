@@ -148,7 +148,7 @@ export const query = graphql`
 
 export const Head = () => (
   <Seo 
-    title= "cloudqubes - Learn Kubernetes "
+    title= "cloudqubes - Cloud and DevOps tutorials for hands-on skill building"
   />
 )
 
