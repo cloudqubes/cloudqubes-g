@@ -1,0 +1,284 @@
+---
+layout: post
+title:  "A Kubernetes tutorial for absolute beginners"
+description: >  
+  Heard about Kubernetes. But do not know what it is and where to start. Have no fear and start with this tutorial.
+cover_image: "./three-test-labs.png"
+cover_image_alter: "Logos of K0s, K3s, Microk8s."
+date: "2023-12-29"
+categories: [Tutorial]
+difficulty: [Beginner]
+slug: "kubernetes-for-absolute-beginners"
+tags: [Kubernetes]
+---
+
+In this tutorial, we will deploy a Kubernetes cluster on your laptop and get your hands dirty.
+
+## System requirements
+
+You need a Linux, Mac(Intel or Apple Silicon), or Windows laptop with at least 6GB of memory to complete this tutorial.
+
+
+## Outline of steps
+1. Install Multipass
+Install K0s
+2. Install and use kubectl
+3. Create a Pod
+5. Introduction to Kubernetes API objects
+8. What's next
+
+# Install Multipass
+
+We are going to install a Kubernetes cluster on a virtual machine on your laptop. We use Multipass to create the virtual machine. Multipass is a tool for running Ubuntu virtual machines on Linux, Mac (Intel or Apple Silicon), or Windows.
+
+Install Multipass by following the installation instructions.
+
+# Install K0s
+
+## Launch a new virtual machine
+
+Open the terminal on your laptop.
+Launch a new virtual machine named `k0s10` with 5GB storage, 2GB memory, and 2 CPU cores. We use [Ubuntu Jammy](https://releases.ubuntu.com/jammy/) OS. 
+```shell{outputLines: 2}
+multipass launch -d 5G -m 2G -c 2 -n k0s10 22.04
+```
+
+Log in to the virtual machine.
+```shell{outputLines: 2}
+multipass shell k0s10
+```
+This virtual machine is the host for our K0s cluster.
+
+## Install K0s
+
+On the virtual machine `k0s10`, run the K0s installation script to download the latest K0s version and install it to `/usr/local/bin`. The script will detect your CPU architecture (`amd64` or `arm64`) and download the appropriate binary of K0s.
+
+```shell{outputLines: 2}
+curl -sSLf https://get.k0s.sh | sudo sh
+```
+
+Run `k0s` as a service.
+```shell{outputLines: 2}
+sudo k0s install controller --single
+```
+
+Start `k0s`.
+
+```shell{outputLines: 2}
+sudo k0s start
+```
+
+Check the status of `k0s` service with `systemctl`.
+```shell{outputLines: 2}
+sudo systemctl status k0scontroller.service 
+```
+The service should be in `active` state.
+
+Check `k0s` status with `k0s status` command.
+```shell{outputLines: 2-10}
+ sudo k0s status
+Version: v1.28.4+k0s.0
+Process ID: 1887
+Role: controller
+Workloads: true
+SingleNode: true
+Kube-api probing successful: true
+Kube-api probing last error: 
+```
+We have installed Kubernetes 1.28 version.
+
+Now we have a Kubernetes cluster... up and running.
+
+Kubernetes is an open-source project. It's written in Go language. The code is hosted on a GitHub repo. The Kubernetes project also releases binaries of Kubernetes which you can install by following their installation instructions. But, that's bit lenghthy. So we chose to install K0s instead. K0s is a Kubernetes distribution from Mirantis. K0s includes a set of installation scripts that makes is quite easy to install. While it's bundled in a different way, k0s cluster implements all the features of a vanilla Kubernetes. 
+
+There are many Kubernetes distributions from vendors like Canonical, RedHat, Suse, etc. Most of those Kubernetes distributions are intended to be installed on multiple servers on a data center. Since we are installing Kubernetes on a laptop, we chose K0s. 
+
+K0s is a lighweight Kubernetes distribution intended to be installed on resource-constrained environments like laptops. 
+
+# Use kubectl
+
+Our Kubernetes cluster is ready. O interact with Kubernetes cluster, there is a tool `kubectl`. The `kubectl` tool is developed separately from the main Kubernetes softeare. But the version of `kubectl` must match the version of Kubernetes running in the cluster.
+
+Since we have installed Kubernetes `1.28` version, let's install the same version of `kubectl`.
+
+The `kubectl` binaries are available for both `amd64` and `arm64` architecture. Download the appropriate architecture for your platform by replacing <arch> with either `amd64` or `arm64`.
+
+```shell
+curl -LO https://dl.k8s.io/release/v1.28.0/bin/linux/<arch>/kubectl
+```
+
+If you are unsure of what acrchitecrue your Ubuntu virtual machine you can check with `dpkg --print-architecture` command.
+
+Install `kubectl`.
+```shell
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+```
+
+Verify that you've successfully installed `kubectl`.
+
+```shell
+kubectl version --client
+Client Version: v1.28.0
+Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
+```
+
+`kubectl` need to know the URL and authentication information of the cluster. By default `kubectl` look for these information in `~./kube/config`. This file is also known as the `kubeconfig` file.
+
+For our Kubernetes cluster, we can generate a `kubeconfig` file.
+
+```shell
+sudo k0s kubeconfig admin > ~/.kube/config
+```
+
+Print the nodes in the cluster.
+```shell{outputLines: 2-10}
+kubectl get nodes 
+NAME    STATUS   ROLES           AGE   VERSION
+k0s10   Ready    control-plane   15h   v1.28.4+k0s
+```
+
+We have just one node in the cluster. 
+
+# Kubectl commands
+
+List Pods
+```shell
+$ kubectl get pods
+No resources found in default namespace.
+```
+
+A namespace is a logical isolation in Kubernetes.
+
+List the namespaces.
+
+```shell{outputLines: 2-10}
+kubectl get namespaces
+NAME              STATUS   AGE
+kube-system       Active   15h
+kube-public       Active   15h
+kube-node-lease   Active   15h
+default           Active   15h
+k0s-autopilot     Active   15h
+```
+
+List Pods running in all the namespaces in the cluster.
+
+```shell{outputLines: 2-10}
+kubectl get pods -A
+NAMESPACE     NAME                              READY   STATUS    RESTARTS   AGE
+kube-system   kube-proxy-zlnnv                  1/1     Running   0          15h
+kube-system   kube-router-dxl8m                 1/1     Running   0          15h
+kube-system   coredns-85df575cdb-wzq96          1/1     Running   0          15h
+kube-system   metrics-server-7556957bb7-4z4rj   1/1     Running   0          15h
+```
+
+The Pods in the `kube-system` namespace belong to Kubernetes control plane.
+
+The get command retrieves a Kubernetes API object.
+
+List all API object types.
+```shell
+kubectl api-resources
+```
+
+This prints a lengthy list of API resources available in Kubernetes. Read the list to find the `node`, `pod`, `namespace` all are API objects in Kubernetes.
+
+# Create a Pod
+
+A Pod is a deplloyable unit in Kubernetes. A Pod runs one or more containers. A software application running on Kubernetes essentially a collection of Pods.
+
+Let's create a Pod of an Nginx web server.
+```shell
+kubectl run nginx-app --image=nginx --port=80
+```
+This command download the container image Nginx from Docker Hub and runs a single Pod in the `default` namespace. The `port` parameter specified the port that the Pod is listening on.
+
+List the Pod.
+```shell{outputLines: 2-10}
+kubectl get pods
+NAME        READY   STATUS    RESTARTS   AGE
+nginx-app   1/1     Running   0          97s
+```
+
+List more detials.
+```shell{outputLines: 2-10}
+kubectl get pods -o wide
+NAME        READY   STATUS    RESTARTS   AGE     IP           NODE    NOMINATED NODE   READINESS GATES
+nginx-app   1/1     Running   0          2m50s   10.244.0.5   k0s10   <none>           <none>
+```
+
+The `o` flag with value `wide` prints some extended details aboit the Pod. The key parameterthat we get here is the Pod IP address.
+
+Kubernetes assigns every Pod an IP address that's unique within the cluster.
+
+Let's create a second Pod. An object in Kubernetes must have a unique name, so we update the name as `nginx-app-2`.
+
+```shell
+kubectl run nginx-app-2 --image=nginx --port=80 
+```
+
+List the Pods.
+```shell{outputLines: 2-10}
+kubectl get pods -o wide
+NAME          READY   STATUS    RESTARTS      AGE     IP           NODE    NOMINATED NODE   READINESS GATES
+nginx-app     1/1     Running   1 (11m ago)   6h30m   10.244.0.6   k0s10   <none>           <none>
+nginx-app-2   1/1     Running   0             4s      10.244.0.9   k0s10   <none>           <none>
+```
+
+The Pods are assigned with unique IP addresses. These IP addresses are internal to the cluster. 
+
+Our Pods are running Nginx web servers. To test the Nginx web server with `curl` we can use port forwarding. 
+
+```shell
+kubectl port-forward pod/nginx-app 4000:80
+```
+
+The `port-forward` command does not return immediately. So open a second terminal and test the web server with curl.
+
+```shell{outputLines: 2-20}
+curl 127.0.0.1:4000
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
+```
+
+In the terminal where the `port-forward` command is running press `Ctrl+c` to stop the running command.
+
+Delete a Pod.
+
+```shell
+kubectl delete pod nginx-app-2
+```
+
+# What's next
+
+In this tutorial, we deployed a Kubernetes cluster on your laptop and deployed an Nginx web server. 
+
+To understand the internals of Kubernetes read this article on [introduction to Kubernetes](/blog/introduction-to-kubernetes/). 
+
+
+
+
+
+
+
