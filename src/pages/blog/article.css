@@ -94,8 +94,14 @@ a{
   'opsz' 24
 }
 
-.gatsby-highlight{
+/* .gatsby-highlight{
   overflow: auto;
+} */
+
+ol{
+  li{
+    font-size: 1.1rem;
+  }
 }
 
 .gatsby-highlight pre[class*="language-"] {
