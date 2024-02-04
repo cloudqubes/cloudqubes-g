@@ -17,6 +17,22 @@ p, li {
   margin-bottom: 0;
 }
 
+.warning{
+  margin-top: 1rem;
+  background-color: #fbf2f2;
+  padding-left: 1rem;
+  padding-bottom: .5rem;
+  padding-right: 1rem;
+}
+
+.info{
+  margin-top: 1rem;
+  background-color: #f2f7fb;
+  padding-left: 1rem;
+  padding-bottom: .5rem;
+  padding-right: 1rem;
+}
+
 h1{
   font-family: 'Raleway', sans-serif;
   font-size: 30px;

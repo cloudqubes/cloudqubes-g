@@ -8,3 +8,5 @@
   slug: open-stack
 - name: CI/CD
   slug: ci-cd
+- name: AWS
+  slug: aws
